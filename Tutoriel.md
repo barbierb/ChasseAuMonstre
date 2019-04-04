@@ -8,7 +8,7 @@ git add FICHIERS
 git commit -m "nom du commit"
 git push -u origin master
 
-```
+```bash
 METTRE A JOUR TOUT LE MONDE DEPUIS MASTER:
 for BRANCH in `ls .git/refs/heads`; do
     git rebase master $BRANCH;
