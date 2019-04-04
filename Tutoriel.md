@@ -1,5 +1,5 @@
 ```
-INSTALLATION, PREMIER COMMIT et PUSH
+*INSTALLATION, PREMIER COMMIT et PUSH*
 sudo apt-get install git
 git clone https://git-iut.univ-lille1.fr/ChasseAuMonstre/chasseaumonstre.git
 cd chasseaumonstre
@@ -10,7 +10,7 @@ git push -u origin master
 ```
 
 ```bash
-METTRE A JOUR TOUT LE MONDE DEPUIS MASTER:
+*METTRE A JOUR TOUT LE MONDE DEPUIS MASTER*
 for BRANCH in `ls .git/refs/heads`; do
     git rebase master $BRANCH;
     git checkout $BRANCH;
