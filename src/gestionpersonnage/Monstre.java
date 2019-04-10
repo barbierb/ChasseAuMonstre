@@ -11,20 +11,15 @@ public class Monstre extends Personnage {
 
 	@Override
 	public void utiliseEtoile() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	protected void setPosition(Position p) {
-		// TODO Auto-generated method stub
-
+		if(aEtoile()) {
+			//TODO
+		}
 	}
 
 
 	@Override
 	public Direction getDirectionVoulue() {
-		System.out.println("Printer les directions et leurs numéros");
+		System.out.println("Printer les directions et leurs numéros de monstre");
 		char c=0;
 		do {
 			System.out.println("Dis moi où tu veux aller :");
