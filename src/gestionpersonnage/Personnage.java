@@ -13,8 +13,18 @@ public abstract class Personnage {
 		this.pos = p;
 	}
 	
+	public boolean aEtoile() {
+		for(Item i:sac) {
+			if(i instanceof Etoile) return true;
+		}
+		return false;
+	}
+	
 	public abstract Direction getDirectionVoulue();
 	protected abstract void setPosition(Position p);
 	public abstract void utiliseEtoile();
+	public Position getPosition() {
+		return pos;
+	}
 
 }
