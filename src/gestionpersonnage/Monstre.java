@@ -5,6 +5,10 @@ import util.Clavier;
 public class Monstre extends Personnage {
 
 
+	public Monstre(Position p) {
+		super(p);
+	}
+
 	@Override
 	public void utiliseEtoile() {
 		// TODO Auto-generated method stub
@@ -30,7 +34,7 @@ public class Monstre extends Personnage {
 	}
 
 	public static void main(String[] args) {
-		Monstre oui=new Monstre();
+		Monstre oui=new Monstre(new Position(0, 1));
 		System.out.println(oui.getDirectionVoulue().getLabel());
 	}
 

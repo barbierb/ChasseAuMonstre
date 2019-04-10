@@ -23,6 +23,7 @@ public enum Direction {
         return label;
     }
 
+    
     public boolean estDiagonale() {
         return diagonale;
     }
