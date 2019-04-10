@@ -26,5 +26,8 @@ public abstract class Personnage {
 	public Position getPosition() {
 		return pos;
 	}
+	public List<Item> getSac() {
+		return sac;
+	}
 
 }
