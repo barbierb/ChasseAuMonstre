@@ -1,5 +1,5 @@
 package gestionpersonnage;
 
-public interface Item {
+public class Item {
 
 }

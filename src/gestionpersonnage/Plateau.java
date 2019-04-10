@@ -13,11 +13,14 @@ public class Plateau {
 	public Personnage monstre;
 	public Personnage chasseur;
 	
+	private static Plateau instance;
+	
 	public Plateau(int x, int y) {
 		instance = this;
 		this.tailleX = x;
 		this.tailleY = y;
 		this.cases = new Case[x][y];
+<<<<<<< HEAD
 
 		for(int i=0; i<x; i++)
 			for(int j=0; j<y; j++)
@@ -41,8 +44,19 @@ public class Plateau {
 	
 	private boolean isPartyFinished() {
 		return false;
+=======
+		instance=this;
+>>>>>>> refs/remotes/origin/Sylvain
 	}
 	
+	public Case[][] getCases() {
+		return cases;
+	}
+
+	public static Plateau getInstance() {
+		return instance;
+	}
+
 	public boolean deplacer(Entite e, Direction d) {
 		
 		return false;
