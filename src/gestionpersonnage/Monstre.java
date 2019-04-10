@@ -15,7 +15,16 @@ public class Monstre extends Personnage {
 			//TODO
 		}
 	}
+	
+	
 
+	@Override
+	public String toString() {
+		return "Monstre [sac=" + sac + ", pos=" + pos + ", getDirectionVoulue()=" + getDirectionVoulue()
+				+ ", aEtoile()=" + aEtoile() + ", getPosition()=" + getPosition() + ", getSac()=" + getSac()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
+				+ "]";
+	}
 
 	@Override
 	public Direction getDirectionVoulue() {
