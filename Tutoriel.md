@@ -17,3 +17,13 @@ for BRANCH in `ls .git/refs/heads`; do
     git push;
 done
 ```
+
+
+__MODIFS MANUELLES D'UNE BRANCHE A L'AUTRE VIA ECLIPSE EGIT__
+```
+switch sur la branche à récupérer localement
+synchronize workspace
+changer le mode de sync
+merge all
+et modif les gros changements manuellement
+```
