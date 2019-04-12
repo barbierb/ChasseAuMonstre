@@ -1,14 +1,12 @@
 package gestionpersonnage;
 
 public abstract class Item{
-		private boolean recuperable;
+		public boolean recuperable;
 		
-		/**
-		 * Constructeur de la classe Item
-		 */
-		public Item(boolean recuperable) {
-			this.recuperable = recuperable;
-		}
-		
+
 		public abstract String toString();
+		
+		public boolean estRecuperable() {
+			return this.recuperable;
+		}
 }
