@@ -1,7 +1,7 @@
 package gestionpersonnage;
 
 public abstract class Item{
-		public boolean recuperable;
+		protected boolean recuperable;
 		
 
 		public abstract String toString();
