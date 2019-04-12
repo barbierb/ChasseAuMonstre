@@ -1,13 +1,13 @@
 package gestionpersonnage;
 
 public class LongueVue extends Item{
-	private final int NB_MAX = 5;
+	public final int NB_MAX = 5;
 	
 	/**
-	 * Constructeur de la classe LongueVue qui fait appel à sa superclass et la définit comme non récupérable;
+	 * Constructeur de la classe LongueVue qui définit la variable recupérable à false car une longue vue n'est pas récupérable
 	 */
 	public LongueVue() {
-		super(false);
+		this.recuperable=false;
 	}
 	
 	/**
