@@ -30,8 +30,9 @@ public class Monstre extends Personnage {
 		do {
 			System.out.println("Dis moi où tu veux aller :");
 			c = (char) Clavier.lireString().charAt(0);
-		} while(c<='1' || c>='9' || c=='5');
+		} while(c<='1' || c>='9' || c=='5' && respectePlateau());
 		return Direction.byNumero(Character.getNumericValue(c));
 	}
+	
 
 }

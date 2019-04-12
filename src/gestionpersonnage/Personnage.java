@@ -48,4 +48,16 @@ public abstract class Personnage {
 	protected void setPosition(Position p) {
 		this.pos=p;
 	}
+	protected boolean respectePlateau() {
+		Case[][] tab = Plateau.getInstance().getCases();
+		Position posActuelle = getPosition();
+		int x = posActuelle.getX();
+		int y = posActuelle.getY();
+		
+		if(y<tab.length && y>=0 && x<tab[0].length && x>=0) {
+			//TODO si le plateau ne s'en charge pas
+		}
+		
+		return true;
+	}
 }
