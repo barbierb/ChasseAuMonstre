@@ -6,17 +6,21 @@ public class Plateau {
 	public Case[][] cases;
 	
 	// tab longue vue 
+	
 
 	public Personnage chasseur;
 	public Personnage monstre;
 	
 	private static Plateau instance;
 	
+	public int tourActuel;
+	
 	public Plateau(int x, int y) {
 		this.tailleX = x;
 		this.tailleY = y;
 		this.cases = new Case[x][y];
 		instance=this;
+		tourActuel=0;
 	}
 	
 	public Case[][] getCases() {

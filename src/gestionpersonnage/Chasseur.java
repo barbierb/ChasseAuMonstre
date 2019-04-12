@@ -4,12 +4,15 @@ import util.Clavier;
 
 public class Chasseur extends Personnage {
 
+	public final static int MAXPASSAGE = 3;
+
 	/**
 	 * Constructeur de Chasseur 
 	 * @param p = la position à laquelle le chasseur commence
 	 */
 	public Chasseur(Position p) {
 		super(p);
+		this.estMonstre=false;
 	}
 
 	/**
@@ -22,10 +25,23 @@ public class Chasseur extends Personnage {
 		do {
 			System.out.println("Dis moi où tu veux aller :");
 			c = (char) Clavier.lireString().charAt(0);
-		} while(c!='8' || c!='6' || c!='2' || c!='4' && respectePlateau());
+		} while(c!='8' || c!='6' || c!='2' || c!='4');
 		return Direction.byNumero(Character.getNumericValue(c));
 	}
 
-	
+	@Override
+	protected boolean peutPasser(Position p) {
+		Case[][] tab = Plateau.getInstance().getCases();
+		return tab[p.getX()][p.getY()].getNbPassageChass()<Chasseur.MAXPASSAGE;
+
+	}
+
+	@Override
+	protected void setPosition(Position p) {		
+		this.pos=p;
+		Plateau.getInstance().getCase(p).incrNbPassageChass();				
+	}
+
+
 
 }

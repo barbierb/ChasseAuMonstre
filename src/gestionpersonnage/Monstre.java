@@ -10,6 +10,7 @@ public class Monstre extends Personnage {
 	 */
 	public Monstre(Position p) {
 		super(p);
+		this.estMonstre=true;
 	}
 
 	@Override
@@ -30,9 +31,22 @@ public class Monstre extends Personnage {
 		do {
 			System.out.println("Dis moi où tu veux aller :");
 			c = (char) Clavier.lireString().charAt(0);
-		} while(c<='1' || c>='9' || c=='5' && respectePlateau());
+		} while(c<='1' || c>='9' || c=='5');
+
 		return Direction.byNumero(Character.getNumericValue(c));
 	}
-	
+
+	@Override
+	protected boolean peutPasser(Position p) {
+		Case[][] tab = Plateau.getInstance().getCases();
+		return tab[p.getX()][p.getY()].getTourPassage()!=-1;
+	}
+
+	@Override
+	protected void setPosition(Position p) {
+		this.pos=p;
+		Plateau.getInstance().getCase(p).setTourPassage();
+	}
+
 
 }

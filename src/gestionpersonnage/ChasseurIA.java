@@ -6,6 +6,7 @@ public class ChasseurIA extends Personnage {
 
 	public ChasseurIA(Position p) {
 		super(p);
+		this.estMonstre=false;
 	}
 
 	@Override
@@ -20,6 +21,18 @@ public class ChasseurIA extends Personnage {
 	@Override
 	public void utiliseEtoile() {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected boolean peutPasser(Position p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected void setPosition(Position p) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

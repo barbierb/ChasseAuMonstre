@@ -1,7 +1,7 @@
  
 package gestionpersonnage;
 
-public abstract class Item{
+public abstract class Item {
 		protected boolean recuperable;
 		
 
