@@ -3,10 +3,10 @@ package gestionpersonnage;
 public class Etoile extends Item{
 	
 	/**
-	 * Constructeur de la classe Etoile qui fait appel à sa superclass et la définit comme récupérable
+	 * Constructeur de la classe Etoile qui définit la variable recupérable à true car une étoile est récupérable
 	 */
 	public Etoile() {
-		super(true);
+		this.recuperable=true;
 	}
 	
 	/**
