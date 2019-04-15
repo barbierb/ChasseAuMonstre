@@ -7,6 +7,7 @@ public class Case {
 	private int tourPassage;
 	private int nbPassageChass;
 	private List<Item> dedans;
+
 	/**
 	 * Constructeur d'une case 
 	 */

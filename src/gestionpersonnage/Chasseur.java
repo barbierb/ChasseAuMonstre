@@ -33,7 +33,6 @@ public class Chasseur extends Personnage {
 	protected boolean peutPasser(Position p) {
 		Case[][] tab = Plateau.getInstance().getCases();
 		return tab[p.getX()][p.getY()].getNbPassageChass()<Chasseur.MAXPASSAGE;
-
 	}
 
 	@Override
