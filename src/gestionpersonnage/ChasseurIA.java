@@ -2,7 +2,7 @@ package gestionpersonnage;
 
 import java.util.Random;
 
-public class ChasseurIA extends Personnage {
+public class ChasseurIA extends Chasseur {
 
 	public ChasseurIA(Position p) {
 		super(p);
@@ -17,12 +17,6 @@ public class ChasseurIA extends Personnage {
 	}
 
 
-
-	@Override
-	public void utiliseEtoile() {
-		// TODO Auto-generated method stub
-	}
-
 	@Override
 	protected boolean peutPasser(Position p) {
 		// TODO Auto-generated method stub
@@ -31,8 +25,7 @@ public class ChasseurIA extends Personnage {
 
 	@Override
 	protected void setPosition(Position p) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 }

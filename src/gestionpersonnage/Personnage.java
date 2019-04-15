@@ -65,7 +65,7 @@ public abstract class Personnage {
 	public void deplace() {
 		Case[][] tab = Plateau.getInstance().getCases();
 		
-		Position posActuelle = getPosition();
+		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();
 		int y = posActuelle.getY();
 
@@ -81,7 +81,7 @@ public abstract class Personnage {
 			//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
 			if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
 				
-				if( estMonstre && etoile) {
+				if(estMonstre && etoile) {
 					setPosition(nextPos);
 					etoileTimer --;
 					if(etoileTimer == 0) etoile=false;

@@ -2,7 +2,7 @@ package gestionpersonnage;
 
 import java.util.Random;
 
-public class MonstreIA extends Personnage {
+public class MonstreIA extends Monstre {
 
 	public MonstreIA(Position p) {
 		super(p);
