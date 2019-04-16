@@ -77,7 +77,8 @@ public class Plateau {
 		if(tmp == null)
 			return false;
 		
-		//TODO verif si c un chasseur et du coup verif si il est pas deja pass. 
+		//TODO verif si c un chasseur et du coup verif si il est pas deja pass et si il est dans la zone autour du monstre. 
+		//TODO verif si c un monstre et si il marche sur sa propre case
 		
 		return true;
 	}
