@@ -2,24 +2,31 @@ package gestionpersonnage;
 
 import java.util.Random;
 
-public class MonstreIA extends Personnage {
+public class MonstreIA extends Monstre {
 
 	public MonstreIA(Position p) {
 		super(p);
+		this.estMonstre=true;
 	}
 
 	@Override
 	public Direction getDirectionVoulue() {
-		//Case[][] plateau = Plateau.getInstance().getCases();
-		//TODO IA pour la nouvelle direction cc Cantin
-		return Direction.values()[new Random().nextInt(Direction.values().length)];
-	}
 
+		Direction direc = null;
+		Position nextPos;
+		int tourPassage;
+		while(direc == null){
+			direc = Direction.values()[new Random().nextInt(Direction.values().length)];
 
-	@Override
-	public void utiliseEtoile() {
-		// TODO Auto-generated method stub
+			nextPos = new Position(this.pos.getX() + direc.getX(), this.pos.getY()+ direc.getY());
+			
+			tourPassage = Plateau.getInstance().getCase(nextPos).getTourPassage();
+
+			if( !this.peutPasser(nextPos) || tourPassage != -1) {
+				direc = null;
+			}
+
+		}
+		return direc;
 	}
-	
-	
 }

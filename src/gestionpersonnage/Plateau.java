@@ -2,29 +2,24 @@ package gestionpersonnage;
 
 public class Plateau {
 	
-	private static Plateau instance;
 	public int tailleX, tailleY;
 	public Case[][] cases;
-
-	public int tour;
 	
-	// tab longue vue
+	// tab longue vue 
 
-	public Personnage monstre;
 	public Personnage chasseur;
+	public Personnage monstre;
 	
 	private static Plateau instance;
 	
+	public int tourActuel;
+	
 	public Plateau(int x, int y) {
-		instance = this;
 		this.tailleX = x;
 		this.tailleY = y;
 		this.cases = new Case[x][y];
-<<<<<<< HEAD
-
-		for(int i=0; i<x; i++)
-			for(int j=0; j<y; j++)
-				cases[x][y] = new Case();
+		instance=this;
+		tourActuel=0;
 	}
 	
 	public void start() {
@@ -41,12 +36,16 @@ public class Plateau {
 		}
 		// win 
 	}
-	
 	private boolean isPartyFinished() {
 		return false;
-=======
-		instance=this;
->>>>>>> refs/remotes/origin/Sylvain
+	}
+
+	public void afficherPlateau() {
+		//AFFICHAGE BORD HAUT
+		for(int i=0; i<tailleX;i++){
+			System.out.print("-");
+		}
+		System.out.print("\n");
 	}
 	
 	public Case[][] getCases() {
@@ -67,12 +66,8 @@ public class Plateau {
 	}
 	
 	public Case getCase(int x, int y) {
-		if(x > tailleX || y > tailleY || x < 0 || y < 0) return null;
+		if(x > tailleX || y > tailleY) return null;
 		return this.cases[x][y];
-	}
-
-	public static Plateau getInstance() {
-		return instance;
 	}
 	
 	private boolean verifCases(Personnage p, Direction d) {
@@ -82,8 +77,10 @@ public class Plateau {
 		if(tmp == null)
 			return false;
 		
-		//TODO verif si c un chasseur et du coup verif si il est pas deja passé. 
+		//TODO verif si c un chasseur et du coup verif si il est pas deja pass et si il est dans la zone autour du monstre. 
+		//TODO verif si c un monstre et si il marche sur sa propre case
 		
 		return true;
 	}
+
 }

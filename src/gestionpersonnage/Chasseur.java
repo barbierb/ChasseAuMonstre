@@ -4,11 +4,21 @@ import util.Clavier;
 
 public class Chasseur extends Personnage {
 
+	public final static int MAXPASSAGE = 3;
+
+	/**
+	 * Constructeur de Chasseur 
+	 * @param p = la position à laquelle le chasseur commence
+	 */
 	public Chasseur(Position p) {
 		super(p);
+		this.estMonstre=false;
 	}
 
-	@Override
+	/**
+	 * Méthode qui demande au joueur dans quelle direction il veut aller
+	 * @return La direction dans laquelle le chasseur joueur veut aller
+	 */
 	public Direction getDirectionVoulue() {
 		System.out.println("Printer les directions et leurs numéros de chasseur");
 		char c=0;
@@ -19,11 +29,18 @@ public class Chasseur extends Personnage {
 		return Direction.byNumero(Character.getNumericValue(c));
 	}
 
+	@Override
+	protected boolean peutPasser(Position p) {
+		Case[][] tab = Plateau.getInstance().getCases();
+		return tab[p.getX()][p.getY()].getNbPassageChass()<Chasseur.MAXPASSAGE;
+	}
 
 	@Override
-	public void utiliseEtoile() {
-		// TODO Auto-generated method stub
-
+	protected void setPosition(Position p) {		
+		this.pos=p;
+		Plateau.getInstance().getCase(p).incrNbPassageChass();				
 	}
+
+
 
 }
