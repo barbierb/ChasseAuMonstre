@@ -10,6 +10,7 @@ public class Case {
 	private static int cptCase = 0;
 	public final int numCase;
 
+	
 	/**
 	 * Constructeur d'une case 
 	 */

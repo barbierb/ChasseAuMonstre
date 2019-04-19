@@ -90,7 +90,7 @@ public class Plateau implements Iterator<Case>,Iterable<Case> {
 		return true;
 	}
 
-	private int nbCases = cases[0].length * cases.length;
+	private int nbCases = cases[0].length * cases.length ;
 	private int numCases = 1;
 	private int i = 0;
 	private int j = 0;
