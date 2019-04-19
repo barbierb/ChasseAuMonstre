@@ -1,6 +1,8 @@
 package gestionpersonnage;
 
-public class Plateau {
+import java.util.Iterator;
+
+public class Plateau implements Iterator<Case>,Iterable<Case> {
 	
 	public int tailleX, tailleY;
 	public Case[][] cases;
@@ -20,6 +22,11 @@ public class Plateau {
 		this.cases = new Case[x][y];
 		instance=this;
 		tourActuel=0;
+		for (int i = 0; i < x; i++) {
+			for (int j = 0; j < y; j++) {
+				cases[i][j] = new Case();
+			}
+		}
 	}
 	
 	public void start() {
@@ -81,6 +88,34 @@ public class Plateau {
 		//TODO verif si c un monstre et si il marche sur sa propre case
 		
 		return true;
+	}
+
+	private int nbCases = cases[0].length * cases.length;
+	private int numCases = 1;
+	private int i = 0;
+	private int j = 0;
+	@Override
+	public boolean hasNext() {
+		
+		return numCases < nbCases  ;
+	}
+
+	@Override
+	public Case next() {
+		numCases++;
+		i++;
+		if(i > cases[0].length) {
+			i = 0;
+			j++;
+		}
+		
+		return cases[i][j]  ;
+	}
+
+	@Override
+	public Iterator<Case> iterator() {
+	
+		return this;
 	}
 
 }

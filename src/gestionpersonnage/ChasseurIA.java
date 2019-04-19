@@ -16,16 +16,4 @@ public class ChasseurIA extends Chasseur {
 		return Direction.values()[new Random().nextInt(Direction.values().length)];
 	}
 
-
-	@Override
-	protected boolean peutPasser(Position p) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected void setPosition(Position p) {
-		// TODO Auto-generated method stub		
-	}
-
 }
