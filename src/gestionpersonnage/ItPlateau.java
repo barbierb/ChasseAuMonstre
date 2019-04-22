@@ -2,6 +2,11 @@ package gestionpersonnage;
 
 import java.util.Iterator;
 
+/**
+ * Itérateur pour le plateau
+ * @author Sylvain
+ *
+ */
 public class ItPlateau implements Iterator<Case>{
 	
 	private Case[][] cases;
