@@ -2,7 +2,7 @@ package gestionpersonnage;
 
 import java.util.Iterator;
 
-public class Plateau implements Iterator<Case>,Iterable<Case> {
+public class Plateau implements Iterable<Case> {
 	
 	public int tailleX, tailleY;
 	public Case[][] cases;
@@ -90,32 +90,9 @@ public class Plateau implements Iterator<Case>,Iterable<Case> {
 		return true;
 	}
 
-	private int nbCases = cases[0].length * cases.length ;
-	private int numCases = 1;
-	private int i = 0;
-	private int j = 0;
-	@Override
-	public boolean hasNext() {
-		
-		return numCases < nbCases  ;
-	}
-
-	@Override
-	public Case next() {
-		numCases++;
-		i++;
-		if(i > cases[0].length) {
-			i = 0;
-			j++;
-		}
-		
-		return cases[i][j]  ;
-	}
-
 	@Override
 	public Iterator<Case> iterator() {
-	
-		return this;
+		return new ItPlateau(cases);
 	}
 
 }
