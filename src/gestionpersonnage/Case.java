@@ -7,7 +7,10 @@ public class Case {
 	private int tourPassage;
 	private int nbPassageChass;
 	private List<Item> dedans;
+	private static int cptCase = 0;
+	public final int numCase;
 
+	
 	/**
 	 * Constructeur d'une case 
 	 */
@@ -15,6 +18,8 @@ public class Case {
 		this.dedans = new ArrayList<Item>();
 		this.nbPassageChass = 0;
 		this.tourPassage = -1;
+		this.numCase = cptCase;
+		cptCase++;
 	}
 
 	/**
@@ -37,11 +42,11 @@ public class Case {
 	public List<Item> getDedans() {
 		return dedans;
 	}
-	
+
 	public void incrNbPassageChass() {
 		nbPassageChass++;
 	}
-	
+
 	public void setTourPassage() {
 		tourPassage=Plateau.getInstance().tourActuel;
 	}
