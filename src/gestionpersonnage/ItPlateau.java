@@ -10,7 +10,6 @@ import java.util.Iterator;
 public class ItPlateau implements Iterator<Case>{
 	
 	private Case[][] cases;
-
 	private int i;
 	private int j;
 	
