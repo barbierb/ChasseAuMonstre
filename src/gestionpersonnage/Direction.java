@@ -11,30 +11,6 @@ public enum Direction {
     O("Ouest", false, 0, -1),
     NO("Nord-Ouest", true, -1, -1);
 
-<<<<<<< HEAD
-	private int x;
-	private int y;
-    private String label;
-    private boolean diagonale;
-
-    private Direction(String l, boolean d, int x, int y) {
-        this.label = l;
-        this.diagonale = d;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public int getX() {
-    	return this.x;
-    }
-    
-    public int getY() {
-    	return this.y;
-    }
-    
-=======
     private int x;
     private int y;
     private String label;
@@ -57,7 +33,6 @@ public enum Direction {
         return this.y;
     }
 
->>>>>>> refs/remotes/origin/Sylvain
     public boolean estDiagonale() {
         return diagonale;
     }

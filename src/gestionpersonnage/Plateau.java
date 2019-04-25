@@ -2,13 +2,13 @@ package gestionpersonnage;
 
 import java.util.Iterator;
 
-public class Plateau implements Iterable<Case> {
+import launcher.ConfigurationPartie;
+
+public class Plateau implements Iterator<Case>,Iterable<Case>  {
 	
 	public int tailleX, tailleY;
 	public Case[][] cases;
 	
-	// tab longue vue 
-
 	public Personnage chasseur;
 	public Personnage monstre;
 	
@@ -16,14 +16,21 @@ public class Plateau implements Iterable<Case> {
 	
 	public int tourActuel;
 	
-	public Plateau(int x, int y) {
-		this.tailleX = x;
-		this.tailleY = y;
-		this.cases = new Case[x][y];
-		instance=this;
-		tourActuel=0;
-		for (int i = 0; i < x; i++) {
-			for (int j = 0; j < y; j++) {
+	public Plateau(ConfigurationPartie cfg) {
+		instance = this;
+		this.tourActuel = 0;
+		this.tailleX = cfg.getTailleX();
+		this.tailleY = cfg.getTailleY();
+		if(cfg.isJoueur1Chasseur()) {
+			this.chasseur = new Chasseur(new Position(0,0));
+			this.monstre = cfg.isJoueur2IA()?new MonstreIA(new Position(0,0)):new Monstre(new Position(0,0));
+		} else {
+			this.monstre = new Monstre(new Position(0,0));
+			this.chasseur = cfg.isJoueur2IA()?new ChasseurIA(new Position(0,0)):new Chasseur(new Position(0,0));
+		}
+		this.cases = new Case[this.tailleX][this.tailleY];
+		for (int i = 0; i < this.tailleX; i++) {
+			for (int j = 0; j < this.tailleY; j++) {
 				cases[i][j] = new Case();
 			}
 		}
@@ -31,7 +38,7 @@ public class Plateau implements Iterable<Case> {
 	
 	public void start() {
 		while(!isPartyFinished()) {
-			
+			afficherPlateauMonstre();
 			Direction next;
 			do {
 				next = monstre.getDirectionVoulue();
@@ -47,9 +54,78 @@ public class Plateau implements Iterable<Case> {
 		return false;
 	}
 
-	public void afficherPlateau() {
-		//AFFICHAGE BORD HAUT
-		for(int i=0; i<tailleX;i++){
+	public void afficherPlateauChasseur() {
+		
+		for(int j=0; j<tailleY;j++) {
+			//AFFICHAGE BORD HAUT
+			for(int i=0; i<tailleX*4+1;i++){
+				System.out.print("-");
+			}
+			System.out.print("\n");
+		
+			//AFFICHAGE LIGNES
+			for(int i=0; i<tailleX; i++) {
+				if(chasseur.pos.getX() == i && chasseur.pos.getY() == j) {
+					System.out.print("| C ");
+				}
+				else {
+					for(Item h:cases[i][j].getDedans()) {
+						if(h instanceof Etoile && cases[i][j].getDedans().size() < 2) {
+							System.out.print("| * ");
+						}
+						else if(h instanceof LongueVue) {
+							System.out.print("| L ");
+						}
+					}
+					if(cases[i][j].getDedans().isEmpty()) {
+						System.out.print("|   ");
+					}
+				}
+			}
+			System.out.print("|\n");
+		}
+		//AFFICHAGE BORD BAS
+		for(int i=0; i<tailleX*4+1;i++){
+			System.out.print("-");
+		}
+		System.out.print("\n");
+	}
+	
+	public void afficherPlateauMonstre() {
+		
+		for(int j=0; j<tailleY;j++) {
+			//AFFICHAGE BORD HAUT
+			for(int i=0; i<tailleX*4+1;i++){
+				System.out.print("-");
+			}
+			System.out.print("\n");
+		
+			//AFFICHAGE LIGNES
+			for(int i=0; i<tailleX; i++) {
+				if(monstre.pos.getX() == i && monstre.pos.getY() == j) {
+					System.out.print("| M ");
+				}
+				else if(cases[i][j].getTourPassage() != -1) {
+					System.out.print("| - ");
+				}
+				else {
+					for(Item h:cases[i][j].getDedans()) {
+						if(h instanceof Etoile) {
+							System.out.print("| * ");
+						}
+						else if(h instanceof LongueVue && cases[i][j].getDedans().size() < 2) {
+							System.out.print("|   ");
+						}
+					}
+					if(cases[i][j].getDedans().isEmpty()) {
+						System.out.print("|   ");
+					}
+				}
+			}
+			System.out.print("|\n");
+		}
+		//AFFICHAGE BORD BAS
+		for(int i=0; i<tailleX*4+1;i++){
 			System.out.print("-");
 		}
 		System.out.print("\n");
@@ -90,9 +166,33 @@ public class Plateau implements Iterable<Case> {
 		return true;
 	}
 
+	//private int nbCases = cases[0].length * cases.length;
+	private int numCases = 1;
+	private int i = 0;
+	private int j = 0;
+	@Override
+	public boolean hasNext() {
+		
+		return numCases < nbCases  ;
+	}
+
+	@Override
+	public Case next() {
+		numCases++;
+		i++;
+		if(i > cases[0].length) {
+			i = 0;
+			j++;
+		}
+		
+		return cases[i][j]  ;
+	}
+
 	@Override
 	public Iterator<Case> iterator() {
-		return new ItPlateau(cases);
+	
+		return this;
 	}
 
 }
+

@@ -26,7 +26,6 @@ public class Monstre extends Personnage {
 	 * @return La direction dans laquelle le chasseur joueur veut aller
 	 */
 	public Direction getDirectionVoulue() {
-		System.out.println("Printer les directions et leurs numéros de monstre");
 		char c=0;
 		do {
 			System.out.println("Dis moi où tu veux aller :");
