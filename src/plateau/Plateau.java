@@ -76,11 +76,6 @@ public class Plateau implements Iterable<Case>  {
 		return instance;
 	}
 
-	public boolean deplacer(Entite e, Direction d) {
-		
-		return false;
-	}
-
 	public Case getCase(Position p) {
 		return getCase(p.getX(), p.getY());
 	}
