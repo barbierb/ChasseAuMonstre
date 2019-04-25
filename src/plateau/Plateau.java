@@ -2,6 +2,9 @@ package plateau;
 
 import java.util.Iterator;
 
+import entites.items.Etoile;
+import entites.items.Item;
+import entites.items.LongueVue;
 import entites.personnage.Direction;
 import entites.personnage.Personnage;
 import entites.personnage.chasseur.Chasseur;
@@ -56,13 +59,83 @@ public class Plateau implements Iterable<Case>  {
 		}
 		// win 
 	}
+	
 	private boolean isPartyFinished() {
 		return false;
 	}
 
-	public void afficherPlateau() {
-		//AFFICHAGE BORD HAUT
-		for(int i=0; i<tailleX;i++){
+	public void afficherPlateau(Chasseur chasseur) {
+		
+		for(int j=0; j<tailleY;j++) {
+			//AFFICHAGE BORD HAUT
+			for(int i=0; i<tailleX*4+1;i++){
+				System.out.print("-");
+			}
+			System.out.print("\n");
+		
+			//AFFICHAGE LIGNES
+			for(int i=0; i<tailleX; i++) {
+				if(chasseur.getPosition().getX() == i && chasseur.getPosition().getY() == j) {
+					System.out.print("| C ");
+				}
+				else {
+					for(Item h:cases[i][j].getDedans()) {
+						if(h instanceof Etoile && cases[i][j].getDedans().size() < 2) {
+							System.out.print("| * ");
+						}
+						else if(h instanceof LongueVue) {
+							System.out.print("| L ");
+						}
+					}
+					if(cases[i][j].getDedans().isEmpty()) {
+						System.out.print("|   ");
+					}
+				}
+			}
+			System.out.print("|\n");
+		}
+		//AFFICHAGE BORD BAS
+		for(int i=0; i<tailleX*4+1;i++){
+			System.out.print("-");
+		}
+		System.out.print("\n");
+	}
+	
+	public void afficherPlateau(Monstre monstre) {
+		
+		for(int j=0; j<tailleY;j++) {
+			//AFFICHAGE BORD HAUT
+			for(int i=0; i<tailleX*4+1;i++){
+				System.out.print("-");
+			}
+			System.out.print("\n");
+		
+			//AFFICHAGE LIGNES
+			for(int i=0; i<tailleX; i++) {
+				if(monstre.getPosition().getX() == i && monstre.getPosition().getY() == j) {
+					System.out.print("| M ");
+				}
+				else if(cases[i][j].getTourPassage() != -1) {
+					System.out.print("| - ");
+				}
+				else {
+					for(Item h:cases[i][j].getDedans()) {
+						if(h instanceof Etoile) {
+							System.out.print("| * ");
+						}
+						else if(h instanceof LongueVue && cases[i][j].getDedans().size() < 2) {
+							System.out.print("|   ");
+						}
+					}
+					if(cases[i][j].getDedans().isEmpty()) {
+						System.out.print("|   ");
+					}
+				}
+			}
+			System.out.print("|\n");
+		}
+		//AFFICHAGE BORD BAS
+		for(int i=0; i<tailleX*4+1;i++){
 			System.out.print("-");
 		}
 		System.out.print("\n");
@@ -96,6 +169,26 @@ public class Plateau implements Iterable<Case>  {
 		//TODO verif si c un monstre et si il marche sur sa propre case
 		
 		return true;
+	}
+
+	public int getTailleX() {
+		return tailleX;
+	}
+
+	public int getTailleY() {
+		return tailleY;
+	}
+
+	public Personnage getChasseur() {
+		return chasseur;
+	}
+
+	public Personnage getMonstre() {
+		return monstre;
+	}
+
+	public int getTourActuel() {
+		return tourActuel;
 	}
 
 	@Override
