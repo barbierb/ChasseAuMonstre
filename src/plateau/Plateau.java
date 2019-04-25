@@ -12,15 +12,15 @@ import launcher.ConfigurationPartie;
 
 public class Plateau implements Iterable<Case>  {
 	
-	public int tailleX, tailleY;
-	public Case[][] cases;
+	private int tailleX, tailleY;
+	private Case[][] cases;
 	
-	public Personnage chasseur;
-	public Personnage monstre;
+	private Personnage chasseur;
+	private Personnage monstre;
 	
 	private static Plateau instance;
 	
-	public int tourActuel;
+	private int tourActuel;
 	
 	public Plateau(ConfigurationPartie cfg) {
 		instance = this;
