@@ -4,12 +4,14 @@ import java.util.Random;
 
 import entites.personnage.Direction;
 import plateau.Position;
-
+/**
+ * Classe chasseur pour son IA qui étend la classe Chasseur et qui gère les déplacements calculés par l'IA
+ * @author Sylvain
+ */
 public class ChasseurIA extends Chasseur {
 
 	public ChasseurIA(Position p) {
 		super(p);
-		this.estMonstre=false;
 	}
 
 	@Override
