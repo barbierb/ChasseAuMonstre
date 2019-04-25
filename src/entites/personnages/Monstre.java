@@ -1,5 +1,8 @@
-package gestionpersonnage;
+package entites.personnages;
 
+import plateau.Case;
+import plateau.Plateau;
+import plateau.Position;
 import util.Clavier;
 
 public class Monstre extends Personnage {

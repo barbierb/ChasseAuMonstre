@@ -1,4 +1,4 @@
-package gestionpersonnage;
+package entites.personnages;
 
 public enum Direction {
 

@@ -1,6 +1,6 @@
 package launcher;
 
-import gestionpersonnage.Plateau;
+import plateau.Plateau;
 import util.Clavier;
 
 public class Launcher {
@@ -21,17 +21,17 @@ public class Launcher {
 			choix = Clavier.lireString().charAt(0);
 		} while(choix!='1'&&choix!='2');
 		
-		ConfigurationPartie cfg = new ConfigurationPartie();
-		cfg.setJoueur1isChasseur(choix=='1');
+		ConfigurationPartie config = new ConfigurationPartie();
+		config.setJoueur1isChasseur(choix=='1');
 		
 		do {
 			System.out.println(CHOIX_ADVERSAIRE);
 			choix = Clavier.lireString().charAt(0);
 		} while(choix!='1'&&choix!='2');
 
-		cfg.setJoueur2isIA(choix=='1');
+		config.setJoueur2isIA(choix=='1');
 		
-		new Plateau(cfg).start();
+		new Plateau(config).start();
 	}
 	
 }

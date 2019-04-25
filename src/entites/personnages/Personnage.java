@@ -1,7 +1,13 @@
-package gestionpersonnage;
+package entites.personnages;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import entites.items.Etoile;
+import entites.items.Item;
+import plateau.Case;
+import plateau.Plateau;
+import plateau.Position;
 
 public abstract class Personnage {
 	protected List<Item> sac;

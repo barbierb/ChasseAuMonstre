@@ -1,6 +1,9 @@
-package gestionpersonnage;
+package entites.personnages;
 
 import java.util.Random;
+
+import plateau.Plateau;
+import plateau.Position;
 
 public class MonstreIA extends Monstre {
 

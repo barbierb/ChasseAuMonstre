@@ -1,6 +1,8 @@
-package gestionpersonnage;
+package entites.personnages;
 
 import java.util.Random;
+
+import plateau.Position;
 
 public class ChasseurIA extends Chasseur {
 

@@ -1,4 +1,4 @@
-package gestionpersonnage;
+package entites.items;
 
 public class LongueVue extends Item{
 	public final int NB_MAX = 5;

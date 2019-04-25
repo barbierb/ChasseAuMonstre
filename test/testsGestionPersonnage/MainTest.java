@@ -4,22 +4,28 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
+import entites.personnages.Chasseur;
+import entites.personnages.Monstre;
+import entites.personnages.Personnage;
 import gestionpersonnage.*;
+import launcher.ConfigurationPartie;
+import plateau.Plateau;
+import plateau.Position;
 
 public class MainTest {
 	
 	public Plateau p;
 	public Personnage chasseur,monstre;
 	
-	
 	@BeforeClass
 	public static void beforeAll() {
 		System.out.println("Début des tests");
 	}	
+	
 	@Before
 	public void beforeEach() {
 		System.out.println("Initialisation...");
-		p = new Plateau(10, 10);
+		p = new Plateau(new ConfigurationPartie());
 		chasseur = new Chasseur(new Position(0, 0));
 		monstre = new Monstre(new Position(5, 5));
 		p.chasseur=chasseur;

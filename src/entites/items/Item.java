@@ -1,5 +1,5 @@
  
-package gestionpersonnage;
+package entites.items;
 
 public abstract class Item {
 		protected boolean recuperable;

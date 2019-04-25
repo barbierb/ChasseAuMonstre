@@ -1,4 +1,4 @@
-package gestionpersonnage;
+package plateau;
 
 public class Position {
 	

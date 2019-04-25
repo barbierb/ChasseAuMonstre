@@ -1,6 +1,6 @@
-package gestionpersonnage;
+package entites.personnages;
 
-public enum TypeEntite {
+public enum Type {
 	
 	CHASSEUR, CHASSEURIA, 
 	

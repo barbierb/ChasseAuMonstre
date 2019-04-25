@@ -1,4 +1,4 @@
-package gestionpersonnage;
+package plateau;
 
 import java.util.Iterator;
 

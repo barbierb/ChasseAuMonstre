@@ -1,4 +1,4 @@
-package gestionpersonnage;
+package entites.items;
 
 public class Etoile extends Item{
 	
