@@ -5,9 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import entites.personnage.Personnage;
-import entites.personnages.chasseur.Chasseur;
-import entites.personnages.monstre.Monstre;
-import gestionpersonnage.*;
+import entites.personnage.chasseur.Chasseur;
+import entites.personnage.monstre.Monstre;
 import launcher.ConfigurationPartie;
 import plateau.Plateau;
 import plateau.Position;
@@ -28,10 +27,8 @@ public class MainTest {
 		p = new Plateau(new ConfigurationPartie());
 		chasseur = new Chasseur(new Position(0, 0));
 		monstre = new Monstre(new Position(5, 5));
-		p.chasseur=chasseur;
-		p.monstre=monstre;
-		
-		
+		p.setChasseur(chasseur);
+		p.setMonstre(monstre);
 		System.out.println("Début du test");
 	}
 

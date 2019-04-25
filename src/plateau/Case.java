@@ -54,6 +54,6 @@ public class Case {
 	}
 	
 	public void setTourPassage() {
-		tourPassage = Plateau.getInstance().tourActuel;
+		tourPassage = Plateau.getInstance().getTourActuel();
 	}
 }

@@ -77,8 +77,7 @@ public class Plateau implements Iterable<Case>  {
 			for(int i=0; i<tailleX; i++) {
 				if(chasseur.getPosition().getX() == i && chasseur.getPosition().getY() == j) {
 					System.out.print("| C ");
-				}
-				else {
+				} else {
 					for(Item h:cases[i][j].getDedans()) {
 						if(h instanceof Etoile && cases[i][j].getDedans().size() < 2) {
 							System.out.print("| * ");
@@ -141,6 +140,27 @@ public class Plateau implements Iterable<Case>  {
 		System.out.print("\n");
 	}
 	
+	private boolean verifCases(Personnage p, Direction d) {
+		
+		Case tmp = getCase(p.getPosition().getX() + d.getX(), p.getPosition().getY() + d.getY());
+		
+		if(tmp == null)
+			return false;
+		
+		//TODO verif si c un chasseur et du coup verif si il est pas deja pass et si il est dans la zone autour du monstre. 
+		//TODO verif si c un monstre et si il marche sur sa propre case
+		
+		return true;
+	}
+
+	public void setChasseur(Personnage chasseur) {
+		this.chasseur = chasseur;
+	}
+
+	public void setMonstre(Personnage monstre) {
+		this.monstre = monstre;
+	}
+	
 	public Case[][] getCases() {
 		return cases;
 	}
@@ -156,19 +176,6 @@ public class Plateau implements Iterable<Case>  {
 	public Case getCase(int x, int y) {
 		if(x > tailleX || y > tailleY) return null;
 		return this.cases[x][y];
-	}
-	
-	private boolean verifCases(Personnage p, Direction d) {
-		
-		Case tmp = getCase(p.getPosition().getX() + d.getX(), p.getPosition().getY() + d.getY());
-		
-		if(tmp == null)
-			return false;
-		
-		//TODO verif si c un chasseur et du coup verif si il est pas deja pass et si il est dans la zone autour du monstre. 
-		//TODO verif si c un monstre et si il marche sur sa propre case
-		
-		return true;
 	}
 
 	public int getTailleX() {
@@ -195,6 +202,8 @@ public class Plateau implements Iterable<Case>  {
 	public Iterator<Case> iterator() {
 		return new ItPlateau(cases);
 	}
+	
+	//TODO faire les emplacements de base du chasseur et monstre
 
 }
 
