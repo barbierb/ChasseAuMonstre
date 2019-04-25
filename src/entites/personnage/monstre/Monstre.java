@@ -1,5 +1,7 @@
-package entites.personnages;
+package entites.personnage.monstre;
 
+import entites.personnage.Direction;
+import entites.personnage.Personnage;
 import plateau.Case;
 import plateau.Plateau;
 import plateau.Position;

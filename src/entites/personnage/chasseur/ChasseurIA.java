@@ -1,7 +1,8 @@
-package entites.personnages;
+package entites.personnage.chasseur;
 
 import java.util.Random;
 
+import entites.personnage.Direction;
 import plateau.Position;
 
 public class ChasseurIA extends Chasseur {

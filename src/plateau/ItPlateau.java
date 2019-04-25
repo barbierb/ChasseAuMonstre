@@ -1,4 +1,4 @@
-package plateau;
+ package plateau;
 
 import java.util.Iterator;
 

@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-import entites.personnages.Chasseur;
-import entites.personnages.Monstre;
-import entites.personnages.Personnage;
+import entites.personnage.Personnage;
+import entites.personnages.chasseur.Chasseur;
+import entites.personnages.monstre.Monstre;
 import gestionpersonnage.*;
 import launcher.ConfigurationPartie;
 import plateau.Plateau;

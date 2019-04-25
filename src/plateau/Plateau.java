@@ -2,13 +2,12 @@ package plateau;
 
 import java.util.Iterator;
 
-import entites.Entite;
-import entites.personnages.Chasseur;
-import entites.personnages.ChasseurIA;
-import entites.personnages.Direction;
-import entites.personnages.Monstre;
-import entites.personnages.MonstreIA;
-import entites.personnages.Personnage;
+import entites.personnage.Direction;
+import entites.personnage.Personnage;
+import entites.personnage.chasseur.Chasseur;
+import entites.personnage.chasseur.ChasseurIA;
+import entites.personnage.monstre.Monstre;
+import entites.personnage.monstre.MonstreIA;
 import launcher.ConfigurationPartie;
 
 public class Plateau implements Iterable<Case>  {

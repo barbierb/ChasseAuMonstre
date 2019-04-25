@@ -1,7 +1,8 @@
-package entites.personnages;
+package entites.personnage.monstre;
 
 import java.util.Random;
 
+import entites.personnage.Direction;
 import plateau.Plateau;
 import plateau.Position;
 

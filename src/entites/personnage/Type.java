@@ -1,4 +1,4 @@
-package entites.personnages;
+package entites.personnage;
 
 public enum Type {
 	

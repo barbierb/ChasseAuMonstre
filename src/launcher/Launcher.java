@@ -9,9 +9,8 @@ public class Launcher {
 			  "\n        Chasse Au Monstre\n\n"
 			+ "Quel personnage voulez-vous jouer ?\n\n"
 			+ "     (1) Chasseur (2) Monstre\n";
-	private final static String CHOIX_ADVERSAIRE = 
-			  "\n"
-			+ "Voulez vous jouer contre une IA ?\n\n"
+	private final static String CHOIX_ADVERSAIRE =
+			  "\nVoulez vous jouer contre une IA ?\n\n"
 			+ "     (1) IA (2) Autre Joueur\n";
 	
 	public static void main(String[] args) {
