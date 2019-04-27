@@ -1,11 +1,14 @@
 package plateau;
 
+/**
+ * Position sur un plateau avec deux coordonnées x et y
+ * @author Sylvain
+ */
 public class Position {
 	
 	private int x, y;
 
 	public Position(int x, int y) {
-		super();
 		this.x = x;
 		this.y = y;
 	}
