@@ -64,77 +64,65 @@ public class Plateau implements Iterable<Case>  {
 		return false;
 	}
 
-	public void afficherPlateau(Chasseur chasseur) {
+	public void afficherPlateau(Personnage perso) {
+		int nbCasesLigne = 0;
 		
-		for(int j=0; j<tailleY;j++) {
-			//AFFICHAGE BORD HAUT
-			for(int i=0; i<tailleX*4+1;i++){
-				System.out.print("-");
-			}
-			System.out.print("\n");
-		
-			//AFFICHAGE LIGNES
-			for(int i=0; i<tailleX; i++) {
-				if(chasseur.getPosition().getX() == i && chasseur.getPosition().getY() == j) {
-					System.out.print("| C ");
-				} else {
-					for(Item h:cases[i][j].getDedans()) {
-						if(h instanceof Etoile && cases[i][j].getDedans().size() < 2) {
-							System.out.print("| * ");
-						}
-						else if(h instanceof LongueVue) {
-							System.out.print("| L ");
-						}
-					}
-					if(cases[i][j].getDedans().isEmpty()) {
-						System.out.print("|   ");
-					}
+		for(Case c: this) {
+			if(nbCasesLigne % tailleX == 0) {
+				//AFFICHAGE BORD HAUT
+				for(int i=0; i<tailleX*3+1;i++){
+					System.out.print("-");
 				}
+				System.out.print("\n");
 			}
-			System.out.print("|\n");
-		}
-		//AFFICHAGE BORD BAS
-		for(int i=0; i<tailleX*4+1;i++){
-			System.out.print("-");
-		}
-		System.out.print("\n");
-	}
-	
-	public void afficherPlateau(Monstre monstre) {
-		
-		for(int j=0; j<tailleY;j++) {
-			//AFFICHAGE BORD HAUT
-			for(int i=0; i<tailleX*4+1;i++){
-				System.out.print("-");
-			}
-			System.out.print("\n");
-		
+			
+			System.out.print("|");
 			//AFFICHAGE LIGNES
-			for(int i=0; i<tailleX; i++) {
-				if(monstre.getPosition().getX() == i && monstre.getPosition().getY() == j) {
-					System.out.print("| M ");
-				}
-				else if(cases[i][j].getTourPassage() != -1) {
-					System.out.print("| - ");
+			if(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) {
+				if(perso instanceof Chasseur) {
+					System.out.print("C");
 				}
 				else {
-					for(Item h:cases[i][j].getDedans()) {
-						if(h instanceof Etoile) {
-							System.out.print("| * ");
-						}
-						else if(h instanceof LongueVue && cases[i][j].getDedans().size() < 2) {
-							System.out.print("|   ");
-						}
+					System.out.print("M");
+				}
+			}
+			else if(c.getDedans().isEmpty() && !(c.getTourPassage() != -1 && perso instanceof Monstre)) {
+				System.out.print("  ");
+			}
+			
+			if(c.getTourPassage() != -1 && perso instanceof Monstre) {
+				System.out.print("-");
+			}
+			
+			for(Item h:c.getDedans()) {
+				if(h instanceof Etoile) {
+					System.out.print("*");
+				}
+				else if(h instanceof LongueVue) {
+					if(perso instanceof Chasseur) {
+						System.out.print("L");
 					}
-					if(cases[i][j].getDedans().isEmpty()) {
-						System.out.print("|   ");
+					else if(c.getTourPassage() == -1 || perso instanceof Chasseur){
+						System.out.print(" ");
 					}
 				}
 			}
-			System.out.print("|\n");
+			
+			if((c.getDedans().size() == 1 && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) && c.getTourPassage() == -1)
+					|| (perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY && c.getDedans().isEmpty())
+					|| (c.getDedans().isEmpty() && c.getTourPassage() != -1 && perso instanceof Monstre)
+					|| (c.getDedans().size() == 1 && perso instanceof Chasseur && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY))){
+				System.out.print(" ");
+			}
+			
+			nbCasesLigne++;
+			
+			if(nbCasesLigne % tailleX == 0) {
+				System.out.print("|\n");
+			}
 		}
 		//AFFICHAGE BORD BAS
-		for(int i=0; i<tailleX*4+1;i++){
+		for(int i=0; i<tailleX*3+1;i++){
 			System.out.print("-");
 		}
 		System.out.print("\n");
