@@ -8,7 +8,11 @@ import entites.items.Item;
 import plateau.Case;
 import plateau.Plateau;
 import plateau.Position;
-
+/**
+ * Classe abstraite qui définit les personnages chasseur et monstre
+ * @author Sylvain
+ *
+ */
 public abstract class Personnage {
 	protected List<Item> sac;
 	protected Position pos;
@@ -20,16 +24,24 @@ public abstract class Personnage {
 
 	
 	/**
-	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est.
-	 * Un monstre ne peut repasser où il est déjà allé
-	 * Un chasseur ne peut 
+	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est. <br>
+	 * Un monstre ne peut repasser où il est déjà allé<br>
+	 * Un chasseur ne peut repasser sur la même case que 3 fois
 	 * @param p la prochaine position du personnage
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
+	/**
+	 * Méthode qui demande au joueur ou à l'"IA" dans quelle direction elle veut aller <br>
+	 * Boucle tant que l'entrée utilisateur est incorrecte
+	 * @return la direction demandée
+	 */
 	public abstract Direction getDirectionVoulue();
 	protected abstract void setPosition(Position p);
-	
+	/**
+	 * Constructeur de personnage 
+	 * @param p : la position de base du personnage
+	 */
 	public Personnage(Position p) {
 		this.sac = new ArrayList<Item>();
 		this.pos = p;
@@ -66,7 +78,9 @@ public abstract class Personnage {
 	public List<Item> getSac() {
 		return sac;
 	}
-
+	/**
+	 * Deplace le personnage et boucle tant que le déplacement est invalide
+	 */
 	public void deplace() {
 		Case[][] tab = Plateau.getInstance().getCases();
 		
@@ -79,8 +93,8 @@ public abstract class Personnage {
 		while(flag) {
 			Direction next = getDirectionVoulue();
 
-			int nextX = x+next.getX();
-			int nextY = y+next.getY();
+			int nextX = x + next.getX();
+			int nextY = y + next.getY();
 			Position nextPos = new Position(nextX, nextY);
 			
 			//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau

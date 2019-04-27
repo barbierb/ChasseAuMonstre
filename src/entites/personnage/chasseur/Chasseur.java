@@ -7,6 +7,11 @@ import plateau.Plateau;
 import plateau.Position;
 import util.Clavier;
 
+/**
+ * Joueur chasseur qui étend la classe personnage
+ * @author Sylvain
+ *
+ */
 public class Chasseur extends Personnage {
 
 	public final static int MAXPASSAGE = 3;
@@ -45,7 +50,5 @@ public class Chasseur extends Personnage {
 		this.pos=p;
 		Plateau.getInstance().getCase(p).incrNbPassageChass();				
 	}
-
-
 
 }

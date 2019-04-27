@@ -7,6 +7,11 @@ import plateau.Plateau;
 import plateau.Position;
 import util.Clavier;
 
+/**
+ * Joueur monstre qui étend la classe personnage
+ * @author Sylvain
+ *
+ */
 public class Monstre extends Personnage {
 
 	/**
@@ -39,7 +44,7 @@ public class Monstre extends Personnage {
 
 		return Direction.byNumero(Character.getNumericValue(c));
 	}
-
+	
 	@Override
 	protected boolean peutPasser(Position p) {
 		Case[][] tab = Plateau.getInstance().getCases();

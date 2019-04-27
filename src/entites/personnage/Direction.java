@@ -1,5 +1,10 @@
 package entites.personnage;
 
+/**
+ * Enumeration des différentes directions disponibles pour les personnages avec les changements de coordonnées qui correspondent
+ * @author Sylvain
+ *
+ */
 public enum Direction {
 
     N("Nord", false, -1, 0),
@@ -32,11 +37,18 @@ public enum Direction {
     public int getY() {
         return this.y;
     }
-
+    /**
+     * Si la direction est en diagonale retourne true, false sinon
+     * @return true si la direction est NE ou SE ou SO ou NO
+     */
     public boolean estDiagonale() {
         return diagonale;
     }
-
+    /**
+     * Donne une direction en fonction du numéro, qui correspondent au pavé numérique
+     * @param i : le numéro sur le pavé numérique (de 1 à 9 sans 5)
+     * @return la direction correspondante
+     */
     public static Direction byNumero(int i) {
         switch (i) {
             case 8:

@@ -1,5 +1,10 @@
 package entites.items;
 
+/**
+ * La classe étoile définit une étoile que le chasseur peut utiliser pour augmenter le nombre de longues vues qu'il utilise 
+ * @author Sylvain
+ *
+ */
 public class Etoile extends Item{
 	
 	/**

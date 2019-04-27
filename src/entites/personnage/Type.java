@@ -1,5 +1,9 @@
 package entites.personnage;
-
+/**
+ * Enumeration ?
+ * @author Sylvain
+ *
+ */
 public enum Type {
 	
 	CHASSEUR, CHASSEURIA, 
