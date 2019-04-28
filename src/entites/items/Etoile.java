@@ -5,7 +5,7 @@ package entites.items;
  * @author Sylvain
  *
  */
-public class Etoile extends Item{
+public class Etoile extends Item {
 	
 	/**
 	 * Constructeur de la classe Etoile qui définit la variable recupérable à true car une étoile est récupérable

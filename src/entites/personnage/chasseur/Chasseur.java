@@ -2,8 +2,8 @@ package entites.personnage.chasseur;
 
 import entites.personnage.Direction;
 import entites.personnage.Personnage;
+import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 import util.Clavier;
 
@@ -41,14 +41,14 @@ public class Chasseur extends Personnage {
 
 	@Override
 	protected boolean peutPasser(Position p) {
-		Case[][] tab = Plateau.getInstance().getCases();
+		Case[][] tab = Engine.getInstance().getPlateau().getCases();
 		return tab[p.getX()][p.getY()].getNbPassageChass()<Chasseur.MAXPASSAGE;
 	}
 
 	@Override
 	protected void setPosition(Position p) {		
 		this.pos=p;
-		Plateau.getInstance().getCase(p).incrNbPassageChass();				
+		Engine.getInstance().getPlateau().getCase(p).incrNbPassageChass();				
 	}
 
 }

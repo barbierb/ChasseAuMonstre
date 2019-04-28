@@ -1,7 +1,7 @@
 package entites.items;
 
+import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 
 /**
@@ -37,16 +37,19 @@ public class LongueVueTemp extends LongueVue {
 	/**
 	 * Vérfifie toutes les longues vues temporaires du tableau et les supprime si nécessaire
 	 */
-	public static void checkLVTemp() {
-		for(Case c : Plateau.getInstance()) {
+	public static boolean checkLVTemp() {
+		boolean flag = false;
+		for(Case c : Engine.getInstance().getPlateau()) {
 			for(Item i : c.getDedans()) {
 				if(i instanceof LongueVueTemp) {
 					LongueVueTemp lvt = (LongueVueTemp) i;
 					if(lvt.getVie() == lvt.TEMPS_VIE) {
 						lvt.supprLongueVue();
+						flag = !flag;
 					} else lvt.incrVie();
 				}
 			}
 		}
+		return flag;
 	}
 }

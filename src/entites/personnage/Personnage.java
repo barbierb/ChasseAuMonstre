@@ -5,8 +5,8 @@ import java.util.List;
 
 import entites.items.Etoile;
 import entites.items.Item;
+import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 /**
  * Classe abstraite qui définit les personnages chasseur et monstre
@@ -66,6 +66,9 @@ public abstract class Personnage {
 			this.etoileTimer = MAX_TIMER_ETOILE;
 		}
 	}
+	public boolean isEtoile() {
+		return etoile;
+	}
 	/**
 	 * @return la position du personnage
 	 */
@@ -82,7 +85,7 @@ public abstract class Personnage {
 	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
 	public void deplace() {
-		Case[][] tab = Plateau.getInstance().getCases();
+		Case[][] tab = Engine.getInstance().getPlateau().getCases();
 		
 		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();
@@ -99,7 +102,6 @@ public abstract class Personnage {
 			
 			//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
 			if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
-				
 				if(estMonstre && etoile) {
 					setPosition(nextPos);
 					etoileTimer --;

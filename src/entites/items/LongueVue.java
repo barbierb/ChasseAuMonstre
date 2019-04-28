@@ -1,6 +1,6 @@
 package entites.items;
 
-import plateau.Plateau;
+import launcher.Engine;
 import plateau.Position;
 
 /**
@@ -43,7 +43,7 @@ public class LongueVue extends Item {
 	 * Méthode qui décrémente le nombre de longue vues posées et s'enlève de la liste des items de sa case
 	 */
 	public void supprLongueVue() {
-		Plateau.getInstance().getCase(pos).getDedans().remove(this);
+		Engine.getInstance().getPlateau().getCase(pos).getDedans().remove(this);
 		cptLongueVue--;
 	}
 }

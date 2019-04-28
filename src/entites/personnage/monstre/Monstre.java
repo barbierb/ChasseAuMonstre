@@ -2,8 +2,8 @@ package entites.personnage.monstre;
 
 import entites.personnage.Direction;
 import entites.personnage.Personnage;
+import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 import util.Clavier;
 
@@ -20,7 +20,7 @@ public class Monstre extends Personnage {
 	 */
 	public Monstre(Position p) {
 		super(p);
-		this.estMonstre=true;
+		super.estMonstre=true;
 	}
 
 	@Override
@@ -47,14 +47,14 @@ public class Monstre extends Personnage {
 	
 	@Override
 	protected boolean peutPasser(Position p) {
-		Case[][] tab = Plateau.getInstance().getCases();
+		Case[][] tab = Engine.getInstance().getPlateau().getCases();
 		return tab[p.getX()][p.getY()].getTourPassage()!=-1;
 	}
 
 	@Override
 	protected void setPosition(Position p) {
 		this.pos=p;
-		Plateau.getInstance().getCase(p).setTourPassage();
+		Engine.getInstance().getPlateau().getCase(p).setTourPassage();
 	}
 
 

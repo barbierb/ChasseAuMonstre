@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entites.items.Item;
+import launcher.Engine;
 
 /**
  * La case permet de mémoriser le tour du passage du monstre, le nombre de fois où le chasseur est passé dessus ainsi que les item éventuellement dessus
@@ -65,6 +66,6 @@ public class Case {
 	 * Mets à jour le tour de passage du monstre sur la case
 	 */
 	public void setTourPassage() {
-		tourPassage = Plateau.getInstance().getTourActuel();
+		tourPassage = Engine.getInstance().getTourActuel();
 	}
 }
