@@ -67,54 +67,18 @@ public class Plateau implements Iterable<Case>  {
 	public void afficherPlateau(Personnage perso) {
 		int nbCasesLigne = 0;
 		
+		//AFFICHAGE LETTRES
+		this.afficherLettresCases();
+		
 		for(Case c: this) {
 			if(nbCasesLigne % tailleX == 0) {
-				//AFFICHAGE BORD HAUT
-				for(int i=0; i<tailleX*3+1;i++){
-					System.out.print("-");
-				}
-				System.out.print("\n");
+				//AFFICHAGE LIGNES
+				this.afficherLignes();
+				//AFFICHAGE CHIFFRES
+				System.out.print(nbCasesLigne/tailleX);
 			}
 			
-			System.out.print("|");
-			//AFFICHAGE LIGNES
-			if(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) {
-				if(perso instanceof Chasseur) {
-					System.out.print("C");
-				}
-				else {
-					System.out.print("M");
-				}
-			}
-			else if(c.getDedans().isEmpty() && !(c.getTourPassage() != -1 && perso instanceof Monstre)) {
-				System.out.print("  ");
-			}
-			
-			if(c.getTourPassage() != -1 && perso instanceof Monstre) {
-				System.out.print("-");
-			}
-			
-			for(Item h:c.getDedans()) {
-				if(h instanceof Etoile) {
-					System.out.print("*");
-				}
-				else if(h instanceof LongueVue) {
-					if(perso instanceof Chasseur) {
-						System.out.print("L");
-					}
-					else if(c.getTourPassage() == -1 || perso instanceof Chasseur){
-						System.out.print(" ");
-					}
-				}
-			}
-			
-			if((c.getDedans().size() == 1 && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) && c.getTourPassage() == -1)
-					|| (perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY && c.getDedans().isEmpty())
-					|| (c.getDedans().isEmpty() && c.getTourPassage() != -1 && perso instanceof Monstre)
-					|| (c.getDedans().size() == 1 && perso instanceof Chasseur && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY))){
-				System.out.print(" ");
-				//TODO éclaircir le code avec des sous-fonctions
-			}
+			this.afficherContenuCase(c, perso);
 			
 			nbCasesLigne++;
 			
@@ -123,10 +87,68 @@ public class Plateau implements Iterable<Case>  {
 			}
 		}
 		//AFFICHAGE BORD BAS
+		this.afficherLignes();
+	}
+	
+	private void afficherLettresCases() {
+		for(int i = 0; i < tailleX; i++) {
+			System.out.print("  "+(char)(65+i));
+		}
+		System.out.print("\n");
+	}
+	
+	private void afficherLignes() {
+		System.out.print(" ");
 		for(int i=0; i<tailleX*3+1;i++){
 			System.out.print("-");
 		}
 		System.out.print("\n");
+	}
+	
+	private void afficherContenuCase(Case c, Personnage perso) {
+		System.out.print("|");
+		//AFFICHAGE CONTENU LIGNES
+		if(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) {
+			if(perso instanceof Chasseur) {
+				System.out.print("C");
+			}
+			else {
+				System.out.print("M");
+			}
+		}
+		else if(c.getDedans().isEmpty() && !(c.getTourPassage() != -1 && perso instanceof Monstre)) {
+			System.out.print("  ");
+		}
+		
+		if(c.getTourPassage() != -1 && perso instanceof Monstre) {
+			System.out.print("-");
+		}
+		
+		for(Item h:c.getDedans()) {
+			if(h instanceof Etoile) {
+				System.out.print("*");
+			}
+			else if(h instanceof LongueVue) {
+				if(perso instanceof Chasseur) {
+					System.out.print("L");
+				}
+				else if(c.getTourPassage() == -1 || perso instanceof Chasseur){
+					System.out.print(" ");
+				}
+			}
+		}
+		
+		this.afficherEspaceManquant(c, perso);
+		
+	}
+	
+	private void afficherEspaceManquant(Case c, Personnage perso) {
+		if((c.getDedans().size() == 1 && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) && c.getTourPassage() == -1)
+				|| (perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY && c.getDedans().isEmpty())
+				|| (c.getDedans().isEmpty() && c.getTourPassage() != -1 && perso instanceof Monstre)
+				|| (c.getDedans().size() == 1 && perso instanceof Chasseur && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY))){
+			System.out.print(" ");
+		}
 	}
 	
 	private boolean verifCases(Personnage p, Direction d) {
