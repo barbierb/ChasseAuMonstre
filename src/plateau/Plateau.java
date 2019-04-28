@@ -113,6 +113,7 @@ public class Plateau implements Iterable<Case>  {
 					|| (c.getDedans().isEmpty() && c.getTourPassage() != -1 && perso instanceof Monstre)
 					|| (c.getDedans().size() == 1 && perso instanceof Chasseur && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY))){
 				System.out.print(" ");
+				//TODO éclaircir le code avec des sous-fonctions
 			}
 			
 			nbCasesLigne++;
