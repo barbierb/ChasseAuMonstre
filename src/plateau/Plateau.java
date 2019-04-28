@@ -4,9 +4,8 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import entites.items.Etoile;
-import entites.items.Item;
 import entites.items.LongueVue;
+import entites.personnage.Personnage;
 import entites.personnage.chasseur.Chasseur;
 import entites.personnage.monstre.Monstre;
 
@@ -38,88 +37,69 @@ public class Plateau implements Iterable<Case>  {
 		}
 	}
 	
-	/**
-	 * Affichage du plateau du point de vue du chasseur
-	 * @param chasseur
-	 */
-	public void afficherPlateau(Chasseur chasseur) {
-
-		for(int j=0; j<tailleY;j++) {
-			//AFFICHAGE BORD HAUT
-			for(int i=0; i<tailleX*4+1;i++){
-				System.out.print("-");
+	public void afficherPlateau(Personnage perso) {
+		int nbCasesLigne = 0;
+		
+		//AFFICHAGE LETTRES
+		this.afficherLettresCases();
+		
+		for(Case c: this) {
+			if(nbCasesLigne % tailleX == 0) {
+				//AFFICHAGE LIGNES
+				this.afficherLignes();
+				//AFFICHAGE CHIFFRES
+				System.out.print(nbCasesLigne/tailleX);
 			}
-			System.out.print("\n");
-
-			//AFFICHAGE LIGNES
-			for(int i=0; i<tailleX; i++) {
-				if(chasseur.getPosition().getX() == i && chasseur.getPosition().getY() == j) {
-					System.out.print("| C ");
-				} else {
-					for(Item h:cases[i][j].getDedans()) {
-						if(h instanceof Etoile && cases[i][j].getDedans().size() < 2) {
-							System.out.print("| * ");
-						}
-						else if(h instanceof LongueVue) {
-							System.out.print("| L ");
-						}
-					}
-					if(cases[i][j].getDedans().isEmpty()) {
-						System.out.print("|   ");
-					}
-				}
+			
+			this.afficherContenuCase(c, perso);
+			
+			nbCasesLigne++;
+			
+			if(nbCasesLigne % tailleX == 0) {
+				System.out.print("|\n");
 			}
-			System.out.print("|\n");
 		}
 		//AFFICHAGE BORD BAS
-		for(int i=0; i<tailleX*4+1;i++){
+		this.afficherLignes();
+	}
+	
+	private void afficherLettresCases() {
+		for(int i = 0; i < tailleX; i++) {
+			System.out.print("  "+(char)(65+i));
+		}
+		System.out.print("\n");
+	}
+	
+	private void afficherLignes() {
+		System.out.print(" ");
+		for(int i=0; i<tailleX*3+1;i++){
 			System.out.print("-");
 		}
 		System.out.print("\n");
 	}
-	/**
-	 * Affichage du plateau du point de vue du monstre
-	 * @param monstre
-	 */
-	public void afficherPlateau(Monstre monstre) {
-
-		for(int j=0; j<tailleY;j++) {
-			//AFFICHAGE BORD HAUT
-			for(int i=0; i<tailleX*4+1;i++){
-				System.out.print("-");
+	
+	private void afficherContenuCase(Case c, Personnage perso) {
+		System.out.print("|");
+		//AFFICHAGE CONTENU LIGNES
+		if(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) {
+			if(perso instanceof Chasseur) {
+				System.out.print("C");
 			}
-			System.out.print("\n");
-
-			//AFFICHAGE LIGNES
-			for(int i=0; i<tailleX; i++) {
-				if(monstre.getPosition().getX() == i && monstre.getPosition().getY() == j) {
-					System.out.print("| M ");
-				}
-				else if(cases[i][j].getTourPassage() != -1) {
-					System.out.print("| - ");
-				}
-				else {
-					for(Item h:cases[i][j].getDedans()) {
-						if(h instanceof Etoile) {
-							System.out.print("| * ");
-						}
-						else if(h instanceof LongueVue && cases[i][j].getDedans().size() < 2) {
-							System.out.print("|   ");
-						}
-					}
-					if(cases[i][j].getDedans().isEmpty()) {
-						System.out.print("|   ");
-					}
-				}
-			}
-			System.out.print("|\n");
 		}
-		//AFFICHAGE BORD BAS
-		for(int i=0; i<tailleX*4+1;i++){
-			System.out.print("-");
-		}
-		System.out.print("\n");
+		
+		this.afficherEspaceManquant(c, perso);
+		
 	}
+	
+	private void afficherEspaceManquant(Case c, Personnage perso) {
+		if((c.getDedans().size() == 1 && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) && c.getTourPassage() == -1)
+				|| (perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY && c.getDedans().isEmpty())
+				|| (c.getDedans().isEmpty() && c.getTourPassage() != -1 && perso instanceof Monstre)
+				|| (c.getDedans().size() == 1 && perso instanceof Chasseur && !(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY))){
+			System.out.print(" ");
+		}
+	}
+
 	
 	/**
 	 * @return le tableau de cases
