@@ -1,16 +1,15 @@
 package plateau;
 
 import java.util.Iterator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import entites.items.Etoile;
 import entites.items.Item;
 import entites.items.LongueVue;
 import entites.personnage.Personnage;
 import entites.personnage.chasseur.Chasseur;
-import entites.personnage.chasseur.ChasseurIA;
 import entites.personnage.monstre.Monstre;
-import entites.personnage.monstre.MonstreIA;
-import launcher.ConfigurationPartie;
 
 /**
  * Classe du plateau, itérable sur ses cases 
@@ -201,33 +200,14 @@ private int tailleX, tailleY;
 	private boolean condition4(Case c, Personnage perso) {
 		return (c.getDedans().size() == 1 && perso instanceof Chasseur && !this.estPositionPersonnage(c, perso));
 	}
-	/**
-	 * Donne au plateau les informations sur le chasseur
-	 * @param chasseur qui va jouer
-	 */
-	public void setChasseur(Personnage chasseur) {
-		if(this.chasseur == null) this.chasseur = chasseur;
-	}
-	/**
-	 * Donne au plateau les informations sur le chasseur
-	 * @param chasseur qui va jouer
-	 */
-	public void setMonstre(Personnage monstre) {
-		if(this.monstre == null) this.monstre = monstre;
-	}
+
 	/**
 	 * @return le tableau de cases
 	 */
 	public Case[][] getCases() {
 		return cases;
 	}
-	/**
-	 * Retourne l'instance du plateau de jeu
-	 * @return
-	 */
-	public static Plateau getInstance() {
-		return instance;
-	}
+
 	/**
 	 * Donne une case en fonction d'une Position passée en paramètre
 	 * @param p = la position de la case désirée
@@ -260,27 +240,8 @@ private int tailleX, tailleY;
 	public int getTailleY() {
 		return tailleY;
 	}
-	/**
-	 * Donne le chasseur de la partie
-	 * @return un chasseur
-	 */
-	public Personnage getChasseur() {
-		return chasseur;
-	}
-	/**
-	 * Donne le monstre de la partie
-	 * @return un monstre
-	 */
-	public Personnage getMonstre() {
-		return monstre;
-	}
-	/**
-	 * Donne le numéro du tour de jeu actuel
-	 * @return un entier représentant le tour actuel
-	 */
-	public int getTourActuel() {
-		return tourActuel;
-	}
+
+
 	/**
 	 * Retourne l'itérateur du plateau qui passe par toutes les cases
 	 */

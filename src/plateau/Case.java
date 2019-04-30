@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entites.items.Item;
+import launcher.Engine;
 
 /**
- * La case permet de mémoriser le tour du passage du monstre, le nombre de fois où le chasseur est passé dessus ainsi que les item éventuellement dessus
+ * La case permet de mï¿½moriser le tour du passage du monstre, le nombre de fois oï¿½ le chasseur est passï¿½ dessus ainsi que les item ï¿½ventuellement dessus
  * @author Sylvain
  */
 public class Case {
@@ -36,7 +37,7 @@ public class Case {
 	}
 
 	/**
-	 * @return le nombre de fois où le chasseur est passé 
+	 * @return le nombre de fois oï¿½ le chasseur est passï¿½ 
 	 */
 	public int getNbPassageChass() {
 		return nbPassageChass;
@@ -49,8 +50,8 @@ public class Case {
 		return dedans;
 	}
 	/**
-	 * Ajouter à la liste d'Item un nouvel Item
-	 * @param l'item à ajouter
+	 * Ajouter ï¿½ la liste d'Item un nouvel Item
+	 * @param l'item ï¿½ ajouter
 	 */
 	public void ajouterItem(Item item) {
 		this.dedans.add(item);
@@ -62,9 +63,9 @@ public class Case {
 		nbPassageChass++;
 	}
 	/**
-	 * Mets à jour le tour de passage du monstre sur la case
+	 * Mets ï¿½ jour le tour de passage du monstre sur la case
 	 */
 	public void setTourPassage() {
-		tourPassage = Plateau.getInstance().getTourActuel();
+		tourPassage = Engine.getInstance().getTourActuel();
 	}
 }

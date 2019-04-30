@@ -4,7 +4,6 @@ import entites.personnage.Direction;
 import entites.personnage.Personnage;
 import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 import util.Clavier;
 
@@ -57,7 +56,7 @@ public class Monstre extends Personnage {
 	@Override
 	protected void setPosition(Position p) {
 		this.pos=p;
-		Plateau.getInstance().getCase(p).setTourPassage();
+		Engine.getInstance().getPlateau().getCase(p).setTourPassage();
 	}
 
 

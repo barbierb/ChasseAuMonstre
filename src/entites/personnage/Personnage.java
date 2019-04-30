@@ -5,11 +5,11 @@ import java.util.List;
 
 import entites.items.Etoile;
 import entites.items.Item;
+import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 /**
- * Classe abstraite qui définit les personnages chasseur et monstre
+ * Classe abstraite qui dï¿½finit les personnages chasseur et monstre
  * @author Sylvain
  *
  */
@@ -25,16 +25,16 @@ public abstract class Personnage {
 	
 	/**
 	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est. <br>
-	 * Un monstre ne peut repasser où il est déjà allé<br>
-	 * Un chasseur ne peut repasser sur la même case que 3 fois
+	 * Un monstre ne peut repasser oï¿½ il est dï¿½jï¿½ allï¿½<br>
+	 * Un chasseur ne peut repasser sur la mï¿½me case que 3 fois
 	 * @param p la prochaine position du personnage
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
 	/**
-	 * Méthode qui demande au joueur ou à l'"IA" dans quelle direction elle veut aller <br>
-	 * Boucle tant que l'entrée utilisateur est incorrecte
-	 * @return la direction demandée
+	 * Mï¿½thode qui demande au joueur ou ï¿½ l'"IA" dans quelle direction elle veut aller <br>
+	 * Boucle tant que l'entrï¿½e utilisateur est incorrecte
+	 * @return la direction demandï¿½e
 	 */
 	public abstract Direction getDirectionVoulue();
 	protected abstract void setPosition(Position p);
@@ -49,7 +49,7 @@ public abstract class Personnage {
 		this.etoileTimer = 0;
 	}
 	/**
-	 * Vérifie si le personnage a une étoile dans son sac
+	 * Vï¿½rifie si le personnage a une ï¿½toile dans son sac
 	 */
 	public boolean aEtoile() {
 		for(Item i:sac) {
@@ -58,7 +58,7 @@ public abstract class Personnage {
 		return false;
 	}
 	/**
-	 * Utilise une étoile si le personnage a une étoile dans son sac
+	 * Utilise une ï¿½toile si le personnage a une ï¿½toile dans son sac
 	 */
 	public void utiliseEtoile() {
 		if(aEtoile()) {
@@ -79,10 +79,10 @@ public abstract class Personnage {
 		return sac;
 	}
 	/**
-	 * Deplace le personnage et boucle tant que le déplacement est invalide
+	 * Deplace le personnage et boucle tant que le dï¿½placement est invalide
 	 */
 	public void deplace() {
-		Case[][] tab = Plateau.getInstance().getCases();
+		Case[][] tab = Engine.getInstance().getPlateau().getCases();
 		
 		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();
@@ -111,7 +111,7 @@ public abstract class Personnage {
 					flag=false;
 					
 				} else  {
-					System.out.println("Vous ne pouvez pas aller là");
+					System.out.println("Vous ne pouvez pas aller lï¿½");
 				}
 			}
 

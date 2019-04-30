@@ -1,11 +1,11 @@
 package entites.items;
 
+import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 
 /**
- * Classe qui étend une longue vue et représente les longues vues bonus pour le chasseur à l'utilisation d'une étoile</br> Ces longues vues durent TEMPS_VIE tours.
+ * Classe qui ï¿½tend une longue vue et reprï¿½sente les longues vues bonus pour le chasseur ï¿½ l'utilisation d'une ï¿½toile</br> Ces longues vues durent TEMPS_VIE tours.
  * @author Sylvain
  */
 public class LongueVueTemp extends LongueVue {
@@ -21,24 +21,24 @@ public class LongueVueTemp extends LongueVue {
 	}
 	
 	/**
-	 * @return le temps depuis lequel la longue vue est posée
+	 * @return le temps depuis lequel la longue vue est posï¿½e
 	 */
 	public int getVie() {
 		return vie;
 	}
 
 	/**
-	 * incrémente le nombre de tour depuis lequel la longue vue est posée
+	 * incrï¿½mente le nombre de tour depuis lequel la longue vue est posï¿½e
 	 */
 	public void incrVie() {
 		this.vie++;
 	}
 	
 	/**
-	 * Vérfifie toutes les longues vues temporaires du tableau et les supprime si nécessaire
+	 * Vï¿½rfifie toutes les longues vues temporaires du tableau et les supprime si nï¿½cessaire
 	 */
 	public static void checkLVTemp() {
-		for(Case c : Plateau.getInstance()) {
+		for(Case c : Engine.getInstance().getPlateau()) {
 			for(Item i : c.getDedans()) {
 				if(i instanceof LongueVueTemp) {
 					LongueVueTemp lvt = (LongueVueTemp) i;

@@ -1,6 +1,6 @@
 package entites.items;
 
-import plateau.Plateau;
+import launcher.Engine;
 import plateau.Position;
 
 /**
@@ -15,7 +15,7 @@ public class LongueVue extends Item {
 	private Position pos;
 	
 	/**
-	 * Constructeur de la classe LongueVue qui définit la variable recupérable à false car une longue vue n'est pas récupérable
+	 * Constructeur de la classe LongueVue qui dï¿½finit la variable recupï¿½rable ï¿½ false car une longue vue n'est pas rï¿½cupï¿½rable
 	 */
 	public LongueVue(Position p) {
 		this.recuperable=false;
@@ -25,25 +25,25 @@ public class LongueVue extends Item {
 	}
 	
 	/**
-	 * Méthode toString informant que le monstre a été détecté par la longue-vue
+	 * Mï¿½thode toString informant que le monstre a ï¿½tï¿½ dï¿½tectï¿½ par la longue-vue
 	 */
 	public String toString() {
-		return "Monstre détecté";
+		return "Monstre dï¿½tectï¿½";
 	}
 	
 	/**
-	 * Le nombre de longue vues posées
-	 * @return un entier représentant le nombre de longue vues posées
+	 * Le nombre de longue vues posï¿½es
+	 * @return un entier reprï¿½sentant le nombre de longue vues posï¿½es
 	 */
 	public int getCptLongueVue() {
 		return cptLongueVue;
 	}
 	
 	/**
-	 * Méthode qui décrémente le nombre de longue vues posées et s'enlève de la liste des items de sa case
+	 * Mï¿½thode qui dï¿½crï¿½mente le nombre de longue vues posï¿½es et s'enlï¿½ve de la liste des items de sa case
 	 */
 	public void supprLongueVue() {
-		Plateau.getInstance().getCase(pos).getDedans().remove(this);
+		Engine.getInstance().getPlateau().getCase(pos).getDedans().remove(this);
 		cptLongueVue--;
 	}
 }
