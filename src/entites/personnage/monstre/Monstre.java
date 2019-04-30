@@ -8,7 +8,7 @@ import plateau.Position;
 import util.Clavier;
 
 /**
- * Joueur monstre qui �tend la classe personnage
+ * Joueur monstre qui tend la classe personnage
  * @author Sylvain
  *
  */
@@ -16,7 +16,7 @@ public class Monstre extends Personnage {
 
 	/**
 	 * Constructeur de Monstre
-	 * @param p = la position � laquelle le monstre commence
+	 * @param p = la position  laquelle le monstre commence
 	 */
 	public Monstre(Position p) {
 		super(p);
@@ -32,13 +32,15 @@ public class Monstre extends Personnage {
 	}
 
 	/**
-	 * M�thode qui demande au joueur dans quelle direction il veut aller
+	 * Mthode qui demande au joueur dans quelle direction il veut aller
 	 * @return La direction dans laquelle le chasseur joueur veut aller
 	 */
 	public Direction getDirectionVoulue() {
 		char c=0;
 		do {
-			System.out.println("Dis moi o� tu veux aller :");
+			System.out.println("⭦ ⭡ ⭧");
+			System.out.println("⭠   ⭢  Via le pavé tactile, entrez une direction pour vous déplacer.");
+			System.out.println("⭩ ⭣ ⭨");
 			c = (char) Clavier.lireString().charAt(0);
 		} while(c<='1' || c>='9' || c=='5');
 
@@ -47,8 +49,8 @@ public class Monstre extends Personnage {
 	
 	@Override
 	protected boolean peutPasser(Position p) {
-		Case[][] tab = Plateau.getInstance().getCases();
-		return tab[p.getX()][p.getY()].getTourPassage()!=-1;
+		Case[][] tab = Engine.getInstance().getPlateau().getCases();
+		return tab[p.getX()][p.getY()].getTourPassage()==-1;
 	}
 
 	@Override
