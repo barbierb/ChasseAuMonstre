@@ -21,7 +21,7 @@ public abstract class Personnage {
 	
 	/**
 	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est.
-	 * Un monstre ne peut repasser où il est déjà allé
+	 * Un monstre ne peut repasser oï¿½ il est dï¿½jï¿½ allï¿½
 	 * Un chasseur ne peut 
 	 * @param p la prochaine position du personnage
 	 * @return true si il peut passer, false sinon
@@ -37,7 +37,7 @@ public abstract class Personnage {
 		this.etoileTimer = 0;
 	}
 	/**
-	 * Vérifie si le personnage a une étoile dans son sac
+	 * Vï¿½rifie si le personnage a une ï¿½toile dans son sac
 	 */
 	public boolean aEtoile() {
 		for(Item i:sac) {
@@ -46,7 +46,7 @@ public abstract class Personnage {
 		return false;
 	}
 	/**
-	 * Utilise une étoile si le personnage a une étoile dans son sac
+	 * Utilise une ï¿½toile si le personnage a une ï¿½toile dans son sac
 	 */
 	public void utiliseEtoile() {
 		if(aEtoile()) {
@@ -97,7 +97,7 @@ public abstract class Personnage {
 					flag=false;
 					
 				} else  {
-					System.out.println("Vous ne pouvez pas aller là");
+					System.out.println("Vous ne pouvez pas aller lï¿½");
 				}
 			}
 
