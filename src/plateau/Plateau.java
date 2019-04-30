@@ -5,7 +5,6 @@ import java.util.Iterator;
 import entites.items.Etoile;
 import entites.items.Item;
 import entites.items.LongueVue;
-import entites.personnage.Direction;
 import entites.personnage.Personnage;
 import entites.personnage.chasseur.Chasseur;
 import entites.personnage.chasseur.ChasseurIA;
@@ -21,6 +20,7 @@ public class Plateau implements Iterable<Case>  {
 
 	private int tailleX, tailleY;
 	private Case[][] cases;
+	private int nbCases;
 
 	private Personnage chasseur;
 	private Personnage monstre;
@@ -50,30 +50,12 @@ public class Plateau implements Iterable<Case>  {
 		for (int i = 0; i < this.tailleX; i++) {
 			for (int j = 0; j < this.tailleY; j++) {
 				cases[i][j] = new Case();
+				nbCases++;
 			}
 		}
 	}
-	/**
-	 * Boucle de jeu principale
-	 */
-	public void start() {
-		while(!isPartyFinished()) {
-
-			Direction next;
-			do {
-				next = monstre.getDirectionVoulue();
-			} while(verifCases(monstre, next));
-
-			//deplacer dans la direction voulue le monstre
 
 
-		}
-		// win 
-	}
-
-	private boolean isPartyFinished() {
-		return false;
-	}
 	/**
 	 * Affichage du plateau
 	 * @param perso : le personnage pour lequel il faut afficher la vue du plateau
@@ -321,6 +303,12 @@ public class Plateau implements Iterable<Case>  {
 	public Iterator<Case> iterator() {
 		return new ItPlateau(cases);
 	}
+
+
+	public double getNbCases() {
+		return nbCases;
+	}
+
 
 	//TODO faire les emplacements de base du chasseur et monstre
 
