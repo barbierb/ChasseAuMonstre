@@ -1,19 +1,19 @@
 package entites.personnage;
 
 /**
- * Enumeration des différentes directions disponibles pour les personnages avec les changements de coordonnées qui correspondent
+ * Enumeration des diffÃ©rentes directions disponibles pour les personnages avec les changements de coordonnÃ©es qui correspondent
  * @author Sylvain
  *
  */
 public enum Direction {
 
-    N("Nord", false, -1, 0),
-    NE("Nord-Est", true, -1, 1),
-    E("Est", false, 0, 1),
+    N("Nord", false, 0, -1),
+    NE("Nord-Est", true, 1, -1),
+    E("Est", false, 1, 0),
     SE("Sud-Est", true, 1, 1),
-    S("Sud", false, 1, 0),
-    SO("Sud-Ouest", true, 1, -1),
-    O("Ouest", false, 0, -1),
+    S("Sud", false, 0, 1),
+    SO("Sud-Ouest", true, -1, 1),
+    O("Ouest", false, -1, 0),
     NO("Nord-Ouest", true, -1, -1);
 
     private int x;
@@ -24,6 +24,8 @@ public enum Direction {
     private Direction(String l, boolean d, int x, int y) {
         this.label = l;
         this.diagonale = d;
+        this.x = x;
+        this.y = y;
     }
 
     public String getLabel() {
@@ -45,8 +47,8 @@ public enum Direction {
         return diagonale;
     }
     /**
-     * Donne une direction en fonction du numéro, qui correspondent au pavé numérique
-     * @param i : le numéro sur le pavé numérique (de 1 à 9 sans 5)
+     * Donne une direction en fonction du numÃ©ro, qui correspondent au pavÃ© numÃ©rique
+     * @param i : le numÃ©ro sur le pavÃ© numÃ©rique (de 1 Ã  9 sans 5)
      * @return la direction correspondante
      */
     public static Direction byNumero(int i) {
