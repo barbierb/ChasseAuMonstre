@@ -14,7 +14,7 @@ import entites.personnage.monstre.MonstreIA;
 import launcher.ConfigurationPartie;
 
 /**
- * Classe du plateau, itérable sur ses cases 
+ * Classe du plateau, itÃ©rable sur ses cases 
  * @author Sylvain
  */
 public class Plateau implements Iterable<Case>  {
@@ -29,7 +29,7 @@ public class Plateau implements Iterable<Case>  {
 
 	private int tourActuel;
 	/**
-	 * Constructeur en fonction de la configuration passée en paramètre
+	 * Constructeur en fonction de la configuration passÃ©e en paramÃ¨tre
 	 * @param cfg : la configuration de la parties
 	 */
 	public Plateau(ConfigurationPartie cfg) {
@@ -75,104 +75,164 @@ public class Plateau implements Iterable<Case>  {
 		return false;
 	}
 	/**
-	 * Affichage du plateau du point de vue du chasseur
-	 * @param chasseur
+	 * Affichage du plateau
+	 * @param perso : le personnage pour lequel il faut afficher la vue du plateau
 	 */
-	public void afficherPlateau(Chasseur chasseur) {
-
-		for(int j=0; j<tailleY;j++) {
-			//AFFICHAGE BORD HAUT
-			for(int i=0; i<tailleX*4+1;i++){
-				System.out.print("-");
+	public void afficherPlateau(Personnage perso) {
+		int nbCasesLigne = 0;
+		
+		//AFFICHAGE LETTRES
+		this.afficherLettresColonnes();
+		
+		for(Case c: this) {
+			if(nbCasesLigne % tailleX == 0) {
+				//AFFICHAGE LIGNES
+				this.afficherLignes();
+				//AFFICHAGE CHIFFRES
+				System.out.print(nbCasesLigne/tailleX);
 			}
-			System.out.print("\n");
-
-			//AFFICHAGE LIGNES
-			for(int i=0; i<tailleX; i++) {
-				if(chasseur.getPosition().getX() == i && chasseur.getPosition().getY() == j) {
-					System.out.print("| C ");
-				} else {
-					for(Item h:cases[i][j].getDedans()) {
-						if(h instanceof Etoile && cases[i][j].getDedans().size() < 2) {
-							System.out.print("| * ");
-						}
-						else if(h instanceof LongueVue) {
-							System.out.print("| L ");
-						}
-					}
-					if(cases[i][j].getDedans().isEmpty()) {
-						System.out.print("|   ");
-					}
-				}
+			 
+			this.afficherContenuCase(c, perso);
+			
+			nbCasesLigne++;
+			
+			if(nbCasesLigne % tailleX == 0) {
+				System.out.print("â•‘\n");
 			}
-			System.out.print("|\n");
 		}
 		//AFFICHAGE BORD BAS
-		for(int i=0; i<tailleX*4+1;i++){
-			System.out.print("-");
+		this.afficherLignes();
+	}
+	
+	/**
+	 * Fonction d'affichage des lettres dÃ©signant les colonnes du plateau
+	 */
+	private void afficherLettresColonnes() {
+		for(int i = 0; i < tailleX; i++) {
+			System.out.print("  "+(char)(65+i));
 		}
 		System.out.print("\n");
 	}
+	
 	/**
-	 * Affichage du plateau du point de vue du monstre
-	 * @param monstre
+	 * Fonction d'affichage des lignes constituant la structure du plateau
 	 */
-	public void afficherPlateau(Monstre monstre) {
-
-		for(int j=0; j<tailleY;j++) {
-			//AFFICHAGE BORD HAUT
-			for(int i=0; i<tailleX*4+1;i++){
-				System.out.print("-");
-			}
-			System.out.print("\n");
-
-			//AFFICHAGE LIGNES
-			for(int i=0; i<tailleX; i++) {
-				if(monstre.getPosition().getX() == i && monstre.getPosition().getY() == j) {
-					System.out.print("| M ");
-				}
-				else if(cases[i][j].getTourPassage() != -1) {
-					System.out.print("| - ");
-				}
-				else {
-					for(Item h:cases[i][j].getDedans()) {
-						if(h instanceof Etoile) {
-							System.out.print("| * ");
-						}
-						else if(h instanceof LongueVue && cases[i][j].getDedans().size() < 2) {
-							System.out.print("|   ");
-						}
-					}
-					if(cases[i][j].getDedans().isEmpty()) {
-						System.out.print("|   ");
-					}
-				}
-			}
-			System.out.print("|\n");
-		}
-		//AFFICHAGE BORD BAS
-		for(int i=0; i<tailleX*4+1;i++){
-			System.out.print("-");
+	private void afficherLignes() {
+		System.out.print(" ");
+		for(int i=0; i<tailleX*3+1;i++){
+			System.out.print("â•");
 		}
 		System.out.print("\n");
 	}
+	
 	/**
-	 * Fonction de vérification pour les mouvements des personnages
-	 * @param p = le personnage qui souhaite se déplacer
-	 * @param d = la direction dans laquelle il souhaite se déplacer
-	 * @return true si le mouvement est possible, false sinon
+	 * Affichage du contenu d'une case
+	 * @param c: la case dont il faut afficher le contenu
+	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
 	 */
-	private boolean verifCases(Personnage p, Direction d) {
-
-		Case tmp = getCase(p.getPosition().getX() + d.getX(), p.getPosition().getY() + d.getY());
-
-		if(tmp == null)
-			return false;
-
-		//TODO verif si c un chasseur et du coup verif si il est pas deja pass et si il est dans la zone autour du monstre. 
-		//TODO verif si c un monstre et si il marche sur sa propre case
-
-		return true;
+	private void afficherContenuCase(Case c, Personnage perso) {
+		System.out.print("â•‘");
+		//AFFICHAGE CONTENU LIGNES
+		if(this.estPositionPersonnage(c, perso)) {
+			if(perso instanceof Chasseur) {
+				System.out.print("C");
+			}
+			else {
+				System.out.print("M");
+			}
+		}
+		else if(c.getDedans().isEmpty() && !(c.getTourPassage() != -1 && perso instanceof Monstre)) {
+			System.out.print("  ");
+		}
+		
+		if(c.getTourPassage() != -1 && perso instanceof Monstre) {
+			System.out.print("-");
+		}
+		
+		for(Item h:c.getDedans()) {
+			if(h instanceof Etoile) {
+				System.out.print("E");
+			}
+			else if(h instanceof LongueVue) {
+				if(perso instanceof Chasseur) {
+					System.out.print("L");
+				}
+				else if(c.getTourPassage() == -1 || perso instanceof Chasseur){
+					System.out.print(" ");
+				}
+			}
+		}
+		
+		this.afficherEspaceManquant(c, perso);
+		
+	}
+	
+	/**
+	 * Affichage de l'espace manquant pour combler la case si besoin
+	 * @param c: la case sur laquelle il faut rajouter un espace si besoin
+	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
+	 */
+	private void afficherEspaceManquant(Case c, Personnage perso) {
+		if(condition1(c, perso) || condition2(c, perso) || condition3(c, perso) || condition4(c, perso)) {
+			System.out.print(" ");
+		}
+	}
+	
+	/**
+	 * Fonction qui teste si le personnage se situe sur la case passÃ©e en paramÃ¨tre
+	 * @param c: la case Ã  tester
+	 * @param perso: le personnage Ã  tester
+	 * @return true si le personnage se situe sur la case passÃ©e en paramÃ¨tre, false sinon
+	 */
+	private boolean estPositionPersonnage(Case c, Personnage perso) {
+		if(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * PremiÃ¨re condition pour l'ajout d'un espace dans une case
+	 * Si il n'y a qu'un seul Ã©lÃ©ment dans la case, que le personnage n'y est pas et que le monstre n'y est pas encore passÃ©
+	 * @param c: la case Ã  tester
+	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
+	 * @return true si la condition est remplie, false sinon
+	 */
+	private boolean condition1(Case c, Personnage perso) {
+		return (c.getDedans().size() == 1 && !this.estPositionPersonnage(c, perso) && c.getTourPassage() == -1);
+	}
+	
+	/**
+	 * DeuxiÃ¨me condition pour l'ajout d'un espace dans une case
+	 * Si le personnage se trouve sur la case et qu'il n'y a pas d'objet sur la case
+	 * @param c: la case Ã  tester
+	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
+	 * @return true si la condition est remplie, false sinon
+	 */
+	private boolean condition2(Case c, Personnage perso) {
+		return (this.estPositionPersonnage(c, perso) && c.getDedans().isEmpty());
+	}
+	
+	/**
+	 * TroisiÃ¨me condition pour l'ajout d'un espace dans une case
+	 * Si il n'y a pas d'objet sur la case, que le monstre y est dÃ©jÃ  passÃ© et que le personnage est un monstre
+	 * @param c: la case Ã  tester
+	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
+	 * @return true si la condition est remplie, false sinon
+	 */
+	private boolean condition3(Case c, Personnage perso) {
+		return (c.getDedans().isEmpty() && c.getTourPassage() != -1 && perso instanceof Monstre);
+	}
+	
+	/**
+	 * QuatriÃ¨me condition pour l'ajout d'un espace dans une case
+	 * Si il n'y a qu'un seul objet sur la case, que le personnage est un chasseur et qu'il n'est pas sur la case
+	 * @param c: la case Ã  tester
+	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
+	 * @return true si la condition est remplie, false sinon
+	 */
+	private boolean condition4(Case c, Personnage perso) {
+		return (c.getDedans().size() == 1 && perso instanceof Chasseur && !this.estPositionPersonnage(c, perso));
 	}
 	/**
 	 * Donne au plateau les informations sur le chasseur
@@ -202,18 +262,18 @@ public class Plateau implements Iterable<Case>  {
 		return instance;
 	}
 	/**
-	 * Donne une case en fonction d'une Position passée en paramètre
-	 * @param p = la position de la case désirée
-	 * @return la case à la position demandée
+	 * Donne une case en fonction d'une Position passÃ©e en paramÃ¨tre
+	 * @param p = la position de la case dÃ©sirÃ©e
+	 * @return la case Ã  la position demandÃ©e
 	 */
 	public Case getCase(Position p) {
 		return getCase(p.getX(), p.getY());
 	}
 	/**
-	 * Donne une case en fonction de ses coordonnées d'abscisse et d'ordonnée
+	 * Donne une case en fonction de ses coordonnÃ©es d'abscisse et d'ordonnÃ©e
 	 * @param x = l'abscisse
-	 * @param y = l'ordonnée
-	 * @return la Case à la position demandée
+	 * @param y = l'ordonnÃ©e
+	 * @return la Case Ã  la position demandÃ©e
 	 */
 	public Case getCase(int x, int y) {
 		if(x > tailleX || y > tailleY) return null;
@@ -221,14 +281,14 @@ public class Plateau implements Iterable<Case>  {
 	}
 	/**
 	 * Donne la taille en abscisse du plateau
-	 * @return un entier représentant la taille en abscisse du plateau
+	 * @return un entier reprÃ©sentant la taille en abscisse du plateau
 	 */
 	public int getTailleX() {
 		return tailleX;
 	}
 	/**
-	 * Donne la taille en ordonnée du plateau
-	 * @return un entier représentant la taille en ordonnée du plateau
+	 * Donne la taille en ordonnÃ©e du plateau
+	 * @return un entier reprÃ©sentant la taille en ordonnÃ©e du plateau
 	 */
 	public int getTailleY() {
 		return tailleY;
@@ -248,14 +308,14 @@ public class Plateau implements Iterable<Case>  {
 		return monstre;
 	}
 	/**
-	 * Donne le numéro du tour de jeu actuel
-	 * @return un entier représentant le tour actuel
+	 * Donne le numÃ©ro du tour de jeu actuel
+	 * @return un entier reprÃ©sentant le tour actuel
 	 */
 	public int getTourActuel() {
 		return tourActuel;
 	}
 	/**
-	 * Retourne l'itérateur du plateau qui passe par toutes les cases
+	 * Retourne l'itÃ©rateur du plateau qui passe par toutes les cases
 	 */
 	@Override
 	public Iterator<Case> iterator() {
