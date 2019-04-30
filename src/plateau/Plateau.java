@@ -18,34 +18,19 @@ import launcher.ConfigurationPartie;
  */
 public class Plateau implements Iterable<Case>  {
 
-	private int tailleX, tailleY;
+private int tailleX, tailleY;
 	private Case[][] cases;
 	private int nbCases;
+	private Queue<LongueVue> longueVues;
 
-	private Personnage chasseur;
-	private Personnage monstre;
-
-	private static Plateau instance;
-
-	private int tourActuel;
 	/**
 	 * Constructeur en fonction de la configuration passée en paramètre
 	 * @param cfg : la configuration de la parties
 	 */
-	public Plateau(ConfigurationPartie cfg) {
-		instance = this;
-		this.tourActuel = 0;
-		this.tailleX = cfg.getTailleX();
-		this.tailleY = cfg.getTailleY();
-
-		if(cfg.isJoueur1Chasseur()) {
-			this.chasseur = new Chasseur(new Position(0,0));
-			this.monstre = cfg.isJoueur2IA()?new MonstreIA(new Position(0,0)):new Monstre(new Position(0,0));
-		} else {
-			this.monstre = new Monstre(new Position(0,0));
-			this.chasseur = cfg.isJoueur2IA()?new ChasseurIA(new Position(0,0)):new Chasseur(new Position(0,0));
-		}
-
+	public Plateau(int x, int y) {
+		this.tailleX = x;
+		this.tailleY = y;
+		this.longueVues = new PriorityQueue<LongueVue>();
 		this.cases = new Case[this.tailleX][this.tailleY];
 		for (int i = 0; i < this.tailleX; i++) {
 			for (int j = 0; j < this.tailleY; j++) {
