@@ -3,7 +3,7 @@
 import java.util.Iterator;
 
 /**
- * Itérateur pour le plateau
+ * Itï¿½rateur pour le plateau
  * @author Sylvain
  *
  */
@@ -30,7 +30,7 @@ public class ItPlateau implements Iterator<Case>{
 		if(j == cases[0].length) {
 			j = 0;
 			i++;
-		}		
+		}
 		return actuel;
 	}
 

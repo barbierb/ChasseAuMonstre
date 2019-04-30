@@ -175,7 +175,7 @@ public class Plateau implements Iterable<Case>  {
 	 * @return true si le personnage se situe sur la case passée en paramètre, false sinon
 	 */
 	private boolean estPositionPersonnage(Case c, Personnage perso) {
-		if(perso.getPosition().getX() == c.numCase % tailleX && perso.getPosition().getY() == c.numCase / tailleY) {
+		if(perso.getPosition().getX() == c.numCase / tailleY && perso.getPosition().getY() == c.numCase % tailleY) {
 			return true;
 		}
 		return false;

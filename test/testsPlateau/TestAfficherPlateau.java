@@ -16,7 +16,7 @@ import plateau.Position;
 public class TestAfficherPlateau {
 	public static void main(String[] args) {
 		Plateau p = new Plateau(new ConfigurationPartie(true, true));
-		Chasseur c = new Chasseur(new Position(0,1));
+		Chasseur c = new Chasseur(new Position(1,0));
 		Monstre m = new Monstre(new Position(0, 0));
 		
 		p.getCase(1, 0).ajouterItem(new LongueVue());
@@ -24,6 +24,7 @@ public class TestAfficherPlateau {
 		p.getCase(4, 5).setTourPassage();
 		p.getCase(4, 5).ajouterItem(new Etoile());
 		p.getCase(4, 5).ajouterItem(new LongueVue());
+		p.getCase(2,9).ajouterItem(new Etoile());
 		
 		System.out.println("Affichage chasseur");
 		p.afficherPlateau(c);
