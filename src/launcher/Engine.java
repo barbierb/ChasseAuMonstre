@@ -3,6 +3,7 @@ package launcher;
 import java.util.Iterator;
 import java.util.Random;
 
+import entites.items.Item;
 import entites.items.LongueVue;
 import entites.items.LongueVueTemp;
 import entites.personnage.Personnage;
@@ -97,7 +98,7 @@ public class Engine {
 				} else {
 					System.out.println("TOUR "+this.tourActuel+" - MONSTRE");
 					this.plateau.afficherPlateau((Monstre)this.monstre);
-					if(this.monstre.aEtoile()) {
+					if(!this.chasseur.isEtoile() && this.monstre.aEtoile()) {
 						char choix = 0;
 						do {
 							System.out.println(UTILISER_ETOILE);
@@ -129,7 +130,19 @@ public class Engine {
 					System.out.println("TOUR "+this.tourActuel+" - CHASSEUR");
 					this.plateau.afficherPlateau((Chasseur)this.chasseur);
 
-					Position lvpos = saisiePosition(PLACER_LONGUEVUE);
+					Position lvpos = null;
+					boolean isOk = false;
+					do {
+						lvpos = saisiePosition(PLACER_LONGUEVUE);
+						for(Item i : this.plateau.getCase(lvpos).getDedans()) {
+							if(i instanceof LongueVue || i instanceof LongueVueTemp) {
+								System.out.println("il y a déjà une longue vue ici.");
+								continue;
+							}
+						}
+						isOk = true;
+					} while(!isOk);
+					
 					this.plateau.getCase(lvpos).ajouterItem(new LongueVue(lvpos));
 					this.plateau.afficherPlateau((Chasseur)this.chasseur);
 

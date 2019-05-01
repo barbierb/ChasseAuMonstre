@@ -64,6 +64,12 @@ public abstract class Personnage {
 		if(aEtoile()) {
 			this.etoile=true;
 			this.etoileTimer = MAX_TIMER_ETOILE;
+			for(Item i : this.sac) {
+				if(i instanceof Etoile) {
+					this.sac.remove(i);
+					break;
+				}
+			}
 		}
 	}
 	/**
@@ -108,12 +114,15 @@ public abstract class Personnage {
 					
 				} else if (peutPasser(nextPos)) {
 					setPosition(nextPos);
-					for(Item i : Engine.getInstance().getPlateau().getCase(nextPos).getDedans()) {
+					flag=false;
+					Case c = Engine.getInstance().getPlateau().getCase(nextPos);
+					for(Item i : c.getDedans()) {
 						if(i instanceof Etoile) {
-							this.sac.add(i);
+							this.sac.add(new Etoile());
+							c.getDedans().remove(i);
+							break;
 						}
 					}
-					flag=false;
 					
 				} else  {
 					System.out.println("Vous ne pouvez pas aller là");

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Random;
 
 import entites.items.Etoile;
 import entites.items.Item;
@@ -38,12 +39,18 @@ public class Plateau implements Iterable<Case>  {
 				nbCases++;
 			}
 		}
-		/*
+		
 		ArrayList<Position> tmp = new ArrayList<Position>();
-		for(int k = 0; k < 3; k++) {
-			
+		int nbEtoile = 0;
+		while(nbEtoile != 3) {
+			Position p = new Position(new Random().nextInt(this.tailleX), new Random().nextInt(this.tailleY));
+			if(!tmp.contains(p)) {
+				tmp.add(p);
+				cases[p.getX()][p.getY()].ajouterItem(new Etoile());
+				nbEtoile++;
+			}
 		}
-		*/
+		
 	}
 	
 	
@@ -153,56 +160,60 @@ public class Plateau implements Iterable<Case>  {
 	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
 	 */
 	private void afficherContenuCase(Case c, Personnage perso) {
-		System.out.print("║");
+		String contenu = "║";
+
 		//AFFICHAGE CONTENU LIGNES
 		if(this.estPositionPersonnage(c, perso)) {
 			if(perso instanceof Chasseur) {
-				System.out.print("C");
+				contenu+="C";
 			}
 			else {
-				System.out.print("M");
+				contenu+="M";
 			}
 		}
 		else if(c.getDedans().isEmpty() && !(c.getTourPassage() != -1 && perso instanceof Monstre)) {
-			System.out.print("  ");
+			contenu+="  ";
 		}
 		
 		if(c.getTourPassage() != -1 && perso instanceof Monstre) {
-			System.out.print("-");
+			contenu+="-";
 		}
 		
 		for(Item h:c.getDedans()) {
 			if(h instanceof Etoile) {
-				System.out.print("E");
+				contenu+="E";
 			}
 			else if(h instanceof LongueVue) {
 				if(perso instanceof Chasseur) {
 					if(c.getTourPassage() != -1) {
-						System.out.print(c.getTourPassage());
+						contenu+=c.getTourPassage();
 					}
 					else {
-					System.out.print("L");
+						contenu+="L";
 					}
 				}
 				else if(c.getTourPassage() == -1 || perso instanceof Chasseur){
-					System.out.print(" ");
+					contenu+=" ";
 				}
 			}
 		}
 		
-		this.afficherEspaceManquant(c, perso);
+		contenu = this.afficherEspaceManquant(contenu);
 		
+		System.out.print(contenu);
 	}
 	
 	/**
 	 * Affichage de l'espace manquant pour combler la case si besoin
-	 * @param c: la case sur laquelle il faut rajouter un espace si besoin
-	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
+	 * @param contenu: le contenu de la case actuel
+	 * @return le contenu de la case modifié
 	 */
-	private void afficherEspaceManquant(Case c, Personnage perso) {
-		if(condition1(c, perso) || condition2(c, perso) || condition3(c, perso)) {
-			System.out.print(" ");
+	private String afficherEspaceManquant(String contenu) {
+		for(int i = 0; i < 3 - contenu.length(); i++) {
+			contenu+=" ";
 		}
+		
+		return contenu;
 	}
 	
 	/**
@@ -217,39 +228,7 @@ public class Plateau implements Iterable<Case>  {
 		}
 		return false;
 	}
-	
-	/**
-	 * Première condition pour l'ajout d'un espace dans une case
-	 * Si il n'y a qu'un seul élément dans la case et que le personnage n'y est pas
-	 * @param c: la case à tester
-	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
-	 * @return true si la condition est remplie, false sinon
-	 */
-	private boolean condition1(Case c, Personnage perso) {
-		return (c.getDedans().size() == 1 && !this.estPositionPersonnage(c, perso));
-	}
-	
-	/**
-	 * Deuxième condition pour l'ajout d'un espace dans une case
-	 * Si le personnage se trouve sur la case, qu'il n'y a pas d'objet sur la case et que le personnage est un chasseur
-	 * @param c: la case à tester
-	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
-	 * @return true si la condition est remplie, false sinon
-	 */
-	private boolean condition2(Case c, Personnage perso) {
-		return (this.estPositionPersonnage(c, perso) && c.getDedans().isEmpty() && perso instanceof Chasseur);
-	}
-	
-	/**
-	 * Troisième condition pour l'ajout d'un espace dans une case
-	 * Si il n'y a qu'un seul objet sur la case, que le personnage est un chasseur et qu'il n'est pas sur la case
-	 * @param c: la case à tester
-	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
-	 * @return true si la condition est remplie, false sinon
-	 */
-	private boolean condition3(Case c, Personnage perso) {
-		return (c.getDedans().size() == 1 && perso instanceof Chasseur && !this.estPositionPersonnage(c, perso));
-	}
+
 
 
 	/**
