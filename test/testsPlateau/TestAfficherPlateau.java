@@ -21,10 +21,13 @@ public class TestAfficherPlateau {
 		
 		p.getCase(1, 0).ajouterItem(new LongueVue());
 		p.getCase(1, 4).ajouterItem(new Etoile());
-		p.getCase(4, 5).setTourPassage();
+		p.getCase(0, 0).setTourPassage();
 		p.getCase(4, 5).ajouterItem(new Etoile());
 		p.getCase(4, 5).ajouterItem(new LongueVue());
 		p.getCase(2,9).ajouterItem(new Etoile());
+		
+		System.out.println("Affichage plateau vide");
+		p.afficherPlateau();
 		
 		System.out.println("Affichage chasseur");
 		p.afficherPlateau(c);
