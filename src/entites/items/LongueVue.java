@@ -10,7 +10,6 @@ import plateau.Position;
  */
 public class LongueVue extends Item {
 	public static int NB_MAX;
-	private static int cptLongueVue;
 	
 	private Position pos;
 	
@@ -20,7 +19,6 @@ public class LongueVue extends Item {
 	public LongueVue(Position p) {
 		this.recuperable=false;
 		LongueVue.NB_MAX = 5;
-		LongueVue.cptLongueVue++;
 		this.pos = p;
 	}
 	
@@ -32,18 +30,9 @@ public class LongueVue extends Item {
 	}
 	
 	/**
-	 * Le nombre de longue vues pos�es
-	 * @return un entier repr�sentant le nombre de longue vues pos�es
-	 */
-	public int getCptLongueVue() {
-		return cptLongueVue;
-	}
-	
-	/**
 	 * M�thode qui d�cr�mente le nombre de longue vues pos�es et s'enl�ve de la liste des items de sa case
 	 */
 	public void supprLongueVue() {
 		Engine.getInstance().getPlateau().getCase(pos).getDedans().remove(this);
-		cptLongueVue--;
 	}
 }

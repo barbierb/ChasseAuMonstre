@@ -3,6 +3,7 @@ package launcher;
 import java.util.Iterator;
 import java.util.Random;
 
+import entites.items.LongueVue;
 import entites.personnage.Personnage;
 import entites.personnage.Type;
 import entites.personnage.chasseur.Chasseur;
@@ -26,6 +27,8 @@ public class Engine {
 	public final static String UTILISER_ETOILE =
 			  "\nVoulez vous utiliser une étoile ?\n"
 			+ "     (1) Oui (2) Non\n";
+	public final static String PLACER_LONGUEVUE =
+			  "\nEntrer une position pour placer une longue vue. (A5,C3,F8...)";
 	public final static String CHOIX_POS_DEBUT =
 			  "\nVeuillez entrer votre position de départ. (A5,C3,F8...)";
 	public final static String RESET = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
@@ -49,7 +52,8 @@ public class Engine {
 		
 		Random r = new Random();
 		if(config.getJoueur1().equals(Type.MONSTRE)) {
-			Position base = saisiePosition();
+			this.plateau.afficherPlateau();
+			Position base = saisiePosition(CHOIX_POS_DEBUT);
 			this.monstre = new Monstre(base);
 			if(config.getJoueur2().equals(Type.CHASSEUR)) {
 				this.chasseur = new Chasseur(new Position(r.nextInt(plateau.getCases().length),r.nextInt(plateau.getCases()[0].length)));
@@ -59,7 +63,7 @@ public class Engine {
 		} else {
 			this.chasseur = new Chasseur(new Position(r.nextInt(plateau.getCases().length),r.nextInt(plateau.getCases()[0].length)));
 			if(config.getJoueur2().equals(Type.MONSTRE)) {
-				Position base = saisiePosition();
+				Position base = saisiePosition(CHOIX_POS_DEBUT);
 				this.monstre = new Monstre(base);
 			} else {
 				this.monstre = new MonstreIA(new Position(r.nextInt(plateau.getCases().length),r.nextInt(plateau.getCases()[0].length)));
@@ -96,25 +100,20 @@ public class Engine {
 				this.monstre.deplace();
 				
 			} else {
-
+				
+				if(this.plateau.getLongueVues().size() > LongueVue.NB_MAX) {
+					this.plateau.getLongueVues().poll().supprLongueVue();
+				}
+				
 				if(this.chasseur instanceof ChasseurIA) {
 					System.out.println("--- CHASSEUR IA ---");
-					//TODO BOSSER LES IA ET LA
+					//TODO BOSSER LES IA 
 				} else {
 					System.out.println("--- CHASSEUR JOUEUR ---");
 					this.plateau.afficherPlateau((Chasseur)this.chasseur);
 					
-					/*
-					String choix;
-					do {
-						System.out.println(UTILISER_ETOILE);
-						choix = Clavier.lireString();
-					} while(choix.length()!=2 && choix.charAt(0)<='A' && choix.charAt(0)<=(getPlateau().getCases().length+'A'));
-					if(choix == '1') {
-						this.monstre.utiliseEtoile();
-					}
-					
-					
+					Position lvpos = saisiePosition(CHOIX_POS_DEBUT);
+					this.plateau.getCase(lvpos).ajouterItem(new LongueVue(lvpos));
 					
 					if(this.chasseur.aEtoile()) {
 						
@@ -135,7 +134,7 @@ public class Engine {
 							this.monstre.utiliseEtoile();
 						}
 						
-					}*/
+					}
 				}
 				this.chasseur.deplace();
 			}
@@ -247,10 +246,10 @@ public class Engine {
 		}
 	}
 	
-	private Position saisiePosition() {
+	private Position saisiePosition(String s) {
 		String choix;
 		do {
-			System.out.println(CHOIX_POS_DEBUT);
+			System.out.println(s);
 			System.out.println("     A->"+(char)(getPlateau().getCases().length+'A')+" 0->"+(getPlateau().getCases()[0].length-1));
 			choix = Clavier.lireString();
 		} while(choix.length()!=2 

@@ -293,6 +293,10 @@ public class Plateau implements Iterable<Case>  {
 		return nbCases;
 	}
 
+	public Queue<LongueVue> getLongueVues() {
+		return longueVues;
+	}
+
 
 	//TODO faire les emplacements de base du chasseur et monstre
 
