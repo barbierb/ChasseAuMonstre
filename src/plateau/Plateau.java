@@ -217,7 +217,7 @@ public class Plateau implements Iterable<Case>  {
 	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
 	 */
 	private void afficherEspaceManquant(Case c, Personnage perso) {
-		if(condition1(c, perso) || condition2(c, perso) || condition3(c, perso)) {
+		if(condition1(c, perso) || condition2(c, perso) || condition3(c, perso) || condition4(c, perso)) {
 			System.out.print(" ");
 		}
 	}
@@ -266,6 +266,17 @@ public class Plateau implements Iterable<Case>  {
 	 */
 	private boolean condition3(Case c, Personnage perso) {
 		return (c.getDedans().size() == 1 && perso instanceof Chasseur && !this.estPositionPersonnage(c, perso));
+	}
+	
+	/**
+	 * Quatrième condition pour l'ajout d'un espace dans une case
+	 * Si la case est vide, que le monstre est déjà passé dessus et que le personnage est un monstre
+	 * @param c: la case à tester
+	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
+	 * @return true si la condition est remplie, false sinon
+	 */
+	private boolean condition4(Case c, Personnage perso) {
+		return(c.getDedans().isEmpty() && c.getTourPassage() != -1 && perso instanceof Monstre && !this.estPositionPersonnage(c, perso));
 	}
 	
 	private boolean verifCases(Personnage p, Direction d) {
