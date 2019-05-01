@@ -1,7 +1,11 @@
 package launcher;
 
 import entites.personnage.Type;
-
+/**
+ * Classe qui définit la configuration de la partie, si un joueur est un monstre ou un chasseur et si son adversaire est une IA ou non ainsi que la taille du plateau
+ * @author Sylvain
+ *
+ */
 public class ConfigurationPartie {
 
 	private Type joueur1;
@@ -9,12 +13,18 @@ public class ConfigurationPartie {
 	
 	private int tailleX = 9;
 	private int tailleY = 9;
-	
+	/**
+	 * Constructeur complètment paramétré
+	 * @param j1 = Le type du joueur 1
+	 * @param j2 = le type du joueur 2
+	 */
 	public ConfigurationPartie(Type j1, Type j2) {
 		this.joueur1 = j1;
 		this.joueur2 = j2;
 	}
-
+	/**
+	 * Constructeur sans paramètres pour des tes
+	 */
 	public ConfigurationPartie() {
 	}
 

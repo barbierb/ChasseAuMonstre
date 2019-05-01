@@ -2,7 +2,10 @@ package launcher;
 
 import entites.personnage.Type;
 import util.Clavier;
-
+/**
+ * Classe qui lance le jeu
+ * @author Sylvain
+ */
 public class Launcher {
 	
 	public static void main(String[] args) {

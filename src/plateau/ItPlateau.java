@@ -3,7 +3,7 @@
 import java.util.Iterator;
 
 /**
- * Itérateur pour le plateau
+ * Itï¿½rateur pour le plateau
  * @author Sylvain
  *
  */
@@ -18,6 +18,7 @@ public class ItPlateau implements Iterator<Case>{
 		this.i = 0;
 		this.j = 0;
 	}
+	
 	@Override
 	public boolean hasNext() {	
 		return i < cases[0].length && j < cases.length;

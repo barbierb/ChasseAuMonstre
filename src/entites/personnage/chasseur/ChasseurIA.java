@@ -5,7 +5,7 @@ import java.util.Random;
 import entites.personnage.Direction;
 import plateau.Position;
 /**
- * Classe chasseur pour son IA qui étend la classe Chasseur et qui gère les déplacements calculés par l'IA
+ * Classe chasseur pour son IA qui ï¿½tend la classe Chasseur et qui gÃ¨re les dÃ©placements calculÃ©s par l'IA
  * @author Sylvain
  */
 public class ChasseurIA extends Chasseur {

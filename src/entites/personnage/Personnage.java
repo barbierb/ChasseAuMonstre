@@ -9,7 +9,7 @@ import launcher.Engine;
 import plateau.Case;
 import plateau.Position;
 /**
- * Classe abstraite qui d�finit les personnages chasseur et monstre
+ * Classe abstraite qui définit les personnages chasseur et monstre
  * @author Sylvain
  *
  */
@@ -25,16 +25,16 @@ public abstract class Personnage {
 	
 	/**
 	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est. <br>
-	 * Un monstre ne peut repasser o� il est d�j� all�<br>
-	 * Un chasseur ne peut repasser sur la m�me case que 3 fois
+	 * Un monstre ne peut repasser où il est déjà allé<br>
+	 * Un chasseur ne peut repasser sur la même case que 3 fois
 	 * @param p la prochaine position du personnage
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
 	/**
-	 * M�thode qui demande au joueur ou � l'"IA" dans quelle direction elle veut aller <br>
-	 * Boucle tant que l'entr�e utilisateur est incorrecte
-	 * @return la direction demand�e
+	 * Méthode qui demande au joueur ou à l'"IA" dans quelle direction elle veut aller <br>
+	 * Boucle tant que l'entrée utilisateur est incorrecte
+	 * @return la direction demandée
 	 */
 	public abstract Direction getDirectionVoulue();
 	protected abstract void setPosition(Position p);
@@ -49,7 +49,7 @@ public abstract class Personnage {
 		this.etoileTimer = 0;
 	}
 	/**
-	 * V�rifie si le personnage a une �toile dans son sac
+	 * Vérifie si le personnage a une étoile dans son sac
 	 */
 	public boolean aEtoile() {
 		for(Item i:sac) {
@@ -58,7 +58,7 @@ public abstract class Personnage {
 		return false;
 	}
 	/**
-	 * Utilise une �toile si le personnage a une �toile dans son sac
+	 * Utilise une étoile si le personnage a une étoile dans son sac
 	 */
 	public void utiliseEtoile() {
 		if(aEtoile()) {
@@ -79,7 +79,7 @@ public abstract class Personnage {
 		return sac;
 	}
 	/**
-	 * Deplace le personnage et boucle tant que le d�placement est invalide
+	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
 	public void deplace() {
 		Case[][] tab = Engine.getInstance().getPlateau().getCases();

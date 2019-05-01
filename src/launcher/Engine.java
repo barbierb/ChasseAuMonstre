@@ -14,42 +14,48 @@ import plateau.Case;
 import plateau.Plateau;
 import plateau.Position;
 import util.Clavier;
-
+/**
+ * Classe qui gère le déroulement de la partie
+ * @author Sylvain
+ */
 public class Engine {
-	
+
 	public final static String CHOIX_JOUEUR1 = 
-			  "\n        Chasse Au Monstre\n\n"
-			+ "Quel personnage voulez-vous jouer ?\n"
-			+ "     (1) Chasseur (2) Monstre\n";
+			"\n        Chasse Au Monstre\n\n"
+					+ "Quel personnage voulez-vous jouer ?\n"
+					+ "     (1) Chasseur (2) Monstre\n";
 	public final static String CHOIX_ADVERSAIRE =
-			  "\nVoulez vous jouer contre une IA ?\n"
-			+ "     (1) IA (2) Autre Joueur\n";
+			"\nVoulez vous jouer contre une IA ? (Merci de ne pas jouer contre une IA elles ne sont pas encore fonctionnelles) \n"
+					+ "     (1) IA (2) Autre Joueur\n";
 	public final static String UTILISER_ETOILE =
-			  "\nVoulez vous utiliser une étoile ?\n"
-			+ "     (1) Oui (2) Non\n";
+			"\nVoulez vous utiliser une étoile ?\n"
+					+ "     (1) Oui (2) Non\n";
 	public final static String PLACER_LONGUEVUE =
-			  "\nEntrer une position pour placer une longue vue. (A5,C3,F8...)";
+			"\nEntrer une position pour placer une longue vue. (A5,C3,F8...)";
 	public final static String CHOIX_POS_DEBUT =
-			  "\nVeuillez entrer votre position de départ. (A5,C3,F8...)";
+			"\nVeuillez entrer votre position de départ. (A5,C3,F8...)";
 	public final static String RESET = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-	
+
 	private static Engine instance;
 
 	private Plateau plateau;
 
 	private Personnage chasseur;
 	private Personnage monstre;
-	
+
 	private int tourActuel;
 	private boolean tourMonstre;
-	
+	/**
+	 * Constructeur de l'engine 
+	 * @param config = configuration de la partie
+	 */
 	public Engine(ConfigurationPartie config) {
-		
+
 		Engine.instance = this;
 		this.tourActuel = 0;
 		this.tourMonstre = true;
 		this.plateau = new Plateau(config.getTailleX(), config.getTailleY());
-		
+
 		Random r = new Random();
 		if(config.getJoueur1().equals(Type.MONSTRE)) {
 			this.plateau.afficherPlateau();
@@ -71,15 +77,17 @@ public class Engine {
 		}
 		start();
 	}
-
+	/**
+	 * Lancement de la partie
+	 */
 	public void start() {
 		System.out.println(Engine.RESET);
 		while(getWinner() == null) {
-			
+
 			System.out.println("TOUR "+this.tourActuel+"\n");
-			
+
 			if(this.tourMonstre) {
-				
+
 				if(this.monstre instanceof MonstreIA) {
 					System.out.println("--- MONSTRE IA ---");
 					//TODO BOSSER LES IA ICI
@@ -98,25 +106,25 @@ public class Engine {
 					}
 				}
 				this.monstre.deplace();
-				
+
 			} else {
-				
+
 				if(this.plateau.getLongueVues().size() > LongueVue.NB_MAX) {
 					this.plateau.getLongueVues().poll().supprLongueVue();
 				}
-				
+
 				if(this.chasseur instanceof ChasseurIA) {
 					System.out.println("--- CHASSEUR IA ---");
 					//TODO BOSSER LES IA 
 				} else {
 					System.out.println("--- CHASSEUR JOUEUR ---");
 					this.plateau.afficherPlateau((Chasseur)this.chasseur);
-					
+
 					Position lvpos = saisiePosition(CHOIX_POS_DEBUT);
 					this.plateau.getCase(lvpos).ajouterItem(new LongueVue(lvpos));
-					
+
 					if(this.chasseur.aEtoile()) {
-						
+
 						char choix;
 						do {
 							System.out.println(UTILISER_ETOILE);
@@ -125,7 +133,7 @@ public class Engine {
 						if(choix == '1') {
 							this.monstre.utiliseEtoile();
 						}
-						
+
 						do {
 							System.out.println(UTILISER_ETOILE);
 							choix = Clavier.lireString().charAt(0);
@@ -133,36 +141,36 @@ public class Engine {
 						if(choix == '1') {
 							this.monstre.utiliseEtoile();
 						}
-						
+
 					}
 				}
 				this.chasseur.deplace();
 			}
-			
+
 			sleep(1000);
-			
+
 			this.tourMonstre = !this.tourMonstre;
 			this.tourActuel++;
 
 			// CHOIX ENTRE TOUR MONSTRE OU CHASSEUR//
-			
-				// AFFICHAGE MONSTRE//
-				// SI MONSTRE OBJET? UTILISER ?//
-				// DEPLACEMENT//
-				
-				// METTRE A JOUR LA CASE//
-				// AVERTISSEMENT SI LONGUE VUE SUR LA CASE CANTIN
-				// BOOLEAN TOUR MONSTRE FALSE//
-				// VERIF COLLISION//
-			
+
+			// AFFICHAGE MONSTRE//
+			// SI MONSTRE OBJET? UTILISER ?//
+			// DEPLACEMENT//
+
+			// METTRE A JOUR LA CASE//
+			// AVERTISSEMENT SI LONGUE VUE SUR LA CASE CANTIN
+			// BOOLEAN TOUR MONSTRE FALSE//
+			// VERIF COLLISION//
+
 			// CHASSEUR
-			
-				// FONCTION ACTUALISATION LONGUE VUE CANTIN
-				// SI OBJET ? UTILISER ?//
-				// DEPLACEMENT
-				// VERIF COLLISION
-				// BOOLEAN TOUR MONSTRE TRUE
-			
+
+			// FONCTION ACTUALISATION LONGUE VUE CANTIN
+			// SI OBJET ? UTILISER ?//
+			// DEPLACEMENT
+			// VERIF COLLISION
+			// BOOLEAN TOUR MONSTRE TRUE
+
 			//
 		}
 		// win 
@@ -173,11 +181,11 @@ public class Engine {
 	 * @return 
 	 */
 	private Personnage getWinner() {
-		
+
 		if(this.monstre.getPosition().equals(this.chasseur.getPosition())) {
 			return this.chasseur;
 		}
-		
+
 		Iterator<Case> itr = getPlateau().iterator();
 		int nbParcoursMonstre = 0;
 		while(itr.hasNext()) {
@@ -189,22 +197,25 @@ public class Engine {
 		if(nbParcoursMonstre >= getPlateau().getNbCases()*0.75) {
 			return this.chasseur;
 		}
-		
+
 		return null;
 	}
 
 	/**
 	 * Retourne l'instance de l'engine
-	 * @return 
+	 * @return l'instance de l'engine
 	 */
 	public static Engine getInstance() {
 		return instance;
 	}
-
+	/**
+	 * Retourne le tour actuel pendant la partie
+	 * @return le tour actuel
+	 */
 	public int getTourActuel() {
 		return tourActuel;
 	}
-	
+
 	/**
 	 * Donne au plateau les informations sur le chasseur
 	 * @param chasseur qui va jouer
@@ -214,7 +225,7 @@ public class Engine {
 	}
 	/**
 	 * Donne au plateau les informations sur le chasseur
-	 * @param chasseur qui va jouer
+	 * @param monstre qui va jouer
 	 */
 	public void setMonstre(Personnage monstre) {
 		if(this.monstre == null) this.monstre = monstre;
@@ -237,7 +248,7 @@ public class Engine {
 	public Plateau getPlateau() {
 		return plateau;
 	}
-	
+
 	private void sleep(long millisecondes) {
 		try {
 			Thread.sleep(millisecondes);
@@ -245,7 +256,7 @@ public class Engine {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private Position saisiePosition(String s) {
 		String choix;
 		do {

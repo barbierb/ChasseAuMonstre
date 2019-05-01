@@ -6,7 +6,7 @@ import entites.personnage.Direction;
 import launcher.Engine;
 import plateau.Position;
 /**
- * Classe monstre pour son IA qui �tend la classe Monstre et qui g�re les d�placements calcul�s par l'IA
+ * Classe monstre pour son IA qui étend la classe Monstre et qui gère les déplacements calculés par l'IA
  * @author Sylvain
  */
 public class MonstreIA extends Monstre {
@@ -15,7 +15,7 @@ public class MonstreIA extends Monstre {
 		super(p);
 	}
 	/**
-	 * M�thode qui demande a l'"IA" dans quelle direction elle veut aller
+	 * Méthode qui demande a l'"IA" dans quelle direction elle veut aller
 	 * @return La direction dans laquelle monstre veut aller
 	 */
 	@Override

@@ -1,7 +1,7 @@
 package entites.items;
 
 /**
- * Classe abstraite des item du jeu, ayant un attribut récupérable
+ * Classe abstraite des item du jeu, ayant un attribut rÃ©cupÃ©rable
  * @author Sylvain
  */
 public abstract class Item {

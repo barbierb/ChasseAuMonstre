@@ -8,7 +8,7 @@ import plateau.Position;
 import util.Clavier;
 
 /**
- * Joueur monstre qui tend la classe personnage
+ * Joueur monstre qui étend la classe personnage
  * @author Sylvain
  *
  */

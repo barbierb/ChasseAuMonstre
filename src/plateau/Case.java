@@ -7,7 +7,7 @@ import entites.items.Item;
 import launcher.Engine;
 
 /**
- * La case permet de m�moriser le tour du passage du monstre, le nombre de fois o� le chasseur est pass� dessus ainsi que les item �ventuellement dessus
+ * La case permet de mémoriser le tour du passage du monstre, le nombre de fois où le chasseur est passé dessus ainsi que les item éventuellement dessus
  * @author Sylvain
  */
 public class Case {
@@ -37,7 +37,7 @@ public class Case {
 	}
 
 	/**
-	 * @return le nombre de fois o� le chasseur est pass� 
+	 * @return le nombre de fois où le chasseur est passé 
 	 */
 	public int getNbPassageChass() {
 		return nbPassageChass;
@@ -50,8 +50,8 @@ public class Case {
 		return dedans;
 	}
 	/**
-	 * Ajouter � la liste d'Item un nouvel Item
-	 * @param l'item � ajouter
+	 * Ajouter à la liste d'Item un nouvel Item
+	 * @param l'item à ajouter
 	 */
 	public void ajouterItem(Item item) {
 		this.dedans.add(item);
@@ -63,7 +63,7 @@ public class Case {
 		nbPassageChass++;
 	}
 	/**
-	 * Mets � jour le tour de passage du monstre sur la case
+	 * Mets à jour le tour de passage du monstre sur la case
 	 */
 	public void setTourPassage() {
 		tourPassage = Engine.getInstance().getTourActuel();

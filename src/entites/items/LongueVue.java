@@ -14,7 +14,7 @@ public class LongueVue extends Item {
 	private Position pos;
 	
 	/**
-	 * Constructeur de la classe LongueVue qui d�finit la variable recup�rable � false car une longue vue n'est pas r�cup�rable
+	 * Constructeur de la classe LongueVue qui définit la variable recup�rable à false car une longue vue n'est pas récupérable
 	 */
 	public LongueVue(Position p) {
 		this.recuperable=false;
@@ -23,14 +23,14 @@ public class LongueVue extends Item {
 	}
 	
 	/**
-	 * M�thode toString informant que le monstre a �t� d�tect� par la longue-vue
+	 * Méthode toString informant que le monstre a été détecté par la longue-vue
 	 */
 	public String toString() {
 		return "Monstre d�tect�";
 	}
 	
 	/**
-	 * M�thode qui d�cr�mente le nombre de longue vues pos�es et s'enl�ve de la liste des items de sa case
+	 * Méthode qui décrémente le nombre de longue vues posées et s'enléve de la liste des items de sa case
 	 */
 	public void supprLongueVue() {
 		Engine.getInstance().getPlateau().getCase(pos).getDedans().remove(this);

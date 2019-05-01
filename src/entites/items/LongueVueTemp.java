@@ -5,7 +5,7 @@ import plateau.Case;
 import plateau.Position;
 
 /**
- * Classe qui �tend une longue vue et repr�sente les longues vues bonus pour le chasseur � l'utilisation d'une �toile</br> Ces longues vues durent TEMPS_VIE tours.
+ * Classe qui étend une longue vue et représente les longues vues bonus pour le chasseur à l'utilisation d'une étoile</br> Ces longues vues durent TEMPS_VIE tours.
  * @author Sylvain
  */
 public class LongueVueTemp extends LongueVue {
@@ -28,14 +28,14 @@ public class LongueVueTemp extends LongueVue {
 	}
 
 	/**
-	 * incr�mente le nombre de tour depuis lequel la longue vue est pos�e
+	 * incrémente le nombre de tour depuis lequel la longue vue est pos�e
 	 */
 	public void incrVie() {
 		this.vie++;
 	}
 	
 	/**
-	 * V�rfifie toutes les longues vues temporaires du tableau et les supprime si n�cessaire
+	 * Vérfifie toutes les longues vues temporaires du tableau et les supprime si nécessaire
 	 */
 	public static void checkLVTemp() {
 		for(Case c : Engine.getInstance().getPlateau()) {

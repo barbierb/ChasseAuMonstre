@@ -8,13 +8,8 @@ import plateau.Position;
 import util.Clavier;
 
 /**
-<<<<<<< HEAD
- * Joueur chasseur qui �tend la classe personnage
-=======
- * Joueur chasseur qui �tend la classe personnage
->>>>>>> branch 'Benoit' of https://git-iut.univ-lille1.fr/ChasseAuMonstre/chasseaumonstre.git
+ * Joueur chasseur qui étend la classe personnage
  * @author Sylvain
- *
  */
 public class Chasseur extends Personnage {
 
@@ -22,7 +17,7 @@ public class Chasseur extends Personnage {
 
 	/**
 	 * Constructeur de Chasseur 
-	 * @param p = la position � laquelle le chasseur commence
+	 * @param p = la position à laquelle le chasseur commence
 	 */
 	public Chasseur(Position p) {
 		super(p);
@@ -30,7 +25,7 @@ public class Chasseur extends Personnage {
 	}
 
 	/**
-	 * M�thode qui demande au joueur dans quelle direction il veut aller
+	 * Méthode qui demande au joueur dans quelle direction il veut aller
 	 * @return La direction dans laquelle le chasseur joueur veut aller
 	 */
 	public Direction getDirectionVoulue() {

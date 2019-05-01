@@ -1,7 +1,7 @@
 package plateau;
 
 /**
- * Position sur un plateau avec deux coordonnées x et y
+ * Position sur un plateau avec deux coordonnÃ©es x et y
  * @author Sylvain
  */
 public class Position {
@@ -19,15 +19,6 @@ public class Position {
 
 	public int getY() {
 		return y;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + x;
-		result = prime * result + y;
-		return result;
 	}
 
 	public boolean equals(Position obj) {
