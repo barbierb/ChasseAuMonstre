@@ -108,6 +108,11 @@ public abstract class Personnage {
 					
 				} else if (peutPasser(nextPos)) {
 					setPosition(nextPos);
+					for(Item i : Engine.getInstance().getPlateau().getCase(nextPos).getDedans()) {
+						if(i instanceof Etoile) {
+							this.sac.add(i);
+						}
+					}
 					flag=false;
 					
 				} else  {
@@ -116,6 +121,9 @@ public abstract class Personnage {
 			}
 
 		}
+	}
+	public boolean isEtoile() {
+		return etoile;
 	}
 
 

@@ -31,10 +31,13 @@ public class Chasseur extends Personnage {
 	public Direction getDirectionVoulue() {
 		char c=0;
 		do {
-			System.out.println("⭦ ⭡ ⭧");
-			System.out.println("⭠   ⭢  Via le pavé tactile, entrez une direction pour vous déplacer.");
-			System.out.println("⭩ ⭣ ⭨");
-			c = (char) Clavier.lireString().charAt(0);
+			System.out.println("    ⭡");
+			System.out.println("⭠     ⭢  Via le pavé numérique, entrez une direction pour vous déplacer.");
+			System.out.println("    ⭣");
+
+			String tmp = Clavier.lireString();
+			if(tmp != null && tmp.length()>0)
+				c = tmp.charAt(0);
 		} while(c!='8' && c!='6' && c!='2' && c!='4');
 		return Direction.byNumero(Character.getNumericValue(c));
 	}

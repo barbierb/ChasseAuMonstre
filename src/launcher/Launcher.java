@@ -10,10 +10,12 @@ public class Launcher {
 	
 	public static void main(String[] args) {
 		System.out.println(Engine.RESET);
-		char choix;
+		char choix = 0;
 		do {
 			System.out.println(Engine.CHOIX_JOUEUR1);
-			choix = Clavier.lireString().charAt(0);
+			String tmp = Clavier.lireString();
+			if(tmp != null && tmp.length()>0)
+				choix = tmp.charAt(0);
 		} while(choix!='1' && choix!='2');
 		
 		ConfigurationPartie config = new ConfigurationPartie();

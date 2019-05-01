@@ -39,9 +39,11 @@ public class Monstre extends Personnage {
 		char c=0;
 		do {
 			System.out.println("⭦ ⭡ ⭧");
-			System.out.println("⭠   ⭢  Via le pavé tactile, entrez une direction pour vous déplacer.");
+			System.out.println("⭠   ⭢  Via le pavé numérique, entrez une direction pour vous déplacer.");
 			System.out.println("⭩ ⭣ ⭨");
-			c = (char) Clavier.lireString().charAt(0);
+			String tmp = Clavier.lireString();
+			if(tmp != null && tmp.length()>0)
+				c = tmp.charAt(0);
 		} while(c<='1' || c>='9' || c=='5');
 
 		return Direction.byNumero(Character.getNumericValue(c));
