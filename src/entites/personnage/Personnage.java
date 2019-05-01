@@ -111,7 +111,7 @@ public abstract class Personnage {
 					flag=false;
 					
 				} else  {
-					System.out.println("Vous ne pouvez pas aller l�");
+					System.out.println("Vous ne pouvez pas aller là");
 				}
 			}
 

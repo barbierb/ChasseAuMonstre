@@ -8,7 +8,11 @@ import plateau.Position;
 import util.Clavier;
 
 /**
+<<<<<<< HEAD
  * Joueur chasseur qui �tend la classe personnage
+=======
+ * Joueur chasseur qui �tend la classe personnage
+>>>>>>> branch 'Benoit' of https://git-iut.univ-lille1.fr/ChasseAuMonstre/chasseaumonstre.git
  * @author Sylvain
  *
  */
@@ -30,12 +34,13 @@ public class Chasseur extends Personnage {
 	 * @return La direction dans laquelle le chasseur joueur veut aller
 	 */
 	public Direction getDirectionVoulue() {
-		System.out.println("Printer les directions et leurs num�ros de chasseur");
 		char c=0;
 		do {
-			System.out.println("Dis moi o� tu veux aller :");
+			System.out.println("⭦ ⭡ ⭧");
+			System.out.println("⭠   ⭢  Via le pavé tactile, entrez une direction pour vous déplacer.");
+			System.out.println("⭩ ⭣ ⭨");
 			c = (char) Clavier.lireString().charAt(0);
-		} while(c!='8' || c!='6' || c!='2' || c!='4');
+		} while(c!='8' && c!='6' && c!='2' && c!='4');
 		return Direction.byNumero(Character.getNumericValue(c));
 	}
 

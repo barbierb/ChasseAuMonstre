@@ -7,14 +7,15 @@ package entites.personnage;
  */
 public enum Direction {
 
-    N("Nord", false, 0, -1),
-    NE("Nord-Est", true, 1, -1),
-    E("Est", false, 1, 0),
+    N("Nord", false, -1, 0),
+    NE("Nord-Est", true, -1, 1),
+    E("Est", false, 0, 1),
     SE("Sud-Est", true, 1, 1),
-    S("Sud", false, 0, 1),
-    SO("Sud-Ouest", true, -1, 1),
-    O("Ouest", false, -1, 0),
+    S("Sud", false, 1, 0),
+    SO("Sud-Ouest", true, 1, -1),
+    O("Ouest", false, 0, -1),
     NO("Nord-Ouest", true, -1, -1);
+
 
     private int x;
     private int y;

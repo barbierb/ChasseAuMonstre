@@ -258,6 +258,6 @@ public class Engine {
 				|| (choix.charAt(0)>(getPlateau().getCases().length+'A')) 
 				|| (choix.charAt(1)<'0') 
 				|| (choix.charAt(1)>=(getPlateau().getCases()[0].length+'0')));
-		return new Position(Integer.parseInt(""+(choix.charAt(0)-'A')),Integer.parseInt(""+choix.charAt(1)));
+		return new Position(Integer.parseInt(""+choix.charAt(1)),Integer.parseInt(""+(choix.charAt(0)-'A')));
 	}
 }
