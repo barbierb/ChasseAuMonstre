@@ -194,7 +194,12 @@ public class Plateau implements Iterable<Case>  {
 			}
 			else if(h instanceof LongueVue) {
 				if(perso instanceof Chasseur) {
+					if(c.getTourPassage() != -1) {
+						System.out.print(c.getTourPassage());
+					}
+					else {
 					System.out.print("L");
+					}
 				}
 				else if(c.getTourPassage() == -1 || perso instanceof Chasseur){
 					System.out.print(" ");
@@ -232,13 +237,13 @@ public class Plateau implements Iterable<Case>  {
 	
 	/**
 	 * Première condition pour l'ajout d'un espace dans une case
-	 * Si il n'y a qu'un seul élément dans la case, que le personnage n'y est pas et que le monstre n'y est pas encore passé
+	 * Si il n'y a qu'un seul élément dans la case et que le personnage n'y est pas
 	 * @param c: la case à tester
 	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
 	 * @return true si la condition est remplie, false sinon
 	 */
 	private boolean condition1(Case c, Personnage perso) {
-		return (c.getDedans().size() == 1 && !this.estPositionPersonnage(c, perso) && c.getTourPassage() == -1);
+		return (c.getDedans().size() == 1 && !this.estPositionPersonnage(c, perso));
 	}
 	
 	/**

@@ -24,7 +24,9 @@ public class TestAfficherPlateau {
 		p.getCase(0, 0).setTourPassage();
 		p.getCase(4, 5).ajouterItem(new Etoile());
 		p.getCase(4, 5).ajouterItem(new LongueVue());
-		p.getCase(2,9).ajouterItem(new Etoile());
+		p.getCase(2, 9).ajouterItem(new Etoile());
+		p.getCase(3, 3).ajouterItem(new LongueVue());
+		p.getCase(3, 3).setTourPassage();
 		
 		System.out.println("Affichage plateau vide");
 		p.afficherPlateau();
