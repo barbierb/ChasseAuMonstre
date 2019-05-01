@@ -8,12 +8,12 @@ import entites.personnage.Personnage;
 import entites.personnage.chasseur.Chasseur;
 import entites.personnage.monstre.Monstre;
 import launcher.ConfigurationPartie;
-import plateau.Plateau;
+import launcher.Engine;
 import plateau.Position;
 
 public class MainTest {
 	
-	public Plateau p;
+	public Engine e;
 	public Personnage chasseur,monstre;
 	
 	@BeforeClass
@@ -24,11 +24,9 @@ public class MainTest {
 	@Before
 	public void beforeEach() {
 		System.out.println("Initialisation...");
-		p = new Plateau(new ConfigurationPartie());
+		e = new Engine(new ConfigurationPartie());
 		chasseur = new Chasseur(new Position(0, 0));
 		monstre = new Monstre(new Position(5, 5));
-		p.setChasseur(chasseur);
-		p.setMonstre(monstre);
 		System.out.println("Début du test");
 	}
 
