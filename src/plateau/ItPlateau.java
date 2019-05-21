@@ -18,6 +18,7 @@ public class ItPlateau implements Iterator<Case>{
 		this.i = 0;
 		this.j = 0;
 	}
+	
 	@Override
 	public boolean hasNext() {	
 		return i < cases[0].length && j < cases.length;
@@ -30,7 +31,7 @@ public class ItPlateau implements Iterator<Case>{
 		if(j == cases[0].length) {
 			j = 0;
 			i++;
-		}
+		}		
 		return actuel;
 	}
 

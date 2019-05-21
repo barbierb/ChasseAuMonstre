@@ -1,18 +1,23 @@
 package entites.items;
 
+/**
+ * La classe Ã©toile dÃ©finit une Ã©toile que le chasseur peut utiliser pour augmenter le nombre de longues vues qu'il utilise 
+ * @author Sylvain
+ *
+ */
 public class Etoile extends Item{
 	
 	/**
-	 * Constructeur de la classe Etoile qui définit la variable recupérable à true car une étoile est récupérable
+	 * Constructeur de la classe Etoile qui dÃ©finit la variable recupÃ©rable Ã  true car une Ã©toile est rÃ©cupÃ©rable
 	 */
 	public Etoile() {
 		this.recuperable=true;
 	}
 	
 	/**
-	 * Méthode toString informant que l'étoile a été récupérée par le joueur
+	 * MÃ©thode toString informant que l'Ã©toile a Ã©tÃ© rÃ©cupÃ©rÃ©e par le joueur
 	 */
 	public String toString() {
-		return "Etoile récupérée";
+		return "Etoile rÃ©cupÃ©rÃ©e";
 	}
 }

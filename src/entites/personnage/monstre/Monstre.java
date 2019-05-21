@@ -2,16 +2,21 @@ package entites.personnage.monstre;
 
 import entites.personnage.Direction;
 import entites.personnage.Personnage;
+import launcher.Engine;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 import util.Clavier;
 
+/**
+ * Joueur monstre qui étend la classe personnage
+ * @author Sylvain
+ *
+ */
 public class Monstre extends Personnage {
 
 	/**
 	 * Constructeur de Monstre
-	 * @param p = la position � laquelle le monstre commence
+	 * @param p = la position  laquelle le monstre commence
 	 */
 	public Monstre(Position p) {
 		super(p);
@@ -27,29 +32,33 @@ public class Monstre extends Personnage {
 	}
 
 	/**
-	 * M�thode qui demande au joueur dans quelle direction il veut aller
+	 * Mthode qui demande au joueur dans quelle direction il veut aller
 	 * @return La direction dans laquelle le chasseur joueur veut aller
 	 */
 	public Direction getDirectionVoulue() {
 		char c=0;
 		do {
-			System.out.println("Dis moi o� tu veux aller :");
-			c = (char) Clavier.lireString().charAt(0);
+			System.out.println("⭦ ⭡ ⭧");
+			System.out.println("⭠   ⭢  Via le pavé numérique, entrez une direction pour vous déplacer.");
+			System.out.println("⭩ ⭣ ⭨");
+			String tmp = Clavier.lireString();
+			if(tmp != null && tmp.length()>0)
+				c = tmp.charAt(0);
 		} while(c<='1' || c>='9' || c=='5');
 
 		return Direction.byNumero(Character.getNumericValue(c));
 	}
-
+	
 	@Override
 	protected boolean peutPasser(Position p) {
-		Case[][] tab = Plateau.getInstance().getCases();
-		return tab[p.getX()][p.getY()].getTourPassage()!=-1;
+		Case[][] tab = Engine.getInstance().getPlateau().getCases();
+		return tab[p.getX()][p.getY()].getTourPassage()==-1;
 	}
 
 	@Override
 	protected void setPosition(Position p) {
 		this.pos=p;
-		Plateau.getInstance().getCase(p).setTourPassage();
+		Engine.getInstance().getPlateau().getCase(p).setTourPassage();
 	}
 
 
