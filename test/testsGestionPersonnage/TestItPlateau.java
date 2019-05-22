@@ -1,12 +1,11 @@
 package testsGestionPersonnage;
 
-import launcher.ConfigurationPartie;
 import plateau.Case;
 import plateau.Plateau;
 
 public class TestItPlateau {
 	
-	static Plateau plat = new Plateau(new ConfigurationPartie(true, true));
+	static Plateau plat;
 	
 	public static void main(String[] args) {
 		for(Case c: plat) {

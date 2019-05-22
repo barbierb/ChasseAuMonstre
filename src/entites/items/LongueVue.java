@@ -8,7 +8,7 @@ import plateau.Position;
  * @author Sylvain
  *
  */
-public class LongueVue extends Item {
+public class LongueVue implements Item {
 	public static int NB_MAX;
 	
 	private Position pos;
@@ -17,7 +17,6 @@ public class LongueVue extends Item {
 	 * Constructeur de la classe LongueVue qui définit la variable recup�rable à false car une longue vue n'est pas récupérable
 	 */
 	public LongueVue(Position p) {
-		this.recuperable=false;
 		LongueVue.NB_MAX = 5;
 		this.pos = p;
 	}

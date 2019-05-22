@@ -1,13 +1,18 @@
 package testsGestionPersonnage;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import entites.personnage.Personnage;
 import entites.personnage.chasseur.Chasseur;
 import entites.personnage.monstre.Monstre;
-import launcher.ConfigurationPartie;
 import plateau.Plateau;
 import plateau.Position;
 
@@ -18,18 +23,15 @@ public class MainTest {
 	
 	@BeforeClass
 	public static void beforeAll() {
-		System.out.println("Début des tests");
+		System.out.println("Dï¿½but des tests");
 	}	
 	
 	@Before
 	public void beforeEach() {
 		System.out.println("Initialisation...");
-		p = new Plateau(new ConfigurationPartie());
 		chasseur = new Chasseur(new Position(0, 0));
 		monstre = new Monstre(new Position(5, 5));
-		p.setChasseur(chasseur);
-		p.setMonstre(monstre);
-		System.out.println("Début du test");
+		System.out.println("Dï¿½but du test");
 	}
 
 	@Test

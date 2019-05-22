@@ -20,12 +20,12 @@ public class TestAfficherPlateau {
 		
 		p.getCase(1, 0).ajouterItem(new LongueVue(new Position(1, 0)));
 		p.getCase(1, 4).ajouterItem(new Etoile());
-		p.getCase(0, 0).setTourPassage();
+		//p.getCase(new Position(0, 0)).setTourPassage();
 		p.getCase(4, 5).ajouterItem(new Etoile());
 		p.getCase(4, 5).ajouterItem(new LongueVue(new Position(4, 5)));
 		p.getCase(2, 9).ajouterItem(new Etoile());
 		p.getCase(3, 3).ajouterItem(new LongueVue(new Position(3, 3)));
-		p.getCase(3, 3).setTourPassage();
+		//p.getCase(new Position(3, 3)).setTourPassage();
 		
 		System.out.println("Affichage plateau vide");
 		p.afficherPlateau();
