@@ -31,6 +31,7 @@ public class MenuPrincControl {
     @FXML
     void setSceneControls(ActionEvent event) {
     	System.out.println("scene controls");
+    	Affichage.stage.setScene(Affichage.getSceneControls());
     }
 
     @FXML
