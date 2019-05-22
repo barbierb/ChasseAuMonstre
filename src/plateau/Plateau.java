@@ -2,16 +2,7 @@ package plateau;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Random;
-
-import entites.items.Etoile;
-import entites.items.Item;
-import entites.items.LongueVue;
-import entites.personnage.Personnage;
-import entites.personnage.chasseur.Chasseur;
-import entites.personnage.monstre.Monstre;
 
 /**
  * Classe du plateau, itérable sur ses cases 
@@ -22,7 +13,6 @@ public class Plateau implements Iterable<Case>  {
 	private int tailleX, tailleY;
 	private Case[][] cases;
 	private int nbCases;
-	private Queue<LongueVue> longueVues;
 
 	/**
 	 * Constructeur en fonction de la configuration passée en paramètre
@@ -31,7 +21,6 @@ public class Plateau implements Iterable<Case>  {
 	public Plateau(int x, int y) {
 		this.tailleX = x;
 		this.tailleY = y;
-		this.longueVues = new PriorityQueue<LongueVue>();
 		this.cases = new Case[this.tailleX][this.tailleY];
 		for (int i = 0; i < this.tailleX; i++) {
 			for (int j = 0; j < this.tailleY; j++) {
@@ -46,7 +35,7 @@ public class Plateau implements Iterable<Case>  {
 			Position p = new Position(new Random().nextInt(this.tailleX), new Random().nextInt(this.tailleY));
 			if(!tmp.contains(p)) {
 				tmp.add(p);
-				cases[p.getX()][p.getY()].ajouterItem(new Etoile());
+				cases[p.getX()][p.getY()].placerEtoile();
 				nbEtoile++;
 			}
 		}
@@ -57,6 +46,7 @@ public class Plateau implements Iterable<Case>  {
 	/**
 	 * Affichage du plateau vide
 	 */
+	/*
 	public void afficherPlateau() {
 		//AFFICHAGE LETTRES
 		this.afficherLettresColonnes();
@@ -80,11 +70,12 @@ public class Plateau implements Iterable<Case>  {
 		//AFFICHAGE BORD BAS
 		this.afficherDerniereLigne();
 	}
-	
+	*/
 	/**
 	 * Affichage du plateau
 	 * @param perso : le personnage pour lequel il faut afficher la vue du plateau
 	 */
+	/*
 	public void afficherPlateau(Personnage perso) {
 		
 		//AFFICHAGE LETTRES
@@ -109,21 +100,23 @@ public class Plateau implements Iterable<Case>  {
 		//AFFICHAGE BORD BAS
 		this.afficherDerniereLigne();
 	}
-	
+	*/
 	/**
 	 * Fonction d'affichage des lettres désignant les colonnes du plateau
 	 */
+	/*
 	private void afficherLettresColonnes() {
 		for(int i = 0; i < tailleX; i++) {
 			System.out.print("  "+(char)(65+i));
 		}
 		System.out.print("\n");
 	}
-	
+	*/
 	/**
 	 * Fonction d'affichage des lignes constituant la structure du plateau
 	 * @param c : Case de début de la ligne
 	 */
+	/*
 	private void afficherLignes(Case c) {
 		System.out.print(" ");
 		if(c.numCase == 0) {
@@ -142,10 +135,11 @@ public class Plateau implements Iterable<Case>  {
 			System.out.println("══╣");
 		}
 	}
-	
+	*/
 	/**
 	 * Affichage de la dernière ligne de structure du plateau
 	 */
+	/*
 	private void afficherDerniereLigne() {
 		System.out.print(" ╚");
 		for(int i=0; i<tailleX-1;i++){
@@ -153,12 +147,13 @@ public class Plateau implements Iterable<Case>  {
 		}
 		System.out.println("══╝");
 	}
-	
+	*/
 	/**
 	 * Affichage du contenu d'une case
 	 * @param c: la case dont il faut afficher le contenu
 	 * @param perso: le personnage pour lequel il faut afficher la vue de cette case
 	 */
+	/*
 	private void afficherContenuCase(Case c, Personnage perso) {
 		String contenu = "║";
 
@@ -202,12 +197,13 @@ public class Plateau implements Iterable<Case>  {
 		
 		System.out.print(contenu);
 	}
-	
+	*/
 	/**
 	 * Affichage de l'espace manquant pour combler la case si besoin
 	 * @param contenu: le contenu de la case actuel
 	 * @return le contenu de la case modifié
 	 */
+	/*
 	private String afficherEspaceManquant(String contenu) {
 		for(int i = 0; i < 3 - contenu.length(); i++) {
 			contenu+=" ";
@@ -215,20 +211,21 @@ public class Plateau implements Iterable<Case>  {
 		
 		return contenu;
 	}
-	
+	*/
 	/**
 	 * Fonction qui teste si le personnage se situe sur la case passée en paramètre
 	 * @param c: la case à tester
 	 * @param perso: le personnage à tester
 	 * @return true si le personnage se situe sur la case passée en paramètre, false sinon
 	 */
+	/*
 	private boolean estPositionPersonnage(Case c, Personnage perso) {
 		if(perso.getPosition().getX() == c.numCase / tailleY && perso.getPosition().getY() == c.numCase % tailleY) {
 			return true;
 		}
 		return false;
 	}
-
+	*/
 
 
 	/**
@@ -285,9 +282,7 @@ public class Plateau implements Iterable<Case>  {
 		return nbCases;
 	}
 
-	public Queue<LongueVue> getLongueVues() {
-		return longueVues;
-	}
+
 
 
 	//TODO faire les emplacements de base du chasseur et monstre
