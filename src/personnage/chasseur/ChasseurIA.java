@@ -1,8 +1,8 @@
-package entites.personnage.chasseur;
+package personnage.chasseur;
 
 import java.util.Random;
 
-import entites.personnage.Direction;
+import personnage.Direction;
 import plateau.Position;
 /**
  * Classe chasseur pour son IA qui �tend la classe Chasseur et qui gère les déplacements calculés par l'IA

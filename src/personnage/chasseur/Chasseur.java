@@ -1,7 +1,7 @@
-package entites.personnage.chasseur;
+package personnage.chasseur;
 
-import entites.personnage.Direction;
-import entites.personnage.Personnage;
+import personnage.Direction;
+import personnage.Personnage;
 import launcher.Engine;
 import plateau.Case;
 import plateau.Position;

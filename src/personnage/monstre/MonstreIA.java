@@ -1,8 +1,8 @@
-package entites.personnage.monstre;
+package personnage.monstre;
 
 import java.util.Random;
 
-import entites.personnage.Direction;
+import personnage.Direction;
 import launcher.Engine;
 import plateau.Position;
 /**

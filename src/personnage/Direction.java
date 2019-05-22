@@ -1,4 +1,4 @@
-package entites.personnage;
+package personnage;
 
 /**
  * Enumeration des différentes directions disponibles pour les personnages avec les changements de coordonnées qui correspondent

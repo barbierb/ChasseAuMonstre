@@ -1,7 +1,7 @@
-package entites.personnage.monstre;
+package personnage.monstre;
 
-import entites.personnage.Direction;
-import entites.personnage.Personnage;
+import personnage.Direction;
+import personnage.Personnage;
 import launcher.Engine;
 import plateau.Case;
 import plateau.Position;
@@ -25,8 +25,8 @@ public class Monstre extends Personnage {
 
 	@Override
 	public String toString() {
-		return "Monstre [sac=" + sac + ", pos=" + pos + ", getDirectionVoulue()=" + getDirectionVoulue()
-		+ ", aEtoile()=" + aEtoile() + ", getPosition()=" + getPosition() + ", getSac()=" + getSac()
+		return "pos=" + pos + ", getDirectionVoulue()=" + getDirectionVoulue()
+		+ ", aEtoile()=" + aEtoile() + ", getPosition()=" + getPosition()
 		+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
 		+ "]";
 	}

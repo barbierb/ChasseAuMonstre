@@ -1,22 +1,18 @@
-package entites.personnage;
+package personnage;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import entites.items.Etoile;
-import entites.items.Item;
 import launcher.Engine;
 import plateau.Case;
 import plateau.Position;
+
 /**
  * Classe abstraite qui définit les personnages chasseur et monstre
  * @author Sylvain
  *
  */
 public abstract class Personnage {
-	protected List<Item> sac;
 	protected Position pos;
-	protected boolean etoile;
+	protected boolean modeEtoile;
+	protected boolean aEtoile;
 	protected int etoileTimer;
 	protected boolean estMonstre;
 
@@ -43,18 +39,21 @@ public abstract class Personnage {
 	 * @param p : la position de base du personnage
 	 */
 	public Personnage(Position p) {
-		this.sac = new ArrayList<Item>();
 		this.pos = p;
-		this.etoile = false;
+		this.modeEtoile = false;
+		this.aEtoile = false;
 		this.etoileTimer = 0;
 	}
 	/**
 	 * Vérifie si le personnage a une étoile dans son sac
 	 */
 	public boolean aEtoile() {
+		/*
 		for(Item i:sac) {
 			if(i instanceof Etoile) return true;
 		}
+		return false;
+		*/
 		return false;
 	}
 	/**
@@ -62,14 +61,16 @@ public abstract class Personnage {
 	 */
 	public void utiliseEtoile() {
 		if(aEtoile()) {
-			this.etoile=true;
+			this.modeEtoile=true;
 			this.etoileTimer = MAX_TIMER_ETOILE;
+			/*
 			for(Item i : this.sac) {
 				if(i instanceof Etoile) {
 					this.sac.remove(i);
 					break;
 				}
 			}
+			*/
 		}
 	}
 	/**
@@ -78,12 +79,7 @@ public abstract class Personnage {
 	public Position getPosition() {
 		return pos;
 	}
-	/**
-	 * @return le sac du personnage
-	 */
-	public List<Item> getSac() {
-		return sac;
-	}
+
 	/**
 	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
@@ -106,23 +102,19 @@ public abstract class Personnage {
 			//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
 			if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
 				
-				if(estMonstre && etoile) {
+				if(estMonstre && modeEtoile) {
 					setPosition(nextPos);
 					etoileTimer --;
-					if(etoileTimer == 0) etoile=false;
+					if(etoileTimer == 0) modeEtoile=false;
 					flag=false;
 					
 				} else if (peutPasser(nextPos)) {
 					setPosition(nextPos);
 					flag=false;
-					Case c = Engine.getInstance().getPlateau().getCase(nextPos);
-					for(Item i : c.getDedans()) {
-						if(i instanceof Etoile) {
-							this.sac.add(new Etoile());
-							c.getDedans().remove(i);
-							break;
-						}
+					if(aEtoile) {
+						
 					}
+					
 					
 				} else  {
 					System.out.println("Vous ne pouvez pas aller là");
@@ -132,7 +124,7 @@ public abstract class Personnage {
 		}
 	}
 	public boolean isEtoile() {
-		return etoile;
+		return modeEtoile;
 	}
 
 
