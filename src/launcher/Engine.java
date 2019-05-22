@@ -17,6 +17,7 @@ public class Engine {
 	private Personnage monstre;
 
 	private boolean tourMonstre;
+
 	private int tourActuel; // TODO A BOUGER DANS PLATEAU
 	
 	private Engine() {
@@ -76,4 +77,32 @@ public class Engine {
 	public static void main(String[] args) {
 		Engine.start();
 	}
+
+	/**
+	 * @return the plateau
+	 */
+	public Plateau getPlateau() {
+		return plateau;
+	}
+	/**
+	 * @return the chasseur
+	 */
+	public Personnage getChasseur() {
+		return chasseur;
+	}
+
+	/**
+	 * @return the monstre
+	 */
+	public Personnage getMonstre() {
+		return monstre;
+	}
+
+	/**
+	 * @return the tourActuel
+	 */
+	public int getTourActuel() {
+		return tourActuel;
+	}
+
 }
