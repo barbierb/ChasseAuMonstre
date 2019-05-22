@@ -4,16 +4,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="IHM.AffichagePlateau">
    <left>
-      <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: blue;" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: brown;" BorderPane.alignment="CENTER" />
    </left>
    <right>
-      <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER" />
+      <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: brown;" BorderPane.alignment="CENTER" />
    </right>
    <center>
-      <GridPane style="-fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
+      <GridPane fx:id="grille" style="-fx-grid-lines-visible: true;" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

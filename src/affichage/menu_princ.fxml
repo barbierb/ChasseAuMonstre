@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuPrincControl">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../data/robot.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="solo" layoutX="268.0" layoutY="109.0" mnemonicParsing="false" onAction="#setSceneSolo" text="1 PLAYER" />
+      <Button fx:id="multi" layoutX="264.0" layoutY="157.0" mnemonicParsing="false" onAction="#setSceneMulti" text="2 PLAYERS" />
+      <Button fx:id="controls" layoutX="263.0" layoutY="216.0" mnemonicParsing="false" onAction="#setSceneControls" text="CONTROLS" />
+      <Button fx:id="exit" layoutX="284.0" layoutY="272.0" mnemonicParsing="false" onAction="#exitou" text="EXIT" />
+      <Label layoutX="199.0" layoutY="14.0" text="CHASSE AU MONSTRE C ENORME" textFill="RED" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font name="Asana Math" size="13.0" />
+         </font>
+      </Label>
+      <AmbientLight color="CHARTREUSE" layoutX="50.0" layoutY="31.0" lightOn="true" />
+      <ParallelCamera layoutX="400.0" layoutY="228.0" />
+      <PointLight color="CHARTREUSE" layoutX="49.0" layoutY="285.0" lightOn="true" />
+   </children>
+</Pane>
