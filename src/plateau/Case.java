@@ -1,6 +1,6 @@
 package plateau;
 
-import launcher.Engine;
+import reseau.Client;
 
 /**
  * La case permet de mémoriser le tour du passage du monstre, le nombre de fois où le chasseur est passé dessus ainsi que les item éventuellement dessus
@@ -53,7 +53,7 @@ public class Case implements ContientItem {
 	 * Mets à jour le tour de passage du monstre sur la case
 	 */
 	public void setTourPassage() {
-		tourPassage = Engine.getInstance().getTourActuel();
+		tourPassage = Client.getInstance().getTourActuel();
 	}
 
 	

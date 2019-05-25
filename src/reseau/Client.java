@@ -1,9 +1,8 @@
 package reseau;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -16,48 +15,69 @@ import java.util.Enumeration;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import plateau.Plateau;
+
 public class Client extends Thread {
-	
+
 	private static Client instance;
 
+	public static Timer brdTask;
+
 	private Socket socket;
-	private PrintWriter output;
-	private BufferedReader input;
+	private ObjectOutputStream out;
+	private ObjectInputStream in;
+
+	public Plateau plateau;
+	public boolean estMonstre;
+	public boolean monTour;
+	public int etat; // 0 = encours, 1 = chasseur win, 2 = monstre win
 
 	public Client(Socket init) {
 		socket = init;
 		try {
-			input = new BufferedReader(
-						new InputStreamReader(
-							socket.getInputStream()
-						)
-					);
-			output = new PrintWriter(
-						socket.getOutputStream(), true
-					);
+			out = new ObjectOutputStream(socket.getOutputStream());
+			in = new ObjectInputStream(socket.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.etat = 0;
 		this.start();
 	}
 
-    public void run() {
-    	while(true) {
-    		try {
-    			System.out.println("en attente de message rsx");
-    			String recu = input.readLine();
-    			System.out.println(recu);
-    			
-    		} catch (IOException e) {
-                System.out.println("Déconnecté ! " + e);
-            } finally {
-                try {
-                	socket.close();
-                } catch (IOException e) {}
-            }
-    		
-    	}
-    }
+	public void run() {
+		try {
+			while(true) {
+				System.out.println("CLT en attente des infos de base ");
+				String recu = (String) in.readObject();
+				System.out.println("CLT infos de base="+recu);
+				if(recu!=null) {
+					if(recu.equals(MessageReseau.ESTMONSTRE.toString())) {
+						this.estMonstre = true;
+						this.monTour = true;
+					} else if(recu.equals(MessageReseau.ESTCHASSEUR.toString())) {
+						this.estMonstre = false;
+						this.monTour = false;
+					} else {
+						continue;
+					}
+				} else {
+					continue;
+				}
+				System.out.println("CLT info de base recues: estmonstre="+estMonstre+" montour="+monTour);
+				break;
+			}
+			while(true) {
+				System.out.println("CLT en attente de plateau");
+				Plateau recu = (Plateau) in.readObject();
+				recu.afficherPlateau();
+			}
+
+		} catch (IOException e) {
+			System.out.println("CLT Déconnecté ! " + e);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static void connecter(String ip, int portJeu) {
 		try {
@@ -66,36 +86,44 @@ public class Client extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-    public static void connecter(InetAddress ip, int port) {
-    	try {
-			Client.instance = new Client(new Socket(ip, port));
-			System.out.println("connecté au serveur "+ip+":"+port);
-		} catch (IOException e) {
-			System.out.println("Ce serveur est innacessible.");
-		} 
-    }
-    
-    public static void pingServeurs() {
-		
-    	new Timer().schedule(new TimerTask() {
-    		private int occurence = 1;
+
+	public static void connecter(InetAddress ip, int port) {
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("pingServeurs()");
+				try {
+					System.out.println("CLT connexion à "+ip+":"+port);
+					instance = new Client(new Socket(ip, port));
+					System.out.println("CLT connecté au serveur "+ip+":"+port);
+					if(brdTask != null) brdTask.cancel();
+				} catch (IOException e) {
+					System.out.println("CLT Ce serveur est innacessible.");
+				} 
+			}
+		}).start();
+	}
+
+	public static void pingServeurs() {
+
+		brdTask = new Timer();
+		brdTask.schedule(new TimerTask() {
+			private int occurence = 1;
+			@Override
+			public void run() {
+				System.out.println("CLT pingServeurs()");
 				if(occurence++>=5) cancel();
 				Enumeration<NetworkInterface> cartes = null;
 				try {
 					cartes = NetworkInterface.getNetworkInterfaces();
 				} catch (SocketException e) {e.printStackTrace();}
-				
+
 				DatagramSocket c = null;
 				try {
 					c = new DatagramSocket();
 					c.setBroadcast(true);
 					c.setSoTimeout(1000);
 				} catch (SocketException e1) {e1.printStackTrace();}
-				
+
 				while (cartes.hasMoreElements()) {
 					NetworkInterface networkInterface = cartes.nextElement();
 					for (InterfaceAddress interfaceAddress : networkInterface.getInterfaceAddresses()) {
@@ -117,10 +145,10 @@ public class Client extends Thread {
 				String serv = new String(receivePacket.getData()).trim();
 				System.out.println(occurence+" ---> "+serv);
 			}
-    	}, 0, 1000);
-    	
+		}, 0, 1000);
+
 		//TODO ESSAYER/
-    	/*
+		/*
 MulticastSocket socket = new MulticastSocket(4446);
 InetAddress group = InetAddress.getByName("203.0.113.0");
 socket.joinGroup(group);
@@ -137,21 +165,13 @@ for (int i = 0; i < 5; i++) {
 
 socket.leaveGroup(group);
 socket.close();
-    	 */
-		
+		 */
+
 		//TODO METTRE A JOUR LA LISTE DES SERVEURS DANS LINTERFACE
-    }
-    
-
-	public PrintWriter out() {
-		return output;
-	}
-
-	public BufferedReader in() {
-		return input;
 	}
 
 	public static Client getInstance() {
 		return instance;
 	}
+
 }

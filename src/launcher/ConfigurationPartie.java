@@ -1,6 +1,5 @@
 package launcher;
 
-import entites.personnage.Type;
 /**
  * Classe qui définit la configuration de la partie, si un joueur est un monstre ou un chasseur et si son adversaire est une IA ou non ainsi que la taille du plateau
  * @author Sylvain
