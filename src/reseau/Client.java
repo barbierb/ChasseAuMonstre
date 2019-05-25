@@ -66,6 +66,8 @@ public class Client extends Thread {
 				System.out.println("CLT info de base recues: estmonstre="+estMonstre+" montour="+monTour);
 				break;
 			}
+			// TODO CHOISIS TON EMPLACEMENT MONSTRE DE BASE
+			
 			while(true) {
 				System.out.println("CLT en attente de plateau");
 				Plateau recu = (Plateau) in.readObject();

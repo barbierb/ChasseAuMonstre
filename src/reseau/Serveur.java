@@ -69,17 +69,10 @@ public class Serveur {
 
 		public Connexion(Socket socket) {
 			this.socket = socket;
-			System.out.println("new Connexion ");
 			try {
 				socket.setKeepAlive(true);
-
-				out = new ObjectOutputStream(
-						socket.getOutputStream()
-						);
-
-				in = new ObjectInputStream(
-						socket.getInputStream()
-						);
+				out = new ObjectOutputStream(socket.getOutputStream());
+				in = new ObjectInputStream(socket.getInputStream());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
