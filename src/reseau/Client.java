@@ -58,16 +58,13 @@ public class Client extends Thread {
 			}
 			
 			if(estMonstre) {
+				this.plateau = new Plateau(10,10);
+				//this.plateau.placerMonstre();
 				// AFFICHER MENU DE CHOIX DE LEMPLACEMENT DU MONSTRE
 				// ET QUAND C CHOISI, ENVOYER LE PLATEAU AVEC LE MONSTRE PLACE DEDANS
-				connexion.envoyer(new Plateau(10,10));
+				connexion.envoyer(this.plateau);
 			} else {
 				this.plateau = connexion.recevoirPlateau();
-			}
-			
-			while(true) {
-				System.out.println("CLT en attente de plateau");
-				Plateau recu = (Plateau) this.connexion.in.readObject();
 			}
 
 		} catch (IOException e) {

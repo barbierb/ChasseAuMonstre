@@ -1,18 +1,26 @@
 package plateau;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+
+import personnage.chasseur.Chasseur;
+import personnage.monstre.Monstre;
 
 /**
  * Classe du plateau, itérable sur ses cases 
  * @author Sylvain
  */
-public class Plateau implements Iterable<Case>  {
-
+public class Plateau implements Iterable<Case>, Serializable {
+	private static final long serialVersionUID = 42;
+	
 	private int tailleX, tailleY;
 	private Case[][] cases;
 	private int nbCases;
+
+	private Monstre monstre;
+	private Chasseur chasseur;
 
 	/**
 	 * Constructeur en fonction de la configuration passée en paramètre
@@ -28,7 +36,9 @@ public class Plateau implements Iterable<Case>  {
 				nbCases++;
 			}
 		}
-		
+	}
+	
+	public void placerEtoiles() {
 		ArrayList<Position> tmp = new ArrayList<Position>();
 		int nbEtoile = 0;
 		while(nbEtoile != 3) {
@@ -39,7 +49,6 @@ public class Plateau implements Iterable<Case>  {
 				nbEtoile++;
 			}
 		}
-		
 	}
 
 	/**

@@ -2,6 +2,9 @@ package personnage.chasseur;
 
 import personnage.Direction;
 import personnage.Personnage;
+
+import java.io.Serializable;
+
 import launcher.Engine;
 import plateau.Case;
 import plateau.Position;
@@ -11,7 +14,8 @@ import util.Clavier;
  * Joueur chasseur qui étend la classe personnage
  * @author Sylvain
  */
-public class Chasseur extends Personnage {
+public class Chasseur extends Personnage implements Serializable {
+	private static final long serialVersionUID = 42;
 
 	public final static int MAXPASSAGE = 3;
 

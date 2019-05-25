@@ -2,6 +2,9 @@ package personnage.monstre;
 
 import personnage.Direction;
 import personnage.Personnage;
+
+import java.io.Serializable;
+
 import launcher.Engine;
 import plateau.Case;
 import plateau.Position;
@@ -12,7 +15,8 @@ import util.Clavier;
  * @author Sylvain
  *
  */
-public class Monstre extends Personnage {
+public class Monstre extends Personnage implements Serializable {
+	private static final long serialVersionUID = 42;
 
 	/**
 	 * Constructeur de Monstre

@@ -1,40 +1,27 @@
 package launcher;
 
-import java.io.IOException;
-
 import plateau.Plateau;
-import reseau.Connexion;
 import reseau.MessageReseau;
 import reseau.Serveur;
 
 public class Engine extends Thread {
-	private static Engine instance;
-	private Connexion hote;
-	private Connexion opposant;
 	
+	private static Engine instance;
+	
+	// Une engine créée par serveur pour gérer le déroulement complet d'une partie
 	public Engine() {}
 	
 	public void run() {
 		Serveur serv = Serveur.getInstance();
-		try {
-			serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
-			serv.opposant.envoyer(MessageReseau.ESTCHASSEUR.toString());
-			
-			Plateau base = (Plateau) serv.hote.recevoirPlateau();
-			System.out.println("plateau recu");
+		serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
+		serv.opposant.envoyer(MessageReseau.ESTCHASSEUR.toString());
+
+		System.out.println("ENGINE en attente du plateau généré par le monstre");
+		Plateau base = (Plateau) serv.hote.recevoirPlateau();
+		System.out.println("ENGINE plateau recu, envoi à l'opposant chasseur");
+		serv.opposant.envoyer(base);
 		
-		} catch (IOException e) {
-			System.out.println("Engine: Exception IO, fin de la partie.");
-			try {
-				Serveur.getInstance().hote.getSocket().close();
-				Serveur.getInstance().opposant.getSocket().close();
-				System.exit(1);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+		
 	}
 
 	public static Engine getInstance() {
