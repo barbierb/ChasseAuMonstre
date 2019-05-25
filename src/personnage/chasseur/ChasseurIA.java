@@ -1,7 +1,5 @@
 package personnage.chasseur;
 
-import java.util.Random;
-
 import personnage.Direction;
 import plateau.Position;
 /**
@@ -9,6 +7,7 @@ import plateau.Position;
  * @author Sylvain
  */
 public class ChasseurIA extends Chasseur {
+	private static final long serialVersionUID = 42;
 	private static Direction[] directions_chasseur = new Direction[4];
 	private boolean monstre_detecte = false;
 	private Position position_monstre = null;
