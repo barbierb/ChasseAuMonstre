@@ -1,15 +1,10 @@
 package reseau;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.BindException;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import plateau.Plateau;
+import launcher.Engine;
 
 public class Serveur {
 
@@ -19,8 +14,8 @@ public class Serveur {
 
 	private static Serveur instance;
 
-	private Connexion hote;
-	private Connexion opposant;
+	public Connexion hote;
+	public Connexion opposant;
 
 	private ServerSocket serveurListener;
 	private Thread brdTask;
@@ -52,59 +47,12 @@ public class Serveur {
 			this.opposant = new Connexion(serveurListener.accept());
 			this.brdTask.interrupt();
 			System.out.println("SRV opposant connecté ");
-			this.hote.start();
-			this.opposant.start();
-			this.hote.out.writeObject(MessageReseau.ESTMONSTRE.toString());
-			this.opposant.out.writeObject(MessageReseau.ESTCHASSEUR.toString());
-			System.out.println("SRV messages sent");
+			
+			new Engine().start(); // démarrage d'une nouvelle partie.
+			
+			System.out.println("SRV Engine démarrée");
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	private class Connexion extends Thread {
-		private Socket socket;
-		private ObjectInputStream in;
-		private ObjectOutputStream out;
-
-		public Connexion(Socket socket) {
-			this.socket = socket;
-			try {
-				socket.setKeepAlive(true);
-				out = new ObjectOutputStream(socket.getOutputStream());
-				in = new ObjectInputStream(socket.getInputStream());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		public void run() {
-			try {
-				System.out.println("CONN connexion démarrée");
-
-				while(true) {
-					Plateau p = null;
-
-					p = (Plateau) in.readObject();
-
-					if (p == null) return;
-
-					System.out.println("CONN PLATEAU RECU");
-				}
-			} catch (Exception e) {
-
-			} finally {
-
-				try {
-					if (out != null)
-						out.close();
-					if (in != null)
-						in.close();
-					socket.close();
-					System.out.println("CONN Connexion stoppée");
-				} catch (IOException e) {
-				}
-			}
 		}
 	}
 

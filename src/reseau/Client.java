@@ -1,8 +1,6 @@
 package reseau;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -23,23 +21,15 @@ public class Client extends Thread {
 
 	public static Timer brdTask;
 
-	private Socket socket;
-	private ObjectOutputStream out;
-	private ObjectInputStream in;
+	private Connexion connexion;
 
 	public Plateau plateau;
 	public boolean estMonstre;
 	public boolean monTour;
 	public int etat; // 0 = encours, 1 = chasseur win, 2 = monstre win
 
-	public Client(Socket init) {
-		socket = init;
-		try {
-			out = new ObjectOutputStream(socket.getOutputStream());
-			in = new ObjectInputStream(socket.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public Client(Socket socket) {
+		this.connexion = new Connexion(socket);
 		this.etat = 0;
 		this.start();
 	}
@@ -48,7 +38,7 @@ public class Client extends Thread {
 		try {
 			while(true) {
 				System.out.println("CLT en attente des infos de base ");
-				String recu = (String) in.readObject();
+				String recu = (String) this.connexion.in.readObject();
 				System.out.println("CLT infos de base="+recu);
 				if(recu!=null) {
 					if(recu.equals(MessageReseau.ESTMONSTRE.toString())) {
@@ -66,12 +56,18 @@ public class Client extends Thread {
 				System.out.println("CLT info de base recues: estmonstre="+estMonstre+" montour="+monTour);
 				break;
 			}
-			// TODO CHOISIS TON EMPLACEMENT MONSTRE DE BASE
+			
+			if(estMonstre) {
+				// AFFICHER MENU DE CHOIX DE LEMPLACEMENT DU MONSTRE
+				// ET QUAND C CHOISI, ENVOYER LE PLATEAU AVEC LE MONSTRE PLACE DEDANS
+				connexion.envoyer(new Plateau(10,10));
+			} else {
+				this.plateau = connexion.recevoirPlateau();
+			}
 			
 			while(true) {
 				System.out.println("CLT en attente de plateau");
-				Plateau recu = (Plateau) in.readObject();
-				recu.afficherPlateau();
+				Plateau recu = (Plateau) this.connexion.in.readObject();
 			}
 
 		} catch (IOException e) {
@@ -170,6 +166,14 @@ socket.close();
 		 */
 
 		//TODO METTRE A JOUR LA LISTE DES SERVEURS DANS LINTERFACE
+	}
+	
+	public void envoyerPlateau() {
+		try {
+			this.connexion.out.writeObject(this.plateau);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static Client getInstance() {
