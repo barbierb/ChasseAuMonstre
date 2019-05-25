@@ -1,14 +1,11 @@
 package personnage.chasseur;
 
-import personnage.Direction;
-import personnage.Personnage;
-
 import java.io.Serializable;
 
-import launcher.Engine;
+import personnage.Personnage;
 import plateau.Case;
 import plateau.Position;
-import util.Clavier;
+import reseau.Client;
 
 /**
  * Joueur chasseur qui étend la classe personnage
@@ -28,34 +25,16 @@ public class Chasseur extends Personnage implements Serializable {
 		this.estMonstre=false;
 	}
 
-	/**
-	 * Méthode qui demande au joueur dans quelle direction il veut aller
-	 * @return La direction dans laquelle le chasseur joueur veut aller
-	 */
-	public Direction getDirectionVoulue() {
-		char c=0;
-		do {
-			System.out.println("    ⭡");
-			System.out.println("⭠     ⭢  Via le pavé numérique, entrez une direction pour vous déplacer.");
-			System.out.println("    ⭣");
-
-			String tmp = Clavier.lireString();
-			if(tmp != null && tmp.length()>0)
-				c = tmp.charAt(0);
-		} while(c!='8' && c!='6' && c!='2' && c!='4');
-		return Direction.byNumero(Character.getNumericValue(c));
-	}
-
 	@Override
 	protected boolean peutPasser(Position p) {
-		Case[][] tab = Engine.getInstance().getPlateau().getCases();
+		Case[][] tab = Client.getInstance().getPlateau().getCases();
 		return tab[p.getX()][p.getY()].getNbPassageChass()<Chasseur.MAXPASSAGE;
 	}
 
 	@Override
 	protected void setPosition(Position p) {		
 		this.pos=p;
-		Engine.getInstance().getPlateau().getCase(p).incrNbPassageChass();				
+		Client.getInstance().getPlateau().getCase(p).incrNbPassageChass();				
 	}
 
 }

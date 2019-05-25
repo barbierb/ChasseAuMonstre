@@ -138,7 +138,7 @@ public class Client extends Thread {
 					return;
 				}
 				String serv = new String(receivePacket.getData()).trim();
-				System.out.println(occurence+" ---> "+serv);
+				System.out.println("BROADCAST réponse reçue:"+serv);
 			}
 		}, 0, 1000);
 
@@ -167,7 +167,7 @@ socket.close();
 	
 	public void envoyerPlateau() {
 		try {
-			this.connexion.out.writeObject(this.plateau);
+			this.connexion.out.writeObject(plateau);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -175,6 +175,10 @@ socket.close();
 
 	public static Client getInstance() {
 		return instance;
+	}
+
+	public Plateau getPlateau() {
+		return plateau;
 	}
 
 }

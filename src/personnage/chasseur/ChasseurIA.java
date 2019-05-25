@@ -27,7 +27,7 @@ public class ChasseurIA extends Chasseur {
 	public ChasseurIA(Position p) {
 		super(p);
 	}
-
+/*
 	@Override
 	public Direction getDirectionVoulue() {
 		if(monstre_detecte) {
@@ -37,7 +37,7 @@ public class ChasseurIA extends Chasseur {
 			return Direction.values()[new Random().nextInt(directions_chasseur.length-1)];
 		}
 	}
-	
+	*/
 	public Direction getDirectionTraque(){
 		
 		boolean aDroite;

@@ -17,7 +17,7 @@ public class MonstreIA extends Monstre {
 	/**
 	 * Méthode qui demande a l'"IA" dans quelle direction elle veut aller
 	 * @return La direction dans laquelle monstre veut aller
-	 */
+	 *//*
 	@Override
 	public Direction getDirectionVoulue() {
 
@@ -37,5 +37,5 @@ public class MonstreIA extends Monstre {
 
 		}
 		return direc;
-	}
+	}*/
 }

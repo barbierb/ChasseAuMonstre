@@ -1,8 +1,8 @@
 package personnage;
 
-import launcher.Engine;
 import plateau.Case;
 import plateau.Position;
+import reseau.Client;
 
 /**
  * Classe abstraite qui définit les personnages chasseur et monstre
@@ -27,12 +27,7 @@ public abstract class Personnage {
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
-	/**
-	 * Méthode qui demande au joueur ou à l'"IA" dans quelle direction elle veut aller <br>
-	 * Boucle tant que l'entrée utilisateur est incorrecte
-	 * @return la direction demandée
-	 */
-	public abstract Direction getDirectionVoulue();
+
 	protected abstract void setPosition(Position p);
 	/**
 	 * Constructeur de personnage 
@@ -83,8 +78,8 @@ public abstract class Personnage {
 	/**
 	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
-	public void deplace() {
-		Case[][] tab = Engine.getInstance().getPlateau().getCases();
+	public void deplace(Direction next) {
+		Case[][] tab = Client.getInstance().getPlateau().getCases();
 		
 		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();
@@ -93,8 +88,6 @@ public abstract class Personnage {
 		boolean flag=true;
 
 		while(flag) {
-			Direction next = getDirectionVoulue();
-
 			int nextX = x + next.getX();
 			int nextY = y + next.getY();
 			Position nextPos = new Position(nextX, nextY);
@@ -104,7 +97,7 @@ public abstract class Personnage {
 				
 				if(estMonstre && modeEtoile) {
 					setPosition(nextPos);
-					etoileTimer --;
+					etoileTimer--;
 					if(etoileTimer == 0) modeEtoile=false;
 					flag=false;
 					
@@ -114,8 +107,6 @@ public abstract class Personnage {
 					if(aEtoile) {
 						
 					}
-					
-					
 				} else  {
 					System.out.println("Vous ne pouvez pas aller là");
 				}
