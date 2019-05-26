@@ -14,7 +14,18 @@ public class AffichagePlateau{
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
         System.out.println("Initilisation...");
         
-        /*ImageView herbe = new ImageView(new Image("/chasseaumonstre/img/grass_tile_1.png"));
-        grille.add(herbe, 0, 0);*/
+        for(int i = 0; i < 10; i++) {
+        	for(int j = 0; j < 10; j++) {
+        		grille.add(creerAffichageImg(new Image("File:img/grass_tile_1.png"), 72), i, j);
+        	}
+        }
+    }
+    
+    public ImageView creerAffichageImg(Image img, int taille) {
+        ImageView imgView = new ImageView(img);
+        imgView.setFitHeight(taille);
+        imgView.setFitWidth(taille);
+        
+        return imgView;
     }
 }
