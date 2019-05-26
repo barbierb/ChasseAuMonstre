@@ -27,6 +27,9 @@ public class Client extends Thread {
 	public boolean estMonstre;
 	public boolean monTour;
 	public int etat; // 0 = encours, 1 = chasseur win, 2 = monstre win
+	
+	public int tourActuel;
+	
 
 	public Client(Socket socket) {
 		this.connexion = new Connexion(socket);
@@ -179,6 +182,10 @@ socket.close();
 
 	public Plateau getPlateau() {
 		return plateau;
+	}
+
+	public int getTourActuel() {
+		return tourActuel;
 	}
 
 }
