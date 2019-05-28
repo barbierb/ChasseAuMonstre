@@ -22,18 +22,21 @@ public class MenuPrincControl {
 
     @FXML
     void setSceneSolo(ActionEvent event) {
+    	System.out.println("scene solo");
     	Client.connecter("127.0.0.1", Serveur.PORT_JEU);
     }
 
     @FXML
     void setSceneMulti(ActionEvent event) {
-    	Serveur.demarrerServeur("Jeuj", System.getProperty("user.name"));
+    	System.out.println("scene multi");
+    	Affichage.stage.setScene(Menus.getSceneMulti());
+    	//Serveur.demarrerServeur("Jeuj", System.getProperty("user.name"));
     }
 
     @FXML
     void setSceneControls(ActionEvent event) {
     	System.out.println("scene controls");
-    	Affichage.stage.setScene(Affichage.getSceneControls());
+    	Affichage.stage.setScene(Menus.getSceneControls());
     }
 
     @FXML

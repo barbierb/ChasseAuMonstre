@@ -1,12 +1,9 @@
 package affichage;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Affichage extends Application {
@@ -31,15 +28,8 @@ public class Affichage extends Application {
 		stage=primaryStage;
 		Parent root = FXMLLoader.load(getClass().getResource("menu_princ.fxml"));
 		primaryStage.setTitle("Chasse Au Monstre");
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(root,1280,720));
 		primaryStage.show();
-	}
-
-	protected static Scene getSceneControls() {
-		Pane labels = new Pane();
-		labels.getChildren().add(new Label("Titre"));
-		Scene controls = new Scene(labels);
-		return controls;
 	}
 
 	public static void main(String[] args) {
