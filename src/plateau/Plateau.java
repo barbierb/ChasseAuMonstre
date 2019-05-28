@@ -8,7 +8,7 @@ import java.util.Random;
 import personnage.Personnage;
 import personnage.chasseur.Chasseur;
 import personnage.monstre.Monstre;
-
+	
 /**
  * Classe du plateau, itérable sur ses cases 
  * @author Sylvain

@@ -78,7 +78,7 @@ public class Menus {
 	}
 	
 	private static Scene getSceneHebergement(String nom) {
-		//Serveur.demarrerServeur(nom, System.getProperty("user.name"));
+		Serveur.demarrerServeur(nom, System.getProperty("user.name"));
 		BorderPane root = new BorderPane();
 		VBox center = new VBox();
 		root.setCenter(center);

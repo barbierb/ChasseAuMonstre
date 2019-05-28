@@ -16,7 +16,7 @@ public class Engine extends Thread {
 	public void run() {
 		Serveur serv = Serveur.getInstance();
 		serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
-		attendre(100);
+		//attendre(100);
 		serv.opposant.envoyer(MessageReseau.ESTCHASSEUR.toString());
 		System.out.println("ENGINE en attente du plateau généré par le monstre");
 		plateau = serv.hote.recevoirPlateau();

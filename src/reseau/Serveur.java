@@ -57,7 +57,12 @@ public class Serveur {
 	}
 
 	public static void demarrerServeur(String nomServeur, String nomHote) {
-		new Serveur(nomServeur, nomHote);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				new Serveur(nomServeur, nomHote);
+			}
+		}).start();;
 	}
 
 	public static Serveur getInstance() {
