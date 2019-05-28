@@ -27,7 +27,9 @@ public class MenuPrincControl {
 
     @FXML
     void setSceneMulti(ActionEvent event) {
+    	
     	Serveur.demarrerServeur("Jeuj", System.getProperty("user.name"));
+    	
     }
 
     @FXML

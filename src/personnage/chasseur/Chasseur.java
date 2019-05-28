@@ -2,6 +2,7 @@ package personnage.chasseur;
 
 import java.io.Serializable;
 
+import personnage.Direction;
 import personnage.Personnage;
 import plateau.Case;
 import plateau.Position;
@@ -28,13 +29,19 @@ public class Chasseur extends Personnage implements Serializable {
 	@Override
 	protected boolean peutPasser(Position p) {
 		Case[][] tab = Client.getInstance().getPlateau().getCases();
-		return tab[p.getX()][p.getY()].getNbPassageChass()<Chasseur.MAXPASSAGE;
+		return tab[p.getX()][p.getY()].getNbPassageChass() < Chasseur.MAXPASSAGE;
 	}
 
 	@Override
 	protected void setPosition(Position p) {		
-		this.pos=p;
+		this.pos = p;
 		Client.getInstance().getPlateau().getCase(p).incrNbPassageChass();				
+	}
+
+	@Override
+	protected Direction getDirectionVoulue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
