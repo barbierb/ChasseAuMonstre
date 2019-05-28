@@ -69,6 +69,15 @@ public class Client extends Thread {
 			} else {
 				this.plateau = connexion.recevoirPlateau();
 			}
+			
+			while(true) {
+				System.out.println("tg");
+				try {
+					sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
 
 		} catch (IOException e) {
 			System.out.println("CLT Déconnecté ! " + e);

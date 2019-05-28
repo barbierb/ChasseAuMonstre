@@ -2,6 +2,7 @@ package personnage.monstre;
 
 import java.io.Serializable;
 
+import personnage.Direction;
 import personnage.Personnage;
 import plateau.Case;
 import plateau.Position;
@@ -34,6 +35,12 @@ public class Monstre extends Personnage implements Serializable {
 	protected void setPosition(Position p) {
 		this.pos=p;
 		Client.getInstance().getPlateau().getCase(p).setTourPassage();
+	}
+
+	@Override
+	protected Direction getDirectionVoulue() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

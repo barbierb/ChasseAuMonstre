@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import personnage.Personnage;
 import personnage.chasseur.Chasseur;
 import personnage.monstre.Monstre;
 
@@ -14,10 +15,11 @@ import personnage.monstre.Monstre;
  */
 public class Plateau implements Iterable<Case>, Serializable {
 	private static final long serialVersionUID = 42;
-	
+
 	private int tailleX, tailleY;
 	private Case[][] cases;
 	private int nbCases;
+	public int tour;
 
 	private Monstre monstre;
 	private Chasseur chasseur;
@@ -29,6 +31,7 @@ public class Plateau implements Iterable<Case>, Serializable {
 	public Plateau(int x, int y) {
 		this.tailleX = x;
 		this.tailleY = y;
+		this.tour = 0;
 		this.cases = new Case[this.tailleX][this.tailleY];
 		for (int i = 0; i < this.tailleX; i++) {
 			for (int j = 0; j < this.tailleY; j++) {
@@ -37,7 +40,7 @@ public class Plateau implements Iterable<Case>, Serializable {
 			}
 		}
 	}
-	
+
 	public void placerEtoiles() {
 		ArrayList<Position> tmp = new ArrayList<Position>();
 		int nbEtoile = 0;
@@ -91,6 +94,31 @@ public class Plateau implements Iterable<Case>, Serializable {
 		return tailleY;
 	}
 
+	/**
+	 * Retourne le gagnant de la partie
+	 * @return 
+	 */
+	public Personnage getWinner() {
+
+		if(this.monstre.getPosition().equals(this.chasseur.getPosition())) {
+			return this.chasseur;
+		}
+
+		Iterator<Case> itr = iterator();
+		int nbParcoursMonstre = 0;
+		while(itr.hasNext()) {
+			Case c = itr.next();
+			if(c.getTourPassage() != -1) {
+				nbParcoursMonstre++;
+			}
+		}
+		if(nbParcoursMonstre >= getNbCases()*0.75) {
+			return this.chasseur;
+		}
+
+		return null;
+	}
+
 
 	/**
 	 * Retourne l'itérateur du plateau qui passe par toutes les cases
@@ -104,11 +132,6 @@ public class Plateau implements Iterable<Case>, Serializable {
 	public double getNbCases() {
 		return nbCases;
 	}
-
-
-
-
-	//TODO faire les emplacements de base du chasseur et monstre
 
 }
 

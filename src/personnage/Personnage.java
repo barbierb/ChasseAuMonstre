@@ -27,7 +27,7 @@ public abstract class Personnage {
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
-
+	protected abstract Direction getDirectionVoulue();
 	protected abstract void setPosition(Position p);
 	/**
 	 * Constructeur de personnage 
@@ -78,7 +78,7 @@ public abstract class Personnage {
 	/**
 	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
-	public void deplace(Direction next) {
+	public void deplace() {
 		Case[][] tab = Client.getInstance().getPlateau().getCases();
 		
 		Position posActuelle = this.getPosition();
@@ -88,6 +88,9 @@ public abstract class Personnage {
 		boolean flag=true;
 
 		while(flag) {
+			
+			Direction next = getDirectionVoulue();
+			
 			int nextX = x + next.getX();
 			int nextY = y + next.getY();
 			Position nextPos = new Position(nextX, nextY);
