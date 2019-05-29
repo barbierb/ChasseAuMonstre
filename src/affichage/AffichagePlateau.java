@@ -14,7 +14,6 @@ public class AffichagePlateau{
     private Canvas grille;
     private GraphicsContext gc;
     private int tailleBaseImg;
-    private int nbImg;
     
     public void initialize() {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
@@ -33,26 +32,30 @@ public class AffichagePlateau{
         for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
         		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
-        		nbImg = 0;
+        		int nbImg = 0;
         		
         		if(testAffichagePlateau.p.getCase(i, j).hasEtoile()) {
         			img = etoile;
-        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j);
+        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
         			nbImg++;
         		}	
         		if(testAffichagePlateau.p.getCase(i, j).getLongueVue() > 0) {
         			img = longueVue;
-        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j);
+        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
         			nbImg++;
+        			
+        			/*if(testAffichagePlateau.p.getCase(i, j).getTourPassage() > -1) {
+        				gc.drawImage(new Image(""+testAffichagePlateau.p.getCase(i, j).getTourPassage()), i, j, tailleBaseImg/4, tailleBaseImg/4);
+        			}*/
         		}
         		if(testAffichagePlateau.p.chasseur.getPosition().equals(new Position(i,j)) && !testAffichagePlateau.estMonstre) {
         	    	img = chasseur;
-        	    	afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j);
+        	    	afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
         	    	nbImg++;
         	   	}
         		if(testAffichagePlateau.p.monstre.getPosition().equals(new Position(i,j)) && testAffichagePlateau.estMonstre) {
         	   		img = monstre;
-        	   		afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j);
+        	   		afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
         	   		nbImg++;
         	   	}
         			
@@ -79,7 +82,7 @@ public class AffichagePlateau{
     	return nb;
     }
     
-    private void afficherImg(Image img, int nbEntites, int x, int y) {
+    private void afficherImg(Image img, int nbEntites, int x, int y, int nbImg) {
    		if(nbEntites > 1) {
 			gc.drawImage(img, x*tailleBaseImg + nbImg*(tailleBaseImg/2), y*tailleBaseImg, tailleBaseImg/2, tailleBaseImg/2);
 		}

@@ -22,9 +22,8 @@ public class Case implements ContientItem, Serializable {
 	private int longueVue;
 	private boolean etoile;
 	
-
 	/**
-	 * Constructeur d'une case 
+	 * Constructeur d'une case
 	 */
 	public Case() {
 		this.nbPassageChass = 0;
@@ -57,7 +56,7 @@ public class Case implements ContientItem, Serializable {
 	 * Mets à jour le tour de passage du monstre sur la case
 	 */
 	public void setTourPassage() {
-		tourPassage = Client.getInstance().getTourActuel();
+		tourPassage = Client.getInstance().getPlateau().tour;
 	}
 
 	

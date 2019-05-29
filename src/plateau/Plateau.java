@@ -5,22 +5,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 
+import personnage.Personnage;
 import personnage.chasseur.Chasseur;
 import personnage.monstre.Monstre;
-
+	
 /**
  * Classe du plateau, itérable sur ses cases 
  * @author Sylvain
  */
 public class Plateau implements Iterable<Case>, Serializable {
 	private static final long serialVersionUID = 42;
-	
+
 	private int taille;
 	private Case[][] cases;
 	private int nbCases;
+	public int tour;
 
-	public Monstre monstre;
-	public Chasseur chasseur;
+	private Monstre monstre;
+	private Chasseur chasseur;
 
 	/**
 	 * Constructeur en fonction de la configuration passée en paramètre
@@ -28,6 +30,7 @@ public class Plateau implements Iterable<Case>, Serializable {
 	 */
 	public Plateau(int taille) {
 		this.taille = taille;
+		this.tour = 0;
 		this.cases = new Case[this.taille][this.taille];
 		for (int i = 0; i < this.taille; i++) {
 			for (int j = 0; j < this.taille; j++) {
@@ -36,7 +39,7 @@ public class Plateau implements Iterable<Case>, Serializable {
 			}
 		}
 	}
-	
+
 	public void placerEtoiles() {
 		ArrayList<Position> tmp = new ArrayList<Position>();
 		int nbEtoile = 0;
@@ -84,6 +87,39 @@ public class Plateau implements Iterable<Case>, Serializable {
 	}
 
 	/**
+	 * Retourne le gagnant de la partie
+	 * @return 
+	 */
+	public Personnage getWinner() {
+
+		if(this.monstre.getPosition().equals(this.chasseur.getPosition())) {
+			return this.chasseur;
+		}
+
+		Iterator<Case> itr = iterator();
+		int nbParcoursMonstre = 0;
+		while(itr.hasNext()) {
+			Case c = itr.next();
+			if(c.getTourPassage() != -1) {
+				nbParcoursMonstre++;
+			}
+		}
+		if(nbParcoursMonstre >= getNbCases()*0.75) {
+			return this.chasseur;
+		}
+
+		return null;
+	}
+
+	public Monstre getMonstre() {
+		return monstre;
+	}
+
+	public Chasseur getChasseur() {
+		return chasseur;
+	}
+
+	/**
 	 * Retourne l'itérateur du plateau qui passe par toutes les cases
 	 */
 	@Override
@@ -95,11 +131,6 @@ public class Plateau implements Iterable<Case>, Serializable {
 	public double getNbCases() {
 		return nbCases;
 	}
-
-
-
-
-	//TODO faire les emplacements de base du chasseur et monstre
 
 }
 
