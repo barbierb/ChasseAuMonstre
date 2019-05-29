@@ -7,23 +7,23 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuPrincControl">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuPrincControl">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../data/robot.png" />
+            <Image url="@../../data/firewatch-game-sunset-artwork.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="solo" layoutX="268.0" layoutY="109.0" mnemonicParsing="false" onAction="#setSceneSolo" text="1 PLAYER" />
-      <Button fx:id="multi" layoutX="264.0" layoutY="157.0" mnemonicParsing="false" onAction="#setSceneMulti" text="2 PLAYERS" />
-      <Button fx:id="controls" alignment="CENTER" contentDisplay="CENTER" layoutX="263.0" layoutY="216.0" mnemonicParsing="false" onAction="#setSceneControls" text="CONTROLS" textAlignment="CENTER">
+      <Button fx:id="solo" layoutX="600.0" layoutY="170.0" mnemonicParsing="false" onAction="#setSceneSolo" text="1 PLAYER" />
+      <Button fx:id="multi" layoutX="596.0" layoutY="241.0" mnemonicParsing="false" onAction="#setSceneMulti" text="2 PLAYERS" />
+      <Button fx:id="controls" alignment="CENTER" contentDisplay="CENTER" layoutX="595.0" layoutY="312.0" mnemonicParsing="false" onAction="#setSceneControls" text="CONTROLS" textAlignment="CENTER">
          <cursor>
             <Cursor fx:constant="OPEN_HAND" />
          </cursor></Button>
-      <Button fx:id="exit" layoutX="284.0" layoutY="272.0" mnemonicParsing="false" onAction="#exitou" text="EXIT" />
-      <Label layoutX="199.0" layoutY="14.0" text="CHASSE AU MONSTRE C ENORME" textFill="RED" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="exit" layoutX="617.0" layoutY="376.0" mnemonicParsing="false" onAction="#exitou" text="EXIT" />
+      <Label layoutX="400.0" layoutY="12.0" text="CHASSE AU MONSTRE C ENORME" textFill="RED" textOverrun="CENTER_ELLIPSIS">
          <font>
-            <Font name="Asana Math" size="13.0" />
+            <Font name="EB Garamond SmallCaps 12 Regular" size="31.0" />
          </font>
       </Label>
       <AmbientLight color="CHARTREUSE" layoutX="50.0" layoutY="31.0" lightOn="true" />

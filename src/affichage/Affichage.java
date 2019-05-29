@@ -13,6 +13,8 @@ public class Affichage extends Application {
 	
 	protected static Stage stage;
 
+	public static boolean placerLongueVue;
+
 	public Affichage() {
 		//TODO VINCENT & SYLVAIN: CHARGER LE MENU PRINCIPAL 1
 	}
