@@ -1,52 +1,22 @@
 package launcher;
 
-import entites.personnage.Type;
-import util.Clavier;
-/**
- * Classe qui lance le jeu
- * @author Sylvain
- */
+import affichage.Affichage;
+import javafx.application.Application;
+import reseau.Client;
+import reseau.Serveur;
+
 public class Launcher {
-	
+
 	public static void main(String[] args) {
-		System.out.println(Engine.RESET);
-		char choix = 0;
-		do {
-			System.out.println(Engine.CHOIX_JOUEUR1);
-			String tmp = Clavier.lireString();
-			if(tmp != null && tmp.length()>0)
-				choix = tmp.charAt(0);
-		} while(choix!='1' && choix!='2');
-		
-		ConfigurationPartie config = new ConfigurationPartie();
-		if(choix=='1') {
-			config.setJoueur1(Type.CHASSEUR);
+		Affichage.getInstance();
+		Application.launch(args);
+		boolean isHost = true;
+		if(isHost) {
+			Serveur.demarrerServeur("Jeuj", System.getProperty("user.name"));
 		} else {
-			config.setJoueur1(Type.MONSTRE);
+			Client.pingServeurs();
+			Client.connecter("127.0.0.1", Serveur.PORT_JEU);
 		}
 
-		System.out.println(Engine.RESET+"Vous jouerez le "+(choix=='1'?"Chasseur":"Monstre"));
-		do {
-			System.out.println(Engine.CHOIX_ADVERSAIRE);
-			choix = Clavier.lireString().charAt(0);
-		} while(choix!='1' && choix!='2');
-		
-		System.out.println(Engine.RESET+"Vous jouerez contre "+(choix=='1'?"une IA":"un autre joueur"));
-		
-		
-		if(config.getJoueur1().equals(Type.MONSTRE)) {
-			if(choix=='1') {
-				config.setJoueur2(Type.CHASSEURIA);
-			} else {
-				config.setJoueur2(Type.CHASSEUR);
-			}
-		} else {
-			if(choix=='1') {
-				config.setJoueur2(Type.MONSTREIA);
-			} else {
-				config.setJoueur2(Type.MONSTRE);
-			}
-		}
-		new Engine(config);
 	}
 }

@@ -1,32 +1,36 @@
 package plateau;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
-import entites.items.Item;
-import launcher.Engine;
+import reseau.Client;
 
 /**
  * La case permet de mémoriser le tour du passage du monstre, le nombre de fois où le chasseur est passé dessus ainsi que les item éventuellement dessus
  * @author Sylvain
  */
-public class Case {
+public class Case implements ContientItem, Serializable {
+	private static final long serialVersionUID = 42;
+	
 	private int tourPassage;
 	private int nbPassageChass;
-	private List<Item> dedans;
-	private static int cptCase = 0;
-	public final int numCase;
+	
+	/**
+	 * 0 == dernier tour de vie de la LV
+	 * x > 0 == nb de tour de vie de la LV
+	 * -1 == pas de longue vue dans la case
+	 */
+	private int longueVue;
+	private boolean etoile;
+	
 
 	/**
 	 * Constructeur d'une case 
 	 */
 	public Case() {
-		this.dedans = new ArrayList<Item>();
 		this.nbPassageChass = 0;
 		this.tourPassage = -1;
-		this.numCase = cptCase;
-		cptCase++;
-
+		this.longueVue = -1;
+		this.etoile = false;
 	}
 
 	/**
@@ -44,19 +48,6 @@ public class Case {
 	}
 
 	/**
-	 * @return la liste d'Item sur la case
-	 */
-	public List<Item> getDedans() {
-		return dedans;
-	}
-	/**
-	 * Ajouter à la liste d'Item un nouvel Item
-	 * @param l'item à ajouter
-	 */
-	public void ajouterItem(Item item) {
-		this.dedans.add(item);
-	}
-	/**
 	 * Quand le chasseur passe sur une case
 	 */
 	public void incrNbPassageChass() {
@@ -66,6 +57,45 @@ public class Case {
 	 * Mets à jour le tour de passage du monstre sur la case
 	 */
 	public void setTourPassage() {
-		tourPassage = Engine.getInstance().getTourActuel();
+		tourPassage = Client.getInstance().getTourActuel();
+	}
+
+	
+	
+	
+	@Override
+	public boolean hasEtoile() {
+		return etoile;
+	}
+
+	@Override
+	public int getLongueVue() {
+		return longueVue;
+	}
+
+	@Override
+	public void placerEtoile() {
+		etoile=true;		
+	}
+	@Override
+	public void placerLVTemp() {
+		placerLV(3);
+	}
+	@Override
+	public void placerLV() {
+		placerLV(5);
+	}
+	private void placerLV(int temps) {
+		longueVue=temps;
+	}
+	
+	@Override
+	public void enleverEtoile() {
+		etoile=false;		
+	}
+
+	@Override
+	public void decrLV() {
+		longueVue--;
 	}
 }

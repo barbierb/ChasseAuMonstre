@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import entites.personnage.Personnage;
-import entites.personnage.chasseur.Chasseur;
-import entites.personnage.monstre.Monstre;
+import personnage.Personnage;
+import personnage.chasseur.Chasseur;
+import personnage.monstre.Monstre;
 import plateau.Plateau;
 import plateau.Position;
 

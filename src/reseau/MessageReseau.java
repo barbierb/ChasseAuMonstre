@@ -1,7 +1,9 @@
 package reseau;
 
 public enum MessageReseau {
-	
+
+	ESTMONSTRE("monstre"),
+	ESTCHASSEUR("chasseur"),
 	READY("ready");
 	
 	private final String message;
