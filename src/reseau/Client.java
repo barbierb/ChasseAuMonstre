@@ -13,6 +13,7 @@ import java.util.Enumeration;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import affichage.Affichage;
 import plateau.Plateau;
 
 public class Client extends Thread {
@@ -68,14 +69,37 @@ public class Client extends Thread {
 				connexion.envoyer(this.plateau);
 			} else {
 				this.plateau = connexion.recevoirPlateau();
+				// AFFICHER PLATEAU
 			}
 			
 			while(true) {
-				System.out.println("tg");
-				try {
-					sleep(1000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+				if(monTour) {
+					if(estMonstre) {
+						// MAJ AFFICHAGE POPO DEPLACE TOI
+						plateau.getMonstre().deplace(); // tu peux te déplacer
+						// -> si NON IA 
+						// --> activer un boolean dans interface: interf renvoie le plateau au serv
+						// -> sinon
+						// --> deplacer le monstre avec une ia
+						
+						
+					} else {
+						plateau.getChasseur().placerLongueVue();
+						// methode abs permettant le placement de longue vue par ia
+						// et autorise le placement dans l'interface.
+						
+						while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
+						
+						plateau.getChasseur().deplace(); // tu peux te déplacer
+						// -> si NON IA 
+						// --> activer un boolean dans interface: interf renvoie le plateau au serv
+						// -> sinon
+						// --> deplacer le monstre avec une ia
+					}
+				} else {
+					this.plateau = connexion.recevoirPlateau();
+					// montour = true
+					// AFFICHER PLATEAU ET ATTENDRE PLATEAU
 				}
 			}
 

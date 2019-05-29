@@ -119,6 +119,13 @@ public class Plateau implements Iterable<Case>, Serializable {
 		return null;
 	}
 
+	public Monstre getMonstre() {
+		return monstre;
+	}
+
+	public Chasseur getChasseur() {
+		return chasseur;
+	}
 
 	/**
 	 * Retourne l'itérateur du plateau qui passe par toutes les cases

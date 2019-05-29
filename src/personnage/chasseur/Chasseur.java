@@ -44,4 +44,9 @@ public class Chasseur extends Personnage implements Serializable {
 		return null;
 	}
 
+	public void placerLongueVue() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
