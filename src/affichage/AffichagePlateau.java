@@ -1,4 +1,4 @@
-package IHM;
+package affichage;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -6,7 +6,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import plateau.Case;
 import plateau.Position;
-import reseau.Client;
 import testsPlateau.testAffichagePlateau;
 
 public class AffichagePlateau{

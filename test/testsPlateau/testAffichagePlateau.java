@@ -25,7 +25,7 @@ public class testAffichagePlateau extends Application{
 		 
 		 
          FXMLLoader loader = new FXMLLoader();
-         loader.setLocation(getClass().getResource("../IHM/AffichagePlateau.fxml"));
+         loader.setLocation(getClass().getResource("../affichage/AffichagePlateau.fxml"));
          Parent root = loader.load();
 
          Scene scene = new Scene(root);
