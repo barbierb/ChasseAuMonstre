@@ -16,7 +16,7 @@
       </ImageView>
       <Button fx:id="solo" layoutX="600.0" layoutY="170.0" mnemonicParsing="false" onAction="#setSceneSolo" text="1 PLAYER" />
       <Button fx:id="multi" layoutX="596.0" layoutY="241.0" mnemonicParsing="false" onAction="#setSceneMulti" text="2 PLAYERS" />
-      <Button fx:id="controls" alignment="CENTER" contentDisplay="CENTER" layoutX="595.0" layoutY="312.0" mnemonicParsing="false" onAction="#setSceneControls" text="CONTROLS" textAlignment="CENTER">
+      <Button fx:id="controls" alignment="CENTER" contentDisplay="CENTER" layoutX="595.0" layoutY="312.0" mnemonicParsing="false" onAction="#setSceneControls" text="CONTROLS" textAlignment="CENTER"/>
       <Button fx:id="exit" layoutX="617.0" layoutY="376.0" mnemonicParsing="false" onAction="#exitou" text="EXIT" />
       <Label layoutX="400.0" layoutY="12.0" text="CHASSE AU MONSTRE C ENORME" textFill="RED" textOverrun="CENTER_ELLIPSIS">
          <font>
