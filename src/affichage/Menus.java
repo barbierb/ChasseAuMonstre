@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -21,10 +22,54 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import reseau.Client;
 import reseau.Serveur;
 
 public class Menus {
-
+	
+	protected static Scene getSceneSolo() {
+		BorderPane root = new BorderPane();
+		background(root, Color.GRAY);
+		
+		
+		VBox top = new VBox();
+		root.setTop(top);
+		
+		HBox top0 = new HBox();
+		top.getChildren().add(top0);
+		top0.getChildren().add(boutonRetour());
+		
+		HBox top1 = new HBox();
+		top.getChildren().add(top1);
+		top1.setAlignment(Pos.CENTER);
+		
+		Label solo = new Label("Partie contre l'ordinateur");
+		solo.setFont(getFontTitre());
+		top1.getChildren().add(solo);
+		
+		HBox center = new HBox();
+		root.setCenter(center);
+		center.setAlignment(Pos.CENTER);
+		
+		VBox centergauche = new VBox();
+		centergauche.setAlignment(Pos.CENTER);
+		center.getChildren().add(centergauche);
+		CheckBox monstre = new CheckBox("Jouer en tant que monstre");
+		CheckBox chasseur = new CheckBox("Jouer en tant que chasseur");
+		centergauche.getChildren().addAll(monstre,chasseur);
+		monstre.addEventHandler(ActionEvent.ACTION, e -> {
+			// lancer le jeu en començant comme un monstre
+		});
+		chasseur.addEventHandler(ActionEvent.ACTION, e -> {
+			// lancer le jeu en commençant comme un chasseur
+		});
+		
+		
+		
+		return new Scene(root,1280,720);
+	}
+	
+	
 	protected static Scene getSceneControls() {
 		BorderPane root = new BorderPane();
 		VBox vboxtop = new VBox();
@@ -37,7 +82,7 @@ public class Menus {
 		
 		background(root,Color.GRAY);
 		Label titre = new Label("Controls");
-		titre.setFont(new Font("LobsterTwo",45));
+		titre.setFont(getFontTitre());
 		top.getChildren().add(titre);
 		
 		HBox hboxcenter = new HBox();
@@ -50,7 +95,7 @@ public class Menus {
 		touchesM.setFitWidth(420);
 		touchesM.setFitHeight(420);
 		Label monstre = new Label("Monstre");
-		monstre.setFont(new Font("LobsterTwo",45));
+		monstre.setFont(getFontTitre());
 		center1.getChildren().add(monstre);
 		center1.getChildren().add(touchesM);
 		
@@ -60,7 +105,7 @@ public class Menus {
 		touchesC.setFitWidth(420);
 		touchesC.setFitHeight(420);
 		Label chasseur = new Label("Chasseur");
-		chasseur.setFont(new Font("LobsterTwo",45));
+		chasseur.setFont(getFontTitre());
 		center2.getChildren().add(chasseur);
 		center2.getChildren().add(touchesC);
 		hboxcenter.getChildren().add(center2);
@@ -96,12 +141,12 @@ public class Menus {
 		top3.setAlignment(Pos.CENTER);
 		
 		Label titre =  new Label("Multijoueur");
-		titre.setFont(new Font("LobsterTwo",45));
+		titre.setFont(getFontTitre(45));
 		top0.getChildren().add(titre);
 		
 		Label hosting =  new Label("Heberger un serveur");
-		Font font = new Font("LobsterTwo",35);
-		hosting.setFont(font);
+		
+		hosting.setFont(getFontTitre());
 		top1.getChildren().add(hosting);
 		
 		Button hebergement = new Button("Héberger ma partie");
@@ -126,7 +171,7 @@ public class Menus {
 		HBox centreHaut = new HBox();
 		centreHaut.setAlignment(Pos.CENTER);
 		Label listeServ = new Label("Liste des serveurs");
-		listeServ.setFont(font);
+		listeServ.setFont(getFontTitre());
 		centreHaut.getChildren().add(listeServ);
 		center.setTop(centreHaut);
 		
@@ -138,6 +183,7 @@ public class Menus {
 		join.addEventHandler(ActionEvent.ACTION, e -> {
 			// rejoindre ce serveur = listServeurs.getSelectionModel().getSelectedItem();
 			// Affichage.stage.setScene(getSceneJeu());
+	    	Client.connecter("127.0.0.1", Serveur.PORT_JEU);
 		});
 		
 		root.setCenter(center);
@@ -170,7 +216,7 @@ public class Menus {
 		
 		return new Scene(root,1280,720);
 	}
-
+		
 	public static void listerFontsConsole() {
 		for(String s: Font.getFontNames()) {
 			System.out.println(s);
@@ -199,4 +245,13 @@ public class Menus {
 		});
 		return retour;
 	}
+
+	private static Font getFontTitre(int i)	{
+		return new Font("LobsterTwo",i);
+	}
+	private static Font getFontTitre() {
+		return getFontTitre(35);
+	}
+
+
 }
