@@ -46,7 +46,7 @@ public class Menus {
 		center1.setAlignment(Pos.CENTER);
 		hboxcenter.getChildren().add(center1);
 		
-		ImageView touchesM = new ImageView(new Image("file:data/ten-keysMv2.png"));
+		ImageView touchesM = new ImageView(new Image("file:data/ten-keysv1.png"));
 		touchesM.setFitWidth(420);
 		touchesM.setFitHeight(420);
 		Label monstre = new Label("Monstre");
@@ -56,7 +56,7 @@ public class Menus {
 		
 		VBox center2 = new VBox();
 		center2.setAlignment(Pos.CENTER);
-		ImageView touchesC = new ImageView(new Image("file:data/ten-keysCv2.png"));
+		ImageView touchesC = new ImageView(new Image("file:data/ten-keysv12.png"));
 		touchesC.setFitWidth(420);
 		touchesC.setFitHeight(420);
 		Label chasseur = new Label("Chasseur");
