@@ -6,12 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -64,11 +64,7 @@ public class Menus {
 		center2.getChildren().add(chasseur);
 		center2.getChildren().add(touchesC);
 		hboxcenter.getChildren().add(center2);
-		
-		
 
-		
-		
 		root.setCenter(hboxcenter);
 		
 		return new Scene(root,1280,720);
@@ -78,6 +74,7 @@ public class Menus {
 	protected static Scene getSceneMulti() {
 		BorderPane root = new BorderPane();
 		VBox top = new VBox();
+		HBox top0 = new HBox();
 		HBox top1 = new HBox();
 		HBox top2 = new HBox();
 		HBox top3 = new HBox();
@@ -85,6 +82,7 @@ public class Menus {
 		root.setTop(top);
 
 		top.getChildren().add(boutonRetour());
+		top.getChildren().add(top0);
 		top.getChildren().add(top1);
 		top.getChildren().add(top2);
 		top.getChildren().add(top3);
@@ -92,13 +90,19 @@ public class Menus {
 		
 		background(root,Color.GRAY);
 		
+		top0.setAlignment(Pos.CENTER);
 		top1.setAlignment(Pos.CENTER);
 		top2.setAlignment(Pos.CENTER);
 		top3.setAlignment(Pos.CENTER);
 		
 		Label titre =  new Label("Multijoueur");
 		titre.setFont(new Font("LobsterTwo",45));
-		top1.getChildren().add(titre);
+		top0.getChildren().add(titre);
+		
+		Label hosting =  new Label("Heberger un serveur");
+		Font font = new Font("LobsterTwo",35);
+		hosting.setFont(font);
+		top1.getChildren().add(hosting);
 		
 		Button hebergement = new Button("Héberger ma partie");
 		top3.getChildren().add(hebergement);
@@ -108,13 +112,34 @@ public class Menus {
 		
 		TextField tf = new TextField();
 		top2.getChildren().add(tf);
-		tf.setPromptText("Entrez ici le nom du serveur");
+		tf.setPromptText("Nom du serveur");
 		tf.addEventHandler(KeyEvent.KEY_TYPED, e -> {
 			nomServeur+=e.getCharacter();
 		});
 		
 
-		AnchorPane center = new AnchorPane();
+		BorderPane center = new BorderPane();
+		ListView<String> listServeurs = new ListView<String>(); // aucune idée de comment gérer ça
+		center.setCenter(listServeurs); // c'est moche c'est pas important
+		center.setPadding(new Insets(30,300,30,300));
+		
+		HBox centreHaut = new HBox();
+		centreHaut.setAlignment(Pos.CENTER);
+		Label listeServ = new Label("Liste des serveurs");
+		listeServ.setFont(font);
+		centreHaut.getChildren().add(listeServ);
+		center.setTop(centreHaut);
+		
+		Button join = new Button("Rejoindre ce serveur");
+		HBox bot = new HBox();
+		center.setBottom(bot);
+		bot.setAlignment(Pos.CENTER);
+		bot.getChildren().add(join);
+		join.addEventHandler(ActionEvent.ACTION, e -> {
+			// rejoindre ce serveur = listServeurs.getSelectionModel().getSelectedItem();
+			// Affichage.stage.setScene(getSceneJeu());
+		});
+		
 		root.setCenter(center);
 
 		return new Scene(root,1280,720);
