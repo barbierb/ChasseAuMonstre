@@ -22,7 +22,6 @@ public class testAffichagePlateau extends Application{
 		 p.monstre = new Monstre(new Position(0,0));
 		 p.chasseur = new Chasseur(new Position(4,2));
 		 p.getCase(5,5).placerLV();
-		 p.getCase(5, 5).setTourPassage();
 		 
 		 
          FXMLLoader loader = new FXMLLoader();

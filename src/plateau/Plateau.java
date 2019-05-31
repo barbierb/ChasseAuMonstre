@@ -21,8 +21,8 @@ public class Plateau implements Iterable<Case>, Serializable {
 	private int nbCases;
 	public int tour;
 
-	private Monstre monstre;
-	private Chasseur chasseur;
+	public Monstre monstre;
+	public Chasseur chasseur;
 
 	/**
 	 * Constructeur en fonction de la configuration passée en paramètre

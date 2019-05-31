@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import plateau.Case;
 import plateau.Position;
 import testsPlateau.testAffichagePlateau;
@@ -28,8 +30,11 @@ public class AffichagePlateau{
         Image chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         Image monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
         Image img = herbe;
-
-        for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
+        
+        gc.setFill(Color.YELLOW);
+        gc.setFont(new Font(tailleBaseImg/3));
+        
+      for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
         		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
         		int nbImg = 0;
@@ -39,28 +44,33 @@ public class AffichagePlateau{
         			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
         			nbImg++;
         		}	
-        		if(testAffichagePlateau.p.getCase(i, j).getLongueVue() > 0) {
+        		if(testAffichagePlateau.p.getCase(i, j).getLongueVue() > 0 && !testAffichagePlateau.estMonstre) {
         			img = longueVue;
         			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
         			nbImg++;
         			
-        			/*if(testAffichagePlateau.p.getCase(i, j).getTourPassage() > -1) {
-        				gc.drawImage(new Image(""+testAffichagePlateau.p.getCase(i, j).getTourPassage()), i, j, tailleBaseImg/4, tailleBaseImg/4);
-        			}*/
+        			if(testAffichagePlateau.p.getCase(i, j).getTourPassage() > -1) {
+        				gc.fillText(""+testAffichagePlateau.p.getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
+        			}
         		}
-        		if(testAffichagePlateau.p.chasseur.getPosition().equals(new Position(i,j)) && !testAffichagePlateau.estMonstre) {
-        	    	img = chasseur;
-        	    	afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
-        	    	nbImg++;
-        	   	}
-        		if(testAffichagePlateau.p.monstre.getPosition().equals(new Position(i,j)) && testAffichagePlateau.estMonstre) {
-        	   		img = monstre;
-        	   		afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
-        	   		nbImg++;
-        	   	}
-        			
+        		if(testAffichagePlateau.p.chasseur != null) {
+	        		if(testAffichagePlateau.p.chasseur.getPosition().equals(new Position(i,j)) && !testAffichagePlateau.estMonstre) {
+	        	    	img = chasseur;
+	        	    	afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
+	        	    	nbImg++;
+	        	   	}
+        		}
+        		if(testAffichagePlateau.p.monstre != null) {
+	        		if(testAffichagePlateau.p.monstre.getPosition().equals(new Position(i,j)) && testAffichagePlateau.estMonstre) {
+	        	   		img = monstre;
+	        	   		afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
+	        	   		nbImg++;
+	        	   	}
+        		}	
         	}
 		}
+      
+      gc.fillText("5", 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
     }
     
     private int getNbEntites(Case c, int x, int y) {
@@ -72,11 +82,15 @@ public class AffichagePlateau{
     	if(c.getLongueVue() > 0 && !testAffichagePlateau.estMonstre) {
     		nb++;
     	}
-    	if(testAffichagePlateau.p.monstre.getPosition().equals(new Position(x,y)) && testAffichagePlateau.estMonstre) {
-    		nb++;
+    	if(testAffichagePlateau.p.monstre != null) {
+	    	if(testAffichagePlateau.p.monstre.getPosition().equals(new Position(x,y)) && testAffichagePlateau.estMonstre) {
+	    		nb++;
+	    	}
     	}
-    	if(testAffichagePlateau.p.chasseur.getPosition().equals(new Position(x,y)) && !testAffichagePlateau.estMonstre) {
-    		nb++;
+    	if(testAffichagePlateau.p.chasseur != null) {
+	    	if(testAffichagePlateau.p.chasseur.getPosition().equals(new Position(x,y)) && !testAffichagePlateau.estMonstre) {
+	    		nb++;
+	    	}
     	}
     	
     	return nb;
