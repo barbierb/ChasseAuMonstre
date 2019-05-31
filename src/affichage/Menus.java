@@ -1,8 +1,12 @@
 package affichage;
 
+import java.io.IOException;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -116,6 +120,7 @@ public class Menus {
 	}
 
 	private static String nomServeur="";
+	
 	protected static Scene getSceneMulti() {
 		BorderPane root = new BorderPane();
 		VBox top = new VBox();
@@ -188,6 +193,17 @@ public class Menus {
 		
 		root.setCenter(center);
 
+		return new Scene(root,1280,720);
+	}
+	
+
+	public static Scene getSceneJeu() {
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(Affichage.class.getResource("AffichagePlateau.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return new Scene(root,1280,720);
 	}
 	

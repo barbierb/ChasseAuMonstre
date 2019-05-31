@@ -16,7 +16,7 @@ import personnage.monstre.Monstre;
 public class Plateau implements Iterable<Case>, Serializable {
 	private static final long serialVersionUID = 42;
 
-	private int tailleX, tailleY;
+	private int taille;
 	private Case[][] cases;
 	private int nbCases;
 	public int tour;
@@ -28,13 +28,12 @@ public class Plateau implements Iterable<Case>, Serializable {
 	 * Constructeur en fonction de la configuration passée en paramètre
 	 * @param cfg : la configuration de la parties
 	 */
-	public Plateau(int x, int y) {
-		this.tailleX = x;
-		this.tailleY = y;
+	public Plateau(int taille) {
+		this.taille = taille;
 		this.tour = 0;
-		this.cases = new Case[this.tailleX][this.tailleY];
-		for (int i = 0; i < this.tailleX; i++) {
-			for (int j = 0; j < this.tailleY; j++) {
+		this.cases = new Case[this.taille][this.taille];
+		for (int i = 0; i < this.taille; i++) {
+			for (int j = 0; j < this.taille; j++) {
 				cases[i][j] = new Case();
 				nbCases++;
 			}
@@ -45,7 +44,7 @@ public class Plateau implements Iterable<Case>, Serializable {
 		ArrayList<Position> tmp = new ArrayList<Position>();
 		int nbEtoile = 0;
 		while(nbEtoile != 3) {
-			Position p = new Position(new Random().nextInt(this.tailleX), new Random().nextInt(this.tailleY));
+			Position p = new Position(new Random().nextInt(this.taille), new Random().nextInt(this.taille));
 			if(!tmp.contains(p)) {
 				tmp.add(p);
 				cases[p.getX()][p.getY()].placerEtoile();
@@ -76,22 +75,15 @@ public class Plateau implements Iterable<Case>, Serializable {
 	 * @return la Case à la position demandée
 	 */
 	public Case getCase(int x, int y) {
-		if(x >= tailleX || y >= tailleY) return null;
+		if(x >= taille || y >= taille) return null;
 		return this.cases[x][y];
 	}
 	/**
 	 * Donne la taille en abscisse du plateau
 	 * @return un entier représentant la taille en abscisse du plateau
 	 */
-	public int getTailleX() {
-		return tailleX;
-	}
-	/**
-	 * Donne la taille en ordonnée du plateau
-	 * @return un entier représentant la taille en ordonnée du plateau
-	 */
-	public int getTailleY() {
-		return tailleY;
+	public int getTaille() {
+		return taille;
 	}
 
 	/**
@@ -141,4 +133,3 @@ public class Plateau implements Iterable<Case>, Serializable {
 	}
 
 }
-

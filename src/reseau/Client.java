@@ -14,6 +14,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import affichage.Affichage;
+import affichage.Menus;
+import javafx.application.Platform;
 import plateau.Plateau;
 
 public class Client extends Thread {
@@ -62,13 +64,31 @@ public class Client extends Thread {
 			}
 			
 			if(estMonstre) {
-				this.plateau = new Plateau(10,10);
-				//this.plateau.placerMonstre();
+				this.plateau = new Plateau(10);
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						Affichage.stage.setScene(Menus.getSceneJeu());
+						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Monstre");
+					}
+				});
+				
+				
+				
 				// AFFICHER MENU DE CHOIX DE LEMPLACEMENT DU MONSTRE
 				// ET QUAND C CHOISI, ENVOYER LE PLATEAU AVEC LE MONSTRE PLACE DEDANS
 				connexion.envoyer(this.plateau);
 			} else {
 				this.plateau = connexion.recevoirPlateau();
+				
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						Affichage.stage.setScene(Menus.getSceneJeu());
+						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Chasseur");
+					}
+				});
+				
 				// AFFICHER PLATEAU
 			}
 			
@@ -81,7 +101,6 @@ public class Client extends Thread {
 						// --> activer un boolean dans interface: interf renvoie le plateau au serv
 						// -> sinon
 						// --> deplacer le monstre avec une ia
-						
 						
 					} else {
 						plateau.getChasseur().placerLongueVue();

@@ -11,7 +11,7 @@ public class Affichage extends Application {
 	private static Affichage affichage;
 	//TODO VINCENT & SYLVAIN: STOCKER ET CHARGER LES SCENES
 	
-	protected static Stage stage;
+	public static Stage stage;
 
 	public static boolean placerLongueVue;
 
