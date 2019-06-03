@@ -29,14 +29,10 @@ public class Client extends Thread {
 	public Plateau plateau;
 	public boolean estMonstre;
 	public boolean monTour;
-	public int etat; // 0 = encours, 1 = chasseur win, 2 = monstre win
-	
-	public int tourActuel;
 	
 
 	public Client(Socket socket) {
 		this.connexion = new Connexion(socket);
-		this.etat = 0;
 		this.start();
 	}
 
@@ -72,12 +68,9 @@ public class Client extends Thread {
 						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Monstre");
 					}
 				});
-				this.plateau.placerEtoiles(); 
-				// AFFICHER MENU DE CHOIX DE LEMPLACEMENT DU MONSTRE
-				// ET QUAND C CHOISI, ENVOYER LE PLATEAU AVEC LE MONSTRE PLACE DEDANS
-				connexion.envoyer(this.plateau);
+				envoyerPlateau(); // envoi sans entites
 			} else {
-				this.plateau = connexion.recevoirPlateau();
+				this.plateau = connexion.recevoirPlateau(); // reception sans entites
 				
 				Platform.runLater(new Runnable() {
 					@Override
@@ -86,8 +79,8 @@ public class Client extends Thread {
 						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Chasseur");
 					}
 				});
-				
-				// AFFICHER PLATEAU
+
+				this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
 			}
 			
 			while(true) {
@@ -232,10 +225,6 @@ socket.close();
 
 	public Plateau getPlateau() {
 		return plateau;
-	}
-
-	public int getTourActuel() {
-		return tourActuel;
 	}
 
 }

@@ -38,7 +38,7 @@ public class Monstre extends Personnage implements Serializable {
 	}
 
 	@Override
-	protected Direction getDirectionVoulue() {
+	public Direction getDirectionVoulue() {
 		// TODO Auto-generated method stub
 		return null;
 	}

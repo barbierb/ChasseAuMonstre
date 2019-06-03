@@ -18,11 +18,10 @@ public class Engine extends Thread {
 		serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
 		//attendre(100);
 		serv.opposant.envoyer(MessageReseau.ESTCHASSEUR.toString());
-		System.out.println("ENGINE en attente du plateau généré par le monstre");
-		plateau = serv.hote.recevoirPlateau();
-		//attendre(10);
-		System.out.println("ENGINE plateau recu, envoi à l'opposant chasseur");
-		serv.opposant.envoyer(plateau);
+		plateau = serv.hote.recevoirPlateau(); // plateau sans monstre
+		serv.opposant.envoyer(plateau); // plateau sans monstre
+		plateau = serv.hote.recevoirPlateau(); // plateau avec monstre
+		serv.opposant.envoyer(plateau); // plateau avec monstre
 
 		System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
 		while(true) {

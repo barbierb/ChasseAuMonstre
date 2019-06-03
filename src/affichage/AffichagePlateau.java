@@ -1,5 +1,7 @@
 package affichage;
 
+import java.util.Random;
+
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
@@ -10,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import personnage.chasseur.Chasseur;
+import personnage.monstre.Monstre;
 import plateau.Case;
 import plateau.Position;
 import reseau.Client;
@@ -17,6 +21,8 @@ import reseau.Client;
 public class AffichagePlateau {
     @FXML
     private BorderPane screen;
+    @FXML
+    private Button endTurn;
 	
     @FXML
     private Canvas grille;
@@ -67,6 +73,31 @@ public class AffichagePlateau {
         longueVue = new Image("File:img/longue-vue.jpg", tailleBaseImg, tailleBaseImg, true, true);
         chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
+        
+        /*endTurn.setOnAction(e -> {
+        	if(c.monTour) {
+        		if(c.getPlateau().getMonstre() == null) {
+        			
+        		}
+        	}
+        });*/
+        endTurn.setVisible(false);
+        
+        grille.setOnMouseClicked(e -> {
+        	if(c.monTour && c.getPlateau().tour == 0) {
+        		Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
+        		c.getPlateau().setMonstre(new Monstre(pmonstre));
+        		Position pchass = new Position(pmonstre.getX(), pmonstre.getY());
+        		while(pmonstre.equals(pchass)) {
+        			pchass = new Position(new Random().nextInt(c.getPlateau().getTaille()), new Random().nextInt(c.getPlateau().getTaille()));
+        		}
+        		c.getPlateau().setChasseur(new Chasseur(pchass));
+        		c.getPlateau().placerEtoiles();
+        		c.getPlateau().tour++;
+        		update();
+        		c.envoyerPlateau();
+        	}
+        });
         
         update();
     }
@@ -175,11 +206,12 @@ public class AffichagePlateau {
     
     private void afficherEtoilesJoueur() {
     	if(c.estMonstre) {
+    		if(c.getPlateau().getMonstre() != null) 
     		for(int i = 0; i < c.getPlateau().getMonstre().getNbEtoiles(); i++) {
     			afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
     		}
-    	}
-    	else {
+    	} else {
+    		if(c.getPlateau().getChasseur() != null) 
     		for(int i = 0; i < c.getPlateau().getChasseur().getNbEtoiles(); i++) {
     			afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
     		}

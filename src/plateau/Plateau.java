@@ -22,6 +22,16 @@ public class Plateau implements Iterable<Case>, Serializable {
 	public int tour;
 
 	private Monstre monstre;
+	
+	public void setMonstre(Monstre monstre) {
+		this.monstre = monstre;
+	}
+
+	public void setChasseur(Chasseur chasseur) {
+		this.chasseur = chasseur;
+	}
+
+
 	private Chasseur chasseur;
 
 	/**
@@ -131,5 +141,4 @@ public class Plateau implements Iterable<Case>, Serializable {
 	public double getNbCases() {
 		return nbCases;
 	}
-
 }
