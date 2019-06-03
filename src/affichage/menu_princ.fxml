@@ -7,7 +7,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<<<<<<< HEAD
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuPrincControl">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
@@ -22,25 +21,6 @@
       <Label layoutX="400.0" layoutY="12.0" text="CHASSE AU MONSTRE C ENORME" textFill="RED" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font name="EB Garamond SmallCaps 12 Regular" size="31.0" />
-=======
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuPrincControl">
-   <children>
-      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../data/robot.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="solo" layoutX="268.0" layoutY="109.0" mnemonicParsing="false" onAction="#setSceneSolo" text="1 PLAYER" />
-      <Button fx:id="multi" layoutX="264.0" layoutY="157.0" mnemonicParsing="false" onAction="#setSceneMulti" text="2 PLAYERS" />
-      <Button fx:id="controls" alignment="CENTER" contentDisplay="CENTER" layoutX="263.0" layoutY="216.0" mnemonicParsing="false" onAction="#setSceneControls" text="CONTROLS" textAlignment="CENTER">
-         <cursor>
-            <Cursor fx:constant="OPEN_HAND" />
-         </cursor></Button>
-      <Button fx:id="exit" layoutX="284.0" layoutY="272.0" mnemonicParsing="false" onAction="#exitou" text="EXIT" />
-      <Label layoutX="199.0" layoutY="14.0" text="CHASSE AU MONSTRE C ENORME" textFill="RED" textOverrun="CENTER_ELLIPSIS">
-         <font>
-            <Font name="Asana Math" size="13.0" />
->>>>>>> refs/remotes/origin/Vincent
          </font>
       </Label>
       <AmbientLight color="CHARTREUSE" layoutX="50.0" layoutY="31.0" lightOn="true" />
