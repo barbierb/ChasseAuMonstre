@@ -27,6 +27,7 @@ public class Affichage extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		stage=primaryStage;
 		Parent root = FXMLLoader.load(getClass().getResource("menu_princ.fxml"));
+		//stage.setResizable(false);
 		primaryStage.setTitle("Chasse Au Monstre");
 		primaryStage.setScene(new Scene(root,1280,720));
 		primaryStage.show();
