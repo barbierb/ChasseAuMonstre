@@ -22,6 +22,7 @@ public class AffichagePlateau{
     private Label tourDeQui;
     @FXML
     private Canvas affichageNbEtoiles;
+    private GraphicsContext afficheEtoiles;
     @FXML
     private Label tour;
     
@@ -38,6 +39,7 @@ public class AffichagePlateau{
         
         gc = grille.getGraphicsContext2D();
         tailleBaseImg = (int) grille.getWidth() / testAffichagePlateau.p.getTaille();
+        afficheEtoiles = affichageNbEtoiles.getGraphicsContext2D();
         
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
@@ -56,7 +58,6 @@ public class AffichagePlateau{
         longueVue = new Image("File:img/longue-vue.jpg", tailleBaseImg, tailleBaseImg, true, true);
         chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
-        img = herbe;
         
         update();
     }
@@ -78,12 +79,12 @@ public class AffichagePlateau{
         		
         		if(testAffichagePlateau.p.getCase(i, j).hasEtoile()) {
         			img = etoile;
-        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
+        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg, gc);
         			nbImg++;
         		}	
         		if(testAffichagePlateau.p.getCase(i, j).getLongueVue() > 0 && !testAffichagePlateau.estMonstre) {
         			img = longueVue;
-        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
+        			afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg, gc);
         			nbImg++;
         			
         			if(testAffichagePlateau.p.getCase(i, j).getTourPassage() > -1) {
@@ -93,14 +94,14 @@ public class AffichagePlateau{
         		if(testAffichagePlateau.p.chasseur != null) {
 	        		if(testAffichagePlateau.p.chasseur.getPosition().equals(new Position(i,j)) && !testAffichagePlateau.estMonstre) {
 	        	    	img = chasseur;
-	        	    	afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
+	        	    	afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg, gc);
 	        	    	nbImg++;
 	        	   	}
         		}
         		if(testAffichagePlateau.p.monstre != null) {
 	        		if(testAffichagePlateau.p.monstre.getPosition().equals(new Position(i,j)) && testAffichagePlateau.estMonstre) {
 	        	   		img = monstre;
-	        	   		afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg);
+	        	   		afficherImg(img, getNbEntites(testAffichagePlateau.p.getCase(i, j), i, j), i, j, nbImg, gc);
 	        	   		nbImg++;
 	        	   	}
         		}	
@@ -131,13 +132,17 @@ public class AffichagePlateau{
     	return nb;
     }
     
-    private void afficherImg(Image img, int nbEntites, int x, int y, int nbImg) {
+    private void afficherImg(Image img, int nbEntites, int x, int y, int nbImg, GraphicsContext gc) {
    		if(nbEntites > 1) {
 			gc.drawImage(img, x*tailleBaseImg + nbImg*(tailleBaseImg/2), y*tailleBaseImg, tailleBaseImg/2, tailleBaseImg/2);
 		}
 		else {
-			gc.drawImage(img, x*tailleBaseImg, y*tailleBaseImg);
+			afficherImg(img, x, y, gc);
 		}
+    }
+    
+    private void afficherImg(Image img, int x, int y, GraphicsContext gc) {
+    	gc.drawImage(img, x*tailleBaseImg, y*tailleBaseImg);
     }
     
     private void changerTourDeQui() {
@@ -160,6 +165,15 @@ public class AffichagePlateau{
     }
     
     private void afficherEtoilesJoueur() {
-    
+    	if(testAffichagePlateau.estMonstre) {
+    		for(int i = 0; i < testAffichagePlateau.p.getMonstre().getNbEtoiles(); i++) {
+    			afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
+    		}
+    	}
+    	else {
+    		for(int i = 0; i < testAffichagePlateau.p.getChasseur().getNbEtoiles(); i++) {
+    			afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
+    		}
+    	}
     }
 }

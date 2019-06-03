@@ -23,7 +23,7 @@ public class testAffichagePlateau extends Application{
 		 p.chasseur = new Chasseur(new Position(4,2));
 		 p.getCase(5,5).placerLV();
 		 p.tour = 2;
-		 
+		 p.chasseur.ajouterEtoile();
 		 
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(getClass().getResource("../affichage/AffichagePlateau.fxml"));
