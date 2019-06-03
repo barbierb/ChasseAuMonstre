@@ -9,14 +9,12 @@ import javafx.stage.Stage;
 public class Affichage extends Application {
 
 	private static Affichage affichage;
-	//TODO VINCENT & SYLVAIN: STOCKER ET CHARGER LES SCENES
 	
 	public static Stage stage;
 
 	public static boolean placerLongueVue;
 
 	public Affichage() {
-		//TODO VINCENT & SYLVAIN: CHARGER LE MENU PRINCIPAL 1
 	}
 
 	public static Affichage getInstance() {

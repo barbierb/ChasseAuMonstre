@@ -167,7 +167,6 @@ public class Menus {
 			nomServeur+=e.getCharacter();
 		});
 		
-
 		BorderPane center = new BorderPane();
 		ListView<String> listServeurs = new ListView<String>(); // aucune idée de comment gérer ça
 		center.setCenter(listServeurs); // c'est moche c'est pas important
