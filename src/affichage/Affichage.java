@@ -1,5 +1,7 @@
 package affichage;
 
+import java.io.InputStream;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,6 +39,12 @@ public class Affichage extends Application {
 		Application.launch(args);
 	}
 
-	
+    public static InputStream chargerImg(String chemin) {
+		InputStream in = MenuPrincControl.class.getResourceAsStream(chemin);
+		if(in == null) {
+			in = MenuPrincControl.class.getResourceAsStream("/"+chemin);
+		}
+		return in;
+	}
 
 }

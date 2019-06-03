@@ -11,11 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -26,7 +23,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import reseau.Client;
 import reseau.Serveur;
 
 public class Menus {
@@ -118,11 +114,9 @@ public class Menus {
 		
 		return new Scene(root,1280,720);
 	}
-
-	private static String nomServeur="";
 	
 	protected static Scene getSceneMulti() {
-		BorderPane root = new BorderPane();
+		/*BorderPane root = new BorderPane();
 		VBox top = new VBox();
 		HBox top0 = new HBox();
 		HBox top1 = new HBox();
@@ -190,8 +184,13 @@ public class Menus {
 	    	Client.connecter("127.0.0.1", Serveur.PORT_JEU);
 		});
 		
-		root.setCenter(center);
-
+		root.setCenter(center);*/
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(Affichage.class.getResource("menu_multi.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return new Scene(root,1280,720);
 	}
 	
@@ -206,7 +205,7 @@ public class Menus {
 		return new Scene(root,1280,720);
 	}
 	
-	private static Scene getSceneHebergement(String nom) {
+	static Scene getSceneHebergement(String nom) {
 		Serveur.demarrerServeur(nom, System.getProperty("user.name"));
 		BorderPane root = new BorderPane();
 		VBox center = new VBox();
