@@ -4,8 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 import reseau.Client;
 
@@ -19,11 +20,10 @@ public class AffichagePlateau {
     public void initialize() {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
         System.out.println("Initilisation...");
-        
-        Plateau p = Client.getInstance().getPlateau();
+        Client c = Client.getInstance();
         
         gc = grille.getGraphicsContext2D();
-        tailleBaseImg = (int) grille.getWidth() / p.getTaille();
+        tailleBaseImg = (int) grille.getWidth() / c.getPlateau().getTaille();
         
         Image herbe = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
         Image etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
@@ -31,55 +31,68 @@ public class AffichagePlateau {
         Image chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         Image monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
         Image img = herbe;
-
-        for(int i = 0; i < p.getTaille(); i++) { //changer par taille plateau Client
-        	for(int j = 0; j < p.getTaille(); j++) { //idem
+        
+        gc.setFill(Color.YELLOW);
+        gc.setFont(new Font(tailleBaseImg/3));
+        
+      for(int i = 0; i < c.getPlateau().getTaille(); i++) { //changer par taille plateau Client
+        	for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
         		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
         		int nbImg = 0;
         		
-        		if(p.getCase(i, j).hasEtoile()) {
+        		if(c.getPlateau().getCase(i, j).hasEtoile()) {
         			img = etoile;
-        			afficherImg(img, getNbEntites(p.getCase(i, j), i, j), i, j, nbImg);
+        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg);
         			nbImg++;
         		}	
-        		if(p.getCase(i, j).getLongueVue() > 0) {
+        		if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
         			img = longueVue;
-        			afficherImg(img, getNbEntites(p.getCase(i, j), i, j), i, j, nbImg);
+        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg);
         			nbImg++;
         			
-        			/*if(testAffichagePlateau.p.getCase(i, j).getTourPassage() > -1) {
-        				gc.drawImage(new Image(""+testAffichagePlateau.p.getCase(i, j).getTourPassage()), i, j, tailleBaseImg/4, tailleBaseImg/4);
-        			}*/
+        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
+        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
+        			}
         		}
-        		/*if(p.getChasseur().getPosition().equals(new Position(i,j)) && !Client.getInstance().estMonstre) {
-        	    	img = chasseur;
-        	    	afficherImg(img, getNbEntites(p.getCase(i, j), i, j), i, j, nbImg);
-        	    	nbImg++;
-        	   	}
-        		if(p.getMonstre().getPosition().equals(new Position(i,j)) && Client.getInstance().estMonstre) {
-        	   		img = monstre;
-        	   		afficherImg(img, getNbEntites(p.getCase(i, j), i, j), i, j, nbImg);
-        	   		nbImg++;
-        	   	}*/
-        			
+        		if(c.getPlateau().getChasseur() != null) {
+	        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
+	        	    	img = chasseur;
+	        	    	afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg);
+	        	    	nbImg++;
+	        	   	}
+        		}
+        		if(c.getPlateau().getMonstre() != null) {
+	        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
+	        	   		img = monstre;
+	        	   		afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg);
+	        	   		nbImg++;
+	        	   	}
+        		}	
         	}
 		}
+      
+      gc.fillText("5", 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
     }
     
     private int getNbEntites(Case c, int x, int y) {
     	int nb = 0;
+    	Client cl = Client.getInstance();
     	
     	if(c.hasEtoile()) {
     		nb++;
     	}
-    	if(c.getLongueVue() > 0 && !Client.getInstance().estMonstre) {
+    	if(c.getLongueVue() > 0 && !cl.estMonstre) {
     		nb++;
     	}
-    	if(Client.getInstance().getPlateau().getMonstre().getPosition().equals(new Position(x,y)) && Client.getInstance().estMonstre) {
-    		nb++;
+    	if(cl.getPlateau().getMonstre() != null) {
+	    	if(cl.getPlateau().getMonstre().getPosition().equals(new Position(x,y)) && cl.estMonstre) {
+	    		nb++;
+	    	}
     	}
-    	if(Client.getInstance().getPlateau().getChasseur().getPosition().equals(new Position(x,y)) && !Client.getInstance().estMonstre) {
-    		nb++;
+    	if(cl.getPlateau().getChasseur() != null) {
+	    	if(cl.getPlateau().getChasseur().getPosition().equals(new Position(x,y)) && !cl.estMonstre) {
+	    		nb++;
+	    	}
     	}
     	
     	return nb;
