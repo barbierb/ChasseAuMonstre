@@ -72,7 +72,7 @@ public class Client extends Thread {
 						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Monstre");
 					}
 				});
-				
+				this.plateau.placerEtoiles(); 
 				// AFFICHER MENU DE CHOIX DE LEMPLACEMENT DU MONSTRE
 				// ET QUAND C CHOISI, ENVOYER LE PLATEAU AVEC LE MONSTRE PLACE DEDANS
 				connexion.envoyer(this.plateau);

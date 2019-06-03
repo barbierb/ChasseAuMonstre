@@ -9,6 +9,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Affichage extends Application {
+	
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
 
 	private static Affichage affichage;
 	
@@ -33,10 +37,6 @@ public class Affichage extends Application {
 		primaryStage.setTitle("Chasse Au Monstre");
 		primaryStage.setScene(new Scene(root,1280,720));
 		primaryStage.show();
-	}
-
-	public static void main(String[] args) {
-		Application.launch(args);
 	}
 
     public static InputStream chargerImg(String chemin) {

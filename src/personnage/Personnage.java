@@ -15,8 +15,15 @@ public abstract class Personnage {
 	protected boolean aEtoile;
 	protected int etoileTimer;
 	protected boolean estMonstre;
+	protected int nbEtoiles;
 
 	protected final int MAX_TIMER_ETOILE = 3;
+	
+	protected Direction nouvelleDirection;
+	
+	public void setDirection(Direction d) {
+		nouvelleDirection = d;
+	}
 
 	
 	/**
@@ -27,7 +34,7 @@ public abstract class Personnage {
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
-	protected abstract Direction getDirectionVoulue();
+	public abstract Direction getDirectionVoulue();
 	protected abstract void setPosition(Position p);
 	/**
 	 * Constructeur de personnage 
@@ -90,6 +97,7 @@ public abstract class Personnage {
 		while(flag) {
 			
 			Direction next = getDirectionVoulue();
+			if(next == null) break;
 			
 			int nextX = x + next.getX();
 			int nextY = y + next.getY();
@@ -111,7 +119,7 @@ public abstract class Personnage {
 						
 					}
 				} else  {
-					System.out.println("Vous ne pouvez pas aller là");
+					System.out.println("Vous ne pouvez pas aller là"); // TODO un label ou un truc qui montre que c'est pas bon
 				}
 			}
 
@@ -121,5 +129,11 @@ public abstract class Personnage {
 		return modeEtoile;
 	}
 
-
+	public int getNbEtoiles() {
+		return nbEtoiles;
+	}
+	
+	public void ajouterEtoile() {
+		this.nbEtoiles++;
+	}
 }
