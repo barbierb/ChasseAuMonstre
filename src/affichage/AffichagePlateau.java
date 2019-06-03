@@ -25,6 +25,13 @@ public class AffichagePlateau{
     @FXML
     private Label tour;
     
+    private Image herbe;
+    private Image etoile;
+    private Image longueVue;
+    private Image chasseur;
+    private Image monstre;
+    private Image img;
+    
     public void initialize() {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
         System.out.println("Initilisation...");
@@ -32,30 +39,38 @@ public class AffichagePlateau{
         gc = grille.getGraphicsContext2D();
         tailleBaseImg = (int) grille.getWidth() / testAffichagePlateau.p.getTaille();
         
-        Image herbe = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
-        Image etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
-        Image longueVue = new Image("File:img/longue-vue.jpg", tailleBaseImg, tailleBaseImg, true, true);
-        Image chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
-        Image monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
-        Image img = herbe;
-        
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
         gc.setFont(new Font(tailleBaseImg/3));
         
-        //affichage tour
+        //paramètres tour
         tour.setFont(new Font("Arial", 28));
-        tour.setText("Tour "+testAffichagePlateau.p.tour);
         tour.setAlignment(Pos.CENTER);
         
-        //affichage tour de qui
+        //paramètres tourDeQui
         tourDeQui.setFont(new Font("Arial", 28));
-        changerTourDeQui();
         tourDeQui.setAlignment(Pos.CENTER);
         
-        //affichage etoiles que le joueur a
-        //afficherEtoilesJoueur();
+        herbe = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
+        etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
+        longueVue = new Image("File:img/longue-vue.jpg", tailleBaseImg, tailleBaseImg, true, true);
+        chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
+        monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
+        img = herbe;
         
+        update();
+    }
+    
+    public void update() {
+    	//affichage tour
+    	tour.setText("Tour "+testAffichagePlateau.p.tour);
+    	
+    	//affichage tour de qui
+    	changerTourDeQui();
+    	
+    	//affichage etoiles que le joueur a
+        //afficherEtoilesJoueur();
+    	
         for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
         		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
