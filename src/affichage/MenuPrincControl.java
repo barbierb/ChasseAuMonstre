@@ -1,41 +1,36 @@
 package affichage;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 public class MenuPrincControl {
 
     @FXML
-    private Button exit;
+    private ImageView solo;
 
     @FXML
-    private Button controls;
+    private ImageView multi;
 
     @FXML
-    private Button solo;
+    private ImageView controles;
 
     @FXML
-    private Button multi;
-
+    private ImageView quitter;
+    
     @FXML
-    void setSceneSolo(ActionEvent event) {
-    	Affichage.stage.setScene(Menus.getSceneSolo());
-    }
-
-    @FXML
-    void setSceneMulti(ActionEvent event) {
-    	Affichage.stage.setScene(Menus.getSceneMulti());
-    }
-
-    @FXML
-    void setSceneControls(ActionEvent event) {
-    	Affichage.stage.setScene(Menus.getSceneControls());
-    }
-
-    @FXML
-    void exitou(ActionEvent event) {
-    	System.exit(0);
+    void initialize() {
+    	solo.setOnMouseClicked(e -> {
+        	Affichage.stage.setScene(Menus.getSceneSolo());
+    	});
+    	multi.setOnMouseClicked(e -> {
+        	Affichage.stage.setScene(Menus.getSceneMulti());
+    	});
+    	controles.setOnMouseClicked(e -> {
+        	Affichage.stage.setScene(Menus.getSceneControls());
+    	});
+    	quitter.setOnMouseClicked(e -> {
+        	System.exit(0);
+    	});
     }
 
 }
