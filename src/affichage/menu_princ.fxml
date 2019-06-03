@@ -31,7 +31,7 @@
          <children>
             <ImageView fx:id="solo" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
-                  <Image url="@../../img/conteneur_normal.png" />
+                  <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
             <ImageView fitHeight="100.0" fitWidth="500.0" pickOnBounds="true" smooth="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
@@ -49,17 +49,17 @@
             </Text>
             <ImageView fx:id="multi" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="2">
                <image>
-                  <Image url="@../../img/conteneur_normal.png" />
+                  <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
             <ImageView fx:id="controles" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="3">
                <image>
-                  <Image url="@../../img/conteneur_normal.png" />
+                  <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
             <ImageView fx:id="quitter" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="4">
                <image>
-                  <Image url="@../../img/conteneur_normal.png" />
+                  <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
             <Text fx:id="solotext" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Solo" textAlignment="CENTER" GridPane.rowIndex="1">

@@ -1,8 +1,10 @@
 package affichage;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -14,6 +16,13 @@ public class AffichagePlateau {
 	
     @FXML
     private Canvas grille;
+    
+    @FXML
+    private Label tour;
+    
+    @FXML
+    private Label tourDeQui;
+    
     private GraphicsContext gc;
     private int tailleBaseImg;
     
@@ -31,6 +40,17 @@ public class AffichagePlateau {
         Image chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         Image monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
         Image img = herbe;
+        
+        //affichage tour
+        tour.setFont(new Font("Arial", 28));
+        tour.setText("Tour "+c.getPlateau().tour);
+        tour.setAlignment(Pos.CENTER);
+        
+        //affichage tour de qui
+        tourDeQui.setFont(new Font("Arial", 28));
+        changerTourDeQui();
+        tourDeQui.setAlignment(Pos.CENTER);
+
         
         gc.setFill(Color.YELLOW);
         gc.setFont(new Font(tailleBaseImg/3));
@@ -66,8 +86,6 @@ public class AffichagePlateau {
         		}	
         	}
 		}
-      
-      gc.fillText("5", 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
     }
     
     private int getNbEntites(Case c, int x, int y) {
@@ -93,6 +111,27 @@ public class AffichagePlateau {
     	
     	return nb;
     }
+    
+    private void changerTourDeQui() {
+    	Client c = Client.getInstance();
+    	if(c.getPlateau().tour % 2 == 0) {
+    		if(c.estMonstre) {
+    			tourDeQui.setText("C'est ton tour !");
+    		}
+    		else {
+    			tourDeQui.setText("Ce n'est pas ton tour");
+    		}
+    	}
+    	else {
+    		if(!c.estMonstre) {
+    			tourDeQui.setText("C'est ton tour !");
+    		}
+    		else {
+    			tourDeQui.setText("Ce n'est pas ton tour");
+    		}
+    	}
+    }
+
     
     private void afficherImg(Image img, int nbEntites, int x, int y, int nbImg) {
    		if(nbEntites > 1) {
