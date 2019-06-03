@@ -133,4 +133,3 @@ public class Plateau implements Iterable<Case>, Serializable {
 	}
 
 }
-

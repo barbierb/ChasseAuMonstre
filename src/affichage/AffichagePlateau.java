@@ -69,7 +69,7 @@ public class AffichagePlateau{
     	changerTourDeQui();
     	
     	//affichage etoiles que le joueur a
-        //afficherEtoilesJoueur();
+        afficherEtoilesJoueur();
     	
         for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
@@ -159,7 +159,7 @@ public class AffichagePlateau{
     	}
     }
     
-    private void AfficherEtoilesJoueur() {
-    	
+    private void afficherEtoilesJoueur() {
+    
     }
 }
