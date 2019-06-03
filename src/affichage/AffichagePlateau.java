@@ -1,8 +1,10 @@
 package affichage;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,6 +18,12 @@ public class AffichagePlateau{
     private Canvas grille;
     private GraphicsContext gc;
     private int tailleBaseImg;
+    @FXML
+    private Label tourDeQui;
+    @FXML
+    private Canvas affichageNbEtoiles;
+    @FXML
+    private Label tour;
     
     public void initialize() {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
@@ -31,10 +39,24 @@ public class AffichagePlateau{
         Image monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
         Image img = herbe;
         
+        //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
         gc.setFont(new Font(tailleBaseImg/3));
         
-      for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
+        //affichage tour
+        tour.setFont(new Font("Arial", 28));
+        tour.setText("Tour "+testAffichagePlateau.p.tour);
+        tour.setAlignment(Pos.CENTER);
+        
+        //affichage tour de qui
+        tourDeQui.setFont(new Font("Arial", 28));
+        changerTourDeQui();
+        tourDeQui.setAlignment(Pos.CENTER);
+        
+        //affichage etoiles que le joueur a
+        //afficherEtoilesJoueur();
+        
+        for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
         		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
         		int nbImg = 0;
@@ -69,8 +91,6 @@ public class AffichagePlateau{
         		}	
         	}
 		}
-      
-      gc.fillText("5", 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
     }
     
     private int getNbEntites(Case c, int x, int y) {
@@ -103,5 +123,28 @@ public class AffichagePlateau{
 		else {
 			gc.drawImage(img, x*tailleBaseImg, y*tailleBaseImg);
 		}
+    }
+    
+    private void changerTourDeQui() {
+    	if(testAffichagePlateau.p.tour % 2 == 0) {
+    		if(testAffichagePlateau.estMonstre) {
+    			tourDeQui.setText("C'est ton tour !");
+    		}
+    		else {
+    			tourDeQui.setText("Ce n'est pas ton tour");
+    		}
+    	}
+    	else {
+    		if(!testAffichagePlateau.estMonstre) {
+    			tourDeQui.setText("C'est ton tour !");
+    		}
+    		else {
+    			tourDeQui.setText("Ce n'est pas ton tour");
+    		}
+    	}
+    }
+    
+    private void AfficherEtoilesJoueur() {
+    	
     }
 }
