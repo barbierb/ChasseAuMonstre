@@ -49,10 +49,6 @@ public class AffichagePlateau {
         			img = longueVue;
         			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg);
         			nbImg++;
-        			
-        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
-        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
-        			}
         		}
         		if(c.getPlateau().getChasseur() != null) {
 	        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
