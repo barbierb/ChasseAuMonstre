@@ -46,10 +46,13 @@ public class AffichagePlateau {
 
     
     private Client c;
+    
+	private static AffichagePlateau ap;
 
     @FXML
     public void initialize() {
     	c = Client.getInstance();
+    	ap = this;
         System.out.println("Initilisation...");
         afficheEtoiles = affichageNbEtoiles.getGraphicsContext2D();
         
@@ -73,20 +76,14 @@ public class AffichagePlateau {
         longueVue = new Image("File:img/longue-vue.jpg", tailleBaseImg, tailleBaseImg, true, true);
         chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
-        
-        /*endTurn.setOnAction(e -> {
-        	if(c.monTour) {
-        		if(c.getPlateau().getMonstre() == null) {
-        			
-        		}
-        	}
-        });*/
         endTurn.setVisible(false);
         
         grille.setOnMouseClicked(e -> {
-        	if(c.monTour && c.getPlateau().tour == 0) {
+        	if(c.estMonstre && c.getPlateau().tour == 0) {
         		Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
         		c.getPlateau().setMonstre(new Monstre(pmonstre));
+        		System.out.println("PTDR ICI OLALA ---->>> "+(c.getPlateau().getMonstre()==null));
+				System.out.println("mons 4");
         		Position pchass = new Position(pmonstre.getX(), pmonstre.getY());
         		while(pmonstre.equals(pchass)) {
         			pchass = new Position(new Random().nextInt(c.getPlateau().getTaille()), new Random().nextInt(c.getPlateau().getTaille()));
@@ -94,8 +91,12 @@ public class AffichagePlateau {
         		c.getPlateau().setChasseur(new Chasseur(pchass));
         		c.getPlateau().placerEtoiles();
         		c.getPlateau().tour++;
+        		c.monTour = true;
+				System.out.println("mons 5");
         		update();
+				System.out.println("mons 6");
         		c.envoyerPlateau();
+				System.out.println("mons 7");
         	}
         });
         
@@ -218,5 +219,7 @@ public class AffichagePlateau {
     	}
     }
 
-
+    public static AffichagePlateau getInstance() {
+    	return ap;
+    }
 }

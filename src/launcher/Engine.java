@@ -16,12 +16,16 @@ public class Engine extends Thread {
 	public void run() {
 		Serveur serv = Serveur.getInstance();
 		serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
-		//attendre(100);
 		serv.opposant.envoyer(MessageReseau.ESTCHASSEUR.toString());
 		plateau = serv.hote.recevoirPlateau(); // plateau sans monstre
+		
 		serv.opposant.envoyer(plateau); // plateau sans monstre
-		plateau = serv.hote.recevoirPlateau(); // plateau avec monstre
-		serv.opposant.envoyer(plateau); // plateau avec monstre
+		
+
+		Plateau newp = serv.hote.recevoirPlateau();
+		System.out.println("ENGINE -newp------------->>>>>>> "+(newp.getMonstre()==null)+" "+newp.tour);
+		
+		serv.opposant.envoyer(plateau); // plateau avec monstre et chass
 
 		System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
 		while(true) {

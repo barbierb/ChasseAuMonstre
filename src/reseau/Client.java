@@ -14,6 +14,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import affichage.Affichage;
+import affichage.AffichagePlateau;
 import affichage.Menus;
 import javafx.application.Platform;
 import plateau.Plateau;
@@ -70,7 +71,9 @@ public class Client extends Thread {
 				});
 				envoyerPlateau(); // envoi sans entites
 			} else {
+				System.out.println("chass 1");
 				this.plateau = connexion.recevoirPlateau(); // reception sans entites
+				System.out.println("chass 2");
 				
 				Platform.runLater(new Runnable() {
 					@Override
@@ -79,11 +82,15 @@ public class Client extends Thread {
 						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Chasseur");
 					}
 				});
-
-				this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				Plateau newp = connexion.recevoirPlateau();
+				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				System.out.println("CLIENT -newp------------->>>>>>> "+(newp.getMonstre()==null)+" "+newp.tour);
+				AffichagePlateau.getInstance().update();
 			}
-			
+			System.out.println("CLIENT démarrage boucle prin");
 			while(true) {
+				boolean b= true;
+				if(b) continue;
 				if(monTour) {
 					if(estMonstre) {
 						// MAJ AFFICHAGE POPO DEPLACE TOI
@@ -213,7 +220,7 @@ socket.close();
 	
 	public void envoyerPlateau() {
 		try {
-			this.connexion.out.writeObject(plateau);
+			this.connexion.out.writeObject(getPlateau());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
