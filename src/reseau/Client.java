@@ -87,20 +87,24 @@ public class Client extends Thread {
 				if(monTour) {
 					if(estMonstre) {
 						// MAJ AFFICHAGE POPO DEPLACE TOI
-						plateau.getMonstre().deplace(); // tu peux te déplacer
+						while(plateau.getChasseur().getDirectionVoulue()==null) {
+							plateau.getMonstre().deplace(); // tu peux te déplacer
+						}
 						// -> si NON IA 
 						// --> activer un boolean dans interface: interf renvoie le plateau au serv
 						// -> sinon
 						// --> deplacer le monstre avec une ia
-						
+
 					} else {
 						plateau.getChasseur().placerLongueVue();
 						// methode abs permettant le placement de longue vue par ia
 						// et autorise le placement dans l'interface.
-						
+
 						while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
 						
-						plateau.getChasseur().deplace(); // tu peux te déplacer
+						while(plateau.getChasseur().getDirectionVoulue()==null) {
+							plateau.getChasseur().deplace(); // tu peux te déplacer
+						}
 						// -> si NON IA 
 						// --> activer un boolean dans interface: interf renvoie le plateau au serv
 						// -> sinon
