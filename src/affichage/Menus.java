@@ -246,7 +246,7 @@ public class Menus {
 	}
 	
 	private static ImageView boutonRetour() {
-		ImageView retour = new ImageView(new Image("file:data/robot.png"));
+		ImageView retour = new ImageView(new Image("file:img/Back-PNG-Image.png"));
 		retour.setFitWidth(96);
 		retour.setFitHeight(60.6);
 		
