@@ -9,9 +9,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import personnage.Direction;
 import personnage.chasseur.Chasseur;
 import personnage.monstre.Monstre;
 import plateau.Case;
@@ -98,6 +102,36 @@ public class AffichagePlateau {
         		c.envoyerPlateau();
 				System.out.println("mons 7");
         	}
+        });
+        
+        grille.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+      	  if(!Client.getInstance().estMonstre && Client.getInstance().monTour) {
+      		  if(Affichage.placerLongueVue) {
+      			  double x = e.getX();
+      			  double y = e.getY();
+      			  x = x/tailleBaseImg;
+      			  y = y/tailleBaseImg;
+      			  Position p = new Position((int)x,(int)y);
+      			  Case caseActuelle = Client.getInstance().getPlateau().getCase(p);
+      			  caseActuelle.placerLV();    			  
+      		  }
+      	  }
+        });
+        
+        grille.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+      	  if( e.getCode().equals(KeyCode.NUMPAD2) 
+      			  || e.getCode().equals(KeyCode.NUMPAD4) || e.getCode().equals(KeyCode.NUMPAD6) 
+      			  || e.getCode().equals(KeyCode.NUMPAD8) 
+      			  	|| (Client.getInstance().estMonstre && 
+      			  			(e.getCode().equals(KeyCode.NUMPAD1) ||  e.getCode().equals(KeyCode.NUMPAD3) 
+      			  					|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
+      		  Direction d = Direction.byNumero(Integer.getInteger(e.getCharacter()));
+      		  
+      		  if(Client.getInstance().estMonstre)  {
+      			  Client.getInstance().getPlateau().getMonstre().setDirection(d);
+      		  } else Client.getInstance().getPlateau().getChasseur().setDirection(d);	  
+      	  }
+      	  
         });
         
         update();
