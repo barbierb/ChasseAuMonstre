@@ -59,7 +59,8 @@ public class Connexion {
 	public Plateau recevoirPlateau() {
 		System.out.println("Connexion: en attente de plateau");
 		try {
-			return (Plateau) this.in.readObject();
+			Plateau p = (Plateau) this.in.readUnshared();
+			return p;
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}

@@ -61,7 +61,7 @@ public class Client extends Thread {
 			}
 			
 			if(estMonstre) {
-				this.plateau = new Plateau(10);
+				this.plateau = new Plateau(11);
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
@@ -73,7 +73,7 @@ public class Client extends Thread {
 			} else {
 				System.out.println("chass 1");
 				this.plateau = connexion.recevoirPlateau(); // reception sans entites
-				System.out.println("chass 2");
+				System.out.println("chass 2 "+plateau.getTaille());
 				
 				Platform.runLater(new Runnable() {
 					@Override
@@ -224,6 +224,7 @@ socket.close();
 	
 	public void envoyerPlateau() {
 		try {
+			System.out.println("MONSTRE = null ? "+(getPlateau().getMonstre()==null));
 			this.connexion.out.writeObject(getPlateau());
 		} catch (IOException e) {
 			e.printStackTrace();

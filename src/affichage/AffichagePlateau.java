@@ -83,7 +83,7 @@ public class AffichagePlateau {
         endTurn.setVisible(false);
         
         grille.setOnMouseClicked(e -> {
-        	if(c.estMonstre && c.getPlateau().tour == 0) {
+        	if(c.estMonstre/* && c.getPlateau().tour == 0*/) {
         		Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
         		c.getPlateau().setMonstre(new Monstre(pmonstre));
         		System.out.println("PTDR ICI OLALA ---->>> "+(c.getPlateau().getMonstre()==null));
@@ -93,9 +93,9 @@ public class AffichagePlateau {
         			pchass = new Position(new Random().nextInt(c.getPlateau().getTaille()), new Random().nextInt(c.getPlateau().getTaille()));
         		}
         		c.getPlateau().setChasseur(new Chasseur(pchass));
-        		c.getPlateau().placerEtoiles();
+        		//c.getPlateau().placerEtoiles();
         		c.getPlateau().tour++;
-        		c.monTour = true;
+        		c.monTour = true; // pas obligatoire
 				System.out.println("mons 5");
         		update();
 				System.out.println("mons 6");

@@ -15,15 +15,28 @@ public class Engine extends Thread {
 	
 	public void run() {
 		Serveur serv = Serveur.getInstance();
+		
+		
+		
+		
 		serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
 		serv.opposant.envoyer(MessageReseau.ESTCHASSEUR.toString());
+		
+		
+		
+		
+		
+		
 		plateau = serv.hote.recevoirPlateau(); // plateau sans monstre
+		
+		
 		
 		serv.opposant.envoyer(plateau); // plateau sans monstre
 		
+		
 
-		Plateau newp = serv.hote.recevoirPlateau();
-		System.out.println("ENGINE -newp------------->>>>>>> "+(newp.getMonstre()==null)+" "+newp.tour);
+		plateau = serv.hote.recevoirPlateau();
+		System.out.println("ENGINE -newp--BORDEL C ICI--------->>>>>>> "+(plateau.getMonstre()==null)+" "+plateau.tour);
 		
 		serv.opposant.envoyer(plateau); // plateau avec monstre et chass
 
