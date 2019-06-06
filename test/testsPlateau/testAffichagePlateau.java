@@ -17,11 +17,11 @@ public class testAffichagePlateau extends Application{
 	 public static boolean estMonstre = false;
 	
 	 public void start(Stage stage) throws IOException {
-		 p.getCase(5, 5).placerEtoile();
+		 p.getCase(4, 4).placerEtoile();
 		 p.getCase(2, 2).placerLV();
 		 p.monstre = new Monstre(new Position(0,0));
 		 p.chasseur = new Chasseur(new Position(4,2));
-		 p.getCase(5,5).placerLV();
+		 p.getCase(4,4).placerLV();
 		 p.tour = 2;
 		 p.chasseur.ajouterEtoile();
 		 

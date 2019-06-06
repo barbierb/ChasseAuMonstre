@@ -6,6 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import plateau.Case;
@@ -167,12 +168,14 @@ public class AffichagePlateau{
     private void afficherEtoilesJoueur() {
     	if(testAffichagePlateau.estMonstre) {
     		for(int i = 0; i < testAffichagePlateau.p.getMonstre().getNbEtoiles(); i++) {
-    			afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
+    			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
+    			afficheEtoiles.drawImage(etoile, i*(affichageNbEtoiles.getWidth()/3),0, affichageNbEtoiles.getWidth()/3, affichageNbEtoiles.getWidth()/3);
     		}
     	}
     	else {
     		for(int i = 0; i < testAffichagePlateau.p.getChasseur().getNbEtoiles(); i++) {
-    			afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
+    			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
+    			afficheEtoiles.drawImage(etoile, i*(affichageNbEtoiles.getWidth()/3),0, affichageNbEtoiles.getWidth()/3, affichageNbEtoiles.getWidth()/3);
     		}
     	}
     }

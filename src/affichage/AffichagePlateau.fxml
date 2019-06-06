@@ -9,7 +9,7 @@
    <left>
       <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: brown;" BorderPane.alignment="CENTER">
          <children>
-            <Canvas fx:id="affichageNbEtoiles" height="72.0" width="280.0" />
+            <Canvas fx:id="affichageNbEtoiles" height="100.0" width="280.0" />
          </children></VBox>
    </left>
    <right>
