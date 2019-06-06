@@ -1,5 +1,7 @@
 package personnage;
 
+import java.io.Serializable;
+
 import plateau.Case;
 import plateau.Position;
 import reseau.Client;
@@ -9,7 +11,8 @@ import reseau.Client;
  * @author Sylvain
  *
  */
-public abstract class Personnage {
+public abstract class Personnage  implements Serializable {
+	private static final long serialVersionUID = 42;
 	protected Position pos;
 	protected boolean modeEtoile;
 	protected boolean aEtoile;

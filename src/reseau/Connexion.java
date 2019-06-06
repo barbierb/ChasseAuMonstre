@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import personnage.chasseur.Chasseur;
+import personnage.monstre.Monstre;
 import plateau.Plateau;
 
 public class Connexion {
@@ -52,6 +54,10 @@ public class Connexion {
 		try {
 			Plateau pnew = new Plateau(p.getTaille());
 			pnew.setTour(p.getTour());
+			if(p.getMonstre() != null)
+				pnew.setMonstre(new Monstre(p.getMonstre().getPosition()));
+			if(p.getChasseur() != null)
+				pnew.setChasseur(new Chasseur(p.getChasseur().getPosition()));
 			this.out.writeObject(pnew);
 			this.out.flush();
 			this.out.reset();

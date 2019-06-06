@@ -61,7 +61,7 @@ public class Client extends Thread {
 			}
 			
 			if(estMonstre) {
-				this.plateau = new Plateau(11);
+				plateau = new Plateau(10);
 				Platform.runLater(new Runnable() {
 					@Override
 					public void run() {
@@ -70,10 +70,14 @@ public class Client extends Thread {
 					}
 				});
 				envoyerPlateau(); // envoi sans entites
+				
+				while(plateau.getMonstre() == null) {
+					// NE SARRETTE PAS TANT QUE LE MONSTRE EST PAS PLACE
+					
+				}
+				System.out.println("monstre placé on commence :D");
 			} else {
-				System.out.println("chass 1");
-				this.plateau = connexion.recevoirPlateau(); // reception sans entites
-				System.out.println("chass 2 "+plateau.getTaille());
+				plateau = connexion.recevoirPlateau(); // reception sans entites
 				
 				Platform.runLater(new Runnable() {
 					@Override
@@ -82,42 +86,20 @@ public class Client extends Thread {
 						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Chasseur");
 					}
 				});
-				this.plateau = connexion.recevoirPlateau();
-				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
-				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
-				AffichagePlateau.getInstance().update();
-
-				this.plateau = connexion.recevoirPlateau();
-				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
-				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
-				AffichagePlateau.getInstance().update();
-				this.plateau = connexion.recevoirPlateau();
-				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
-				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
-				AffichagePlateau.getInstance().update();
-				this.plateau = connexion.recevoirPlateau();
-				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
-				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
-				AffichagePlateau.getInstance().update();
-				this.plateau = connexion.recevoirPlateau();
-				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
-				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
-				AffichagePlateau.getInstance().update();
-				this.plateau = connexion.recevoirPlateau();
-				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				this.plateau = connexion.recevoirPlateau(); // reception avec montre placé et chasseur
 				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
 				AffichagePlateau.getInstance().update();
 			}
+			
+			
+			
+			
 			System.out.println("CLIENT démarrage boucle prin");
 			while(true) {
-				boolean b= true;
-				if(b) continue;
 				if(monTour) {
+					AffichagePlateau.getInstance().update();
 					if(estMonstre) {
-						// MAJ AFFICHAGE POPO DEPLACE TOI
-						while(plateau.getChasseur().getDirectionVoulue()==null) {
-							plateau.getMonstre().deplace(); // tu peux te déplacer
-						}
+						plateau.getMonstre().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
 						// -> si NON IA 
 						// --> activer un boolean dans interface: interf renvoie le plateau au serv
 						// -> sinon
@@ -138,9 +120,14 @@ public class Client extends Thread {
 						// -> sinon
 						// --> deplacer le monstre avec une ia
 					}
+					AffichagePlateau.getInstance().update();
+					envoyerPlateau();
+					System.out.println("CLIENT tour fini.");
+					
 				} else {
-					this.plateau = connexion.recevoirPlateau();
-					// montour = true
+					this.plateau = connexion.recevoirPlateau(); // attente déplacement monstre
+					monTour = true;
+					AffichagePlateau.getInstance().update();
 					// AFFICHER PLATEAU ET ATTENDRE PLATEAU
 				}
 			}

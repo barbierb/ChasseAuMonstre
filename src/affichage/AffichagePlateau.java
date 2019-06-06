@@ -116,18 +116,23 @@ public class AffichagePlateau {
 			}
 		});
 
-		grille.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-			if(c.getPlateau().getTour() == 0)
+		Affichage.stage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+			System.out.println("event");
+			if(c.getPlateau().getTour() == 0) {
+				System.out.println("tour 0 :')");
 				return;
-			if(!c.monTour)
+			}
+			if(!c.monTour) {
+				System.out.println("pas ton tour :')");
 				return;
+			}
 			if(e.getCode().equals(KeyCode.NUMPAD2) 
 					|| e.getCode().equals(KeyCode.NUMPAD4) || e.getCode().equals(KeyCode.NUMPAD6) 
 					|| e.getCode().equals(KeyCode.NUMPAD8) 
 					|| (Client.getInstance().estMonstre && 
 							(e.getCode().equals(KeyCode.NUMPAD1) ||  e.getCode().equals(KeyCode.NUMPAD3) 
 									|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
-				Direction d = Direction.byNumero(Integer.getInteger(e.getCharacter()));
+				Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
 
 				if(Client.getInstance().estMonstre)  {
 					Client.getInstance().getPlateau().getMonstre().setDirection(d);
@@ -150,7 +155,11 @@ public class AffichagePlateau {
 				tour.setText("Tour "+c.getPlateau().getTour());
 
 				//affichage tour de qui
-				changerTourDeQui();
+				if(c.monTour) {
+					tourDeQui.setText("A VOUS DE JOUER");
+				} else {
+					tourDeQui.setText("L'ENNEMI JOUE...");
+				}
 
 				//affichage etoiles que le joueur a
 				afficherEtoilesJoueur();
@@ -231,25 +240,6 @@ public class AffichagePlateau {
 
 	private void afficherImg(Image img, int x, int y, GraphicsContext gc) {
 		gc.drawImage(img, x*tailleBaseImg, y*tailleBaseImg);
-	}
-
-	private void changerTourDeQui() {
-		if(c.getPlateau().getTour() % 2 == 0) {
-			if(c.estMonstre) {
-				tourDeQui.setText("C'est ton tour !");
-			}
-			else {
-				tourDeQui.setText("Ce n'est pas ton tour");
-			}
-		}
-		else {
-			if(!c.estMonstre) {
-				tourDeQui.setText("C'est ton tour !");
-			}
-			else {
-				tourDeQui.setText("Ce n'est pas ton tour");
-			}
-		}
 	}
 
 	private void afficherEtoilesJoueur() {
