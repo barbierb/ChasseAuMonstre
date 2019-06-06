@@ -33,6 +33,7 @@ public class Monstre extends Personnage implements Serializable {
 	@Override
 	protected void setPosition(Position p) {
 		this.pos=p;
+		System.out.println("Monstre "+p);
 		Client.getInstance().getPlateau().getCase(p).setTourPassage();
 	}
 }

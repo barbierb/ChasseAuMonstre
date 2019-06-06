@@ -168,32 +168,32 @@ public class AffichagePlateau {
 					for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
 						gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
 						int nbImg = 0;
-
-						if(c.getPlateau().getCase(i, j).hasEtoile()) {
+						Case tmp = c.getPlateau().getCase(i, j);
+						if(tmp.hasEtoile()) {
 							img = etoile;
-							afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+							afficherImg(img, getNbEntites(tmp, i, j), i, j, nbImg, gc);
 							nbImg++;
 						}	
-						if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
+						if(tmp.getLongueVue() > 0 && !c.estMonstre) {
 							img = longueVue;
-							afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+							afficherImg(img, getNbEntites(tmp, i, j), i, j, nbImg, gc);
 							nbImg++;
 
-							if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
-								gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
+							if(tmp.getTourPassage() > -1) {
+								gc.fillText(""+tmp.getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
 							}
 						}
 						if(c.getPlateau().getChasseur() != null) {
 							if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
 								img = chasseur;
-								afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+								afficherImg(img, getNbEntites(tmp, i, j), i, j, nbImg, gc);
 								nbImg++;
 							}
 						}
 						if(c.getPlateau().getMonstre() != null) {
 							if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
 								img = monstre;
-								afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+								afficherImg(img, getNbEntites(tmp, i, j), i, j, nbImg, gc);
 								nbImg++;
 							}
 						}	
