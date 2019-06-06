@@ -7,7 +7,9 @@ import java.net.Socket;
 
 import personnage.chasseur.Chasseur;
 import personnage.monstre.Monstre;
+import plateau.Case;
 import plateau.Plateau;
+import plateau.Position;
 
 public class Connexion {
 	
@@ -58,6 +60,21 @@ public class Connexion {
 				pnew.setMonstre(new Monstre(p.getMonstre().getPosition()));
 			if(p.getChasseur() != null)
 				pnew.setChasseur(new Chasseur(p.getChasseur().getPosition()));
+			
+			for(int i = 0; i < p.getNbCases(); i++) {
+                for(int j = 0; j < p.getNbCases(); j++) {
+                    Position pos = new Position(i,j);
+                    Case tmp = p.getCase(pos);
+                    if(tmp.hasEtoile()) {
+                    	pnew.getCase(i,j).placerEtoile();
+                    }
+                    if(tmp.hasLV()) {
+                    	pnew.getCase(i,j).placerLV(tmp.getLongueVue());
+                    }
+                }
+
+            }
+			
 			this.out.writeObject(pnew);
 			this.out.flush();
 			this.out.reset();

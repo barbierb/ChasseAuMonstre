@@ -108,10 +108,7 @@ public class Client extends Thread {
 								e.printStackTrace();
 							} // sans ce println le déplacement n'est pas pris en compte
 						}
-						// -> si NON IA 
-						// --> activer un boolean dans interface: interf renvoie le plateau au serv
-						// -> sinon
-						// --> deplacer le monstre avec une ia
+						
 						System.out.println("CLIENT end input move listening");
 					} else {
 						//plateau.getChasseur().placerLongueVue();
@@ -133,14 +130,18 @@ public class Client extends Thread {
 						// -> sinon
 						// --> deplacer le monstre avec une ia
 					}
-					monTour = false;
+					
 					AffichagePlateau.getInstance().update();
+					
+					verifWinner();
+					monTour = false;
 					envoyerPlateau();
 					System.out.println("CLIENT tour fini.");
 					
 				} else {
 					this.plateau = connexion.recevoirPlateau(); // attente déplacement autre
 					AffichagePlateau.getInstance().update();
+					verifWinner();
 					monTour = true;
 				}
 			}
@@ -149,6 +150,41 @@ public class Client extends Thread {
 			System.out.println("CLT Déconnecté ! " + e);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void verifWinner() throws InterruptedException {
+		if(plateau.getMonstre().getPosition().equals(plateau.getChasseur().getPosition())) {
+			
+			if(estMonstre) {
+				// afficher defaite
+				System.out.println("MONSTRE DEFAITE");
+				envoyerPlateau();
+				sleep(750000);
+			} else {
+				// afficher victoire
+				System.out.println("CHASSEUR VICTOIRE");
+				envoyerPlateau();
+				sleep(750000);
+			}
+			
+		}
+		
+		if(plateau.getMonstre().getCasesEcrassee() >= plateau.getNbCases()*0.75) {
+			if(estMonstre) {
+				// afficher victoire
+				System.out.println("MONSTRE VICTOIRE");
+				envoyerPlateau();
+				sleep(750000);
+			} else {
+				// afficher defaite
+				System.out.println("CHASSEUR DEFAITE");
+				envoyerPlateau();
+				sleep(750000);
+			}
+			
 		}
 	}
 

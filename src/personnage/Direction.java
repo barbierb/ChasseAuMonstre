@@ -18,7 +18,6 @@ public enum Direction {
     O("Ouest", false, -1, 0),
     NO("Nord-Ouest", true, -1, -1);
 
-
     private int x;
     private int y;
     private String label;

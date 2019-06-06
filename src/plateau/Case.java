@@ -84,7 +84,7 @@ public class Case implements ContientItem, Serializable {
 	public void placerLV() {
 		placerLV(5);
 	}
-	private void placerLV(int temps) {
+	public void placerLV(int temps) {
 		longueVue=temps;
 	}
 	
@@ -96,5 +96,9 @@ public class Case implements ContientItem, Serializable {
 	@Override
 	public void decrLV() {
 		longueVue--;
+	}
+
+	public boolean hasLV() {
+        return longueVue!=-1;
 	}
 }

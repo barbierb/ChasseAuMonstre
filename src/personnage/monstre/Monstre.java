@@ -14,6 +14,8 @@ import reseau.Client;
  */
 public class Monstre extends Personnage implements Serializable {
 	private static final long serialVersionUID = 42;
+	
+	protected int nbCases = 0;
 
 	/**
 	 * Constructeur de Monstre
@@ -33,7 +35,15 @@ public class Monstre extends Personnage implements Serializable {
 	@Override
 	protected void setPosition(Position p) {
 		this.pos=p;
-		System.out.println("Monstre "+p);
+		if(Client.getInstance().getPlateau().getCase(p).getTourPassage()==Client.getInstance().getPlateau().getTour()) {
+			System.out.println("INCREMENTATION OK COOL");
+			System.out.println();
+			nbCases++;
+		}
 		Client.getInstance().getPlateau().getCase(p).setTourPassage();
+	}
+	
+	public int getCasesEcrassee() {
+		return nbCases;
 	}
 }
