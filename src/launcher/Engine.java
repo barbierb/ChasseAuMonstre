@@ -35,14 +35,14 @@ public class Engine extends Thread {
 		
 		
 
-		plateau = serv.hote.recevoirPlateau();
-		System.out.println("ENGINE -newp--BORDEL C ICI--------->>>>>>> "+(plateau.getMonstre()==null)+" "+plateau.tour);
+		Plateau pd = serv.hote.recevoirPlateau();
+		System.out.println("ENGINE -newp--BORDEL C ICI--------->>>>>>> "+pd.toString());
 		
 		serv.opposant.envoyer(plateau); // plateau avec monstre et chass
 
 		System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
 		while(true) {
-			System.out.println("ENGINE TOUR "+plateau.tour);
+			System.out.println("ENGINE TOUR "+plateau.getTour());
 			
 			System.out.println("ENGINE EN ATTENTE DU PLATEAU DU MONSTRE");
 			plateau = serv.hote.recevoirPlateau();

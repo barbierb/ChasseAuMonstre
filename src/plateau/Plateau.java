@@ -19,19 +19,9 @@ public class Plateau implements Iterable<Case>, Serializable {
 	private int taille;
 	private Case[][] cases;
 	private int nbCases;
-	public int tour;
+	private int tour;
 
 	private Monstre monstre;
-	
-	public void setMonstre(Monstre monstre) {
-		this.monstre = monstre;
-	}
-
-	public void setChasseur(Chasseur chasseur) {
-		this.chasseur = chasseur;
-	}
-
-
 	private Chasseur chasseur;
 
 	/**
@@ -49,6 +39,15 @@ public class Plateau implements Iterable<Case>, Serializable {
 			}
 		}
 	}
+	
+	public void setMonstre(Monstre monstre) {
+		this.monstre = monstre;
+	}
+
+	public void setChasseur(Chasseur chasseur) {
+		this.chasseur = chasseur;
+	}
+
 
 	public void placerEtoiles() {
 		ArrayList<Position> tmp = new ArrayList<Position>();
@@ -137,8 +136,19 @@ public class Plateau implements Iterable<Case>, Serializable {
 		return new ItPlateau(cases);
 	}
 
+	public int getTour() {
+		return tour;
+	}
+
+	public void setTour(int tour) {
+		this.tour = tour;
+	}
 
 	public double getNbCases() {
 		return nbCases;
+	}
+
+	public void setCases(Case[][] c) {
+		this.cases = c;
 	}
 }

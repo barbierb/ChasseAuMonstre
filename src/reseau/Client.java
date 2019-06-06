@@ -84,7 +84,7 @@ public class Client extends Thread {
 				});
 				Plateau newp = connexion.recevoirPlateau();
 				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
-				System.out.println("CLIENT -newp------------->>>>>>> "+(newp.getMonstre()==null)+" "+newp.tour);
+				System.out.println("CLIENT -newp------------->>>>>>> "+(newp.getMonstre()==null)+" "+newp.getTour());
 				AffichagePlateau.getInstance().update();
 			}
 			System.out.println("CLIENT démarrage boucle prin");

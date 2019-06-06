@@ -94,7 +94,7 @@ public class AffichagePlateau {
         		}
         		c.getPlateau().setChasseur(new Chasseur(pchass));
         		//c.getPlateau().placerEtoiles();
-        		c.getPlateau().tour++;
+        		c.getPlateau().setTour(c.getPlateau().getTour()+1);
         		c.monTour = true; // pas obligatoire
 				System.out.println("mons 5");
         		update();
@@ -139,7 +139,7 @@ public class AffichagePlateau {
     
     public void update() {
     	//affichage tour
-    	tour.setText("Tour "+c.getPlateau().tour);
+    	tour.setText("Tour "+c.getPlateau().getTour());
     	
     	//affichage tour de qui
     	changerTourDeQui();
@@ -221,7 +221,7 @@ public class AffichagePlateau {
     }
     
     private void changerTourDeQui() {
-    	if(c.getPlateau().tour % 2 == 0) {
+    	if(c.getPlateau().getTour() % 2 == 0) {
     		if(c.estMonstre) {
     			tourDeQui.setText("C'est ton tour !");
     		}

@@ -50,7 +50,12 @@ public class Connexion {
 
 	public void envoyer(Plateau p) {
 		try {
-			this.out.writeObject(p);
+			Plateau pnew = new Plateau(p.getTaille());
+			pnew.setTour(p.getTour()+1);
+			System.out.println(pnew.toString());
+			this.out.writeObject(pnew);
+			this.out.flush();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -59,7 +64,7 @@ public class Connexion {
 	public Plateau recevoirPlateau() {
 		System.out.println("Connexion: en attente de plateau");
 		try {
-			Plateau p = (Plateau) this.in.readUnshared();
+			Plateau p = (Plateau) this.in.readObject();
 			return p;
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
