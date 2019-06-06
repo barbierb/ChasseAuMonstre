@@ -82,9 +82,30 @@ public class Client extends Thread {
 						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Chasseur");
 					}
 				});
-				Plateau newp = connexion.recevoirPlateau();
+				this.plateau = connexion.recevoirPlateau();
 				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
-				System.out.println("CLIENT -newp------------->>>>>>> "+(newp.getMonstre()==null)+" "+newp.getTour());
+				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
+				AffichagePlateau.getInstance().update();
+
+				this.plateau = connexion.recevoirPlateau();
+				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
+				AffichagePlateau.getInstance().update();
+				this.plateau = connexion.recevoirPlateau();
+				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
+				AffichagePlateau.getInstance().update();
+				this.plateau = connexion.recevoirPlateau();
+				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
+				AffichagePlateau.getInstance().update();
+				this.plateau = connexion.recevoirPlateau();
+				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
+				AffichagePlateau.getInstance().update();
+				this.plateau = connexion.recevoirPlateau();
+				//this.plateau = connexion.recevoirPlateau(); // reception avec montre placé
+				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
 				AffichagePlateau.getInstance().update();
 			}
 			System.out.println("CLIENT démarrage boucle prin");
@@ -223,13 +244,9 @@ socket.close();
 	}
 	
 	public void envoyerPlateau() {
-		try {
-			System.out.println("MONSTRE = null ? "+(getPlateau().getMonstre()==null));
-			this.connexion.out.writeObject(getPlateau());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+        System.out.println("MONSTRE = null ? "+(getPlateau().getMonstre()==null));
+        this.connexion.envoyer(getPlateau());
+    }
 
 	public static Client getInstance() {
 		return instance;

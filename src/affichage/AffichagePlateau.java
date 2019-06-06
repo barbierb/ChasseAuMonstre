@@ -2,6 +2,7 @@ package affichage;
 
 import java.util.Random;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
@@ -138,50 +139,61 @@ public class AffichagePlateau {
     }
     
     public void update() {
-    	//affichage tour
-    	tour.setText("Tour "+c.getPlateau().getTour());
     	
-    	//affichage tour de qui
-    	changerTourDeQui();
+    	Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+
+		    	//affichage tour
+		    	tour.setText("Tour "+c.getPlateau().getTour());
+		    	
+		    	//affichage tour de qui
+		    	changerTourDeQui();
+		    	
+		    	//affichage etoiles que le joueur a
+		        afficherEtoilesJoueur();
+		    	
+		        for(int i = 0; i < c.getPlateau().getTaille(); i++) { //changer par taille plateau Client
+		        	for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
+		        		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
+		        		int nbImg = 0;
+		        		
+		        		if(c.getPlateau().getCase(i, j).hasEtoile()) {
+		        			img = etoile;
+		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+		        			nbImg++;
+		        		}	
+		        		if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
+		        			img = longueVue;
+		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+		        			nbImg++;
+		        			
+		        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
+		        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
+		        			}
+		        		}
+		        		if(c.getPlateau().getChasseur() != null) {
+			        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
+			        	    	img = chasseur;
+			        	    	afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+			        	    	nbImg++;
+			        	   	}
+		        		}
+		        		if(c.getPlateau().getMonstre() != null) {
+			        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
+			        	   		img = monstre;
+			        	   		afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+			        	   		nbImg++;
+			        	   	}
+		        		}	
+		        	}
+				}
+			}
+    		
+    	});
     	
-    	//affichage etoiles que le joueur a
-        afficherEtoilesJoueur();
     	
-        for(int i = 0; i < c.getPlateau().getTaille(); i++) { //changer par taille plateau Client
-        	for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
-        		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
-        		int nbImg = 0;
-        		
-        		if(c.getPlateau().getCase(i, j).hasEtoile()) {
-        			img = etoile;
-        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-        			nbImg++;
-        		}	
-        		if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
-        			img = longueVue;
-        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-        			nbImg++;
-        			
-        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
-        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
-        			}
-        		}
-        		if(c.getPlateau().getChasseur() != null) {
-	        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
-	        	    	img = chasseur;
-	        	    	afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-	        	    	nbImg++;
-	        	   	}
-        		}
-        		if(c.getPlateau().getMonstre() != null) {
-	        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
-	        	   		img = monstre;
-	        	   		afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-	        	   		nbImg++;
-	        	   	}
-        		}	
-        	}
-		}
     }
     
     private int getNbEntites(Case cas, int x, int y) {

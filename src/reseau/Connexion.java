@@ -51,11 +51,10 @@ public class Connexion {
 	public void envoyer(Plateau p) {
 		try {
 			Plateau pnew = new Plateau(p.getTaille());
-			pnew.setTour(p.getTour()+1);
-			System.out.println(pnew.toString());
+			pnew.setTour(p.getTour());
 			this.out.writeObject(pnew);
 			this.out.flush();
-			
+			this.out.reset();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

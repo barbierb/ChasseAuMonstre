@@ -35,10 +35,10 @@ public class Engine extends Thread {
 		
 		
 
-		Plateau pd = serv.hote.recevoirPlateau();
-		System.out.println("ENGINE -newp--BORDEL C ICI--------->>>>>>> "+pd.toString());
+		plateau = serv.hote.recevoirPlateau();
 		
 		serv.opposant.envoyer(plateau); // plateau avec monstre et chass
+		
 
 		System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
 		while(true) {
