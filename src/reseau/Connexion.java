@@ -61,8 +61,8 @@ public class Connexion {
 			if(p.getChasseur() != null)
 				pnew.setChasseur(new Chasseur(p.getChasseur().getPosition()));
 			
-			for(int i = 0; i < p.getNbCases(); i++) {
-                for(int j = 0; j < p.getNbCases(); j++) {
+			for(int i = 0; i < p.getTaille(); i++) {
+                for(int j = 0; j < p.getTaille(); j++) {
                     Position pos = new Position(i,j);
                     Case tmp = p.getCase(pos);
                     if(tmp.hasEtoile()) {
