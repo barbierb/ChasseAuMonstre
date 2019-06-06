@@ -102,7 +102,11 @@ public class Client extends Thread {
 						boolean estPasse = false;
 						while(!estPasse) {
 							estPasse = plateau.getMonstre().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
-							System.out.println("CLIENT monstre estPasse "+estPasse);
+							try {
+								sleep(1);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							} // sans ce println le déplacement n'est pas pris en compte
 						}
 						// -> si NON IA 
 						// --> activer un boolean dans interface: interf renvoie le plateau au serv
@@ -116,7 +120,11 @@ public class Client extends Thread {
 						boolean estPasse = false;
 						while(!estPasse) {
 							estPasse = plateau.getChasseur().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
-							System.out.println("CLIENT chass estPasse "+estPasse);
+							try {
+								sleep(1);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							} // sans ce println le déplacement n'est pas pris en compte
 						}
 						//while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
 						

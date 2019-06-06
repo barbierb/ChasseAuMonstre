@@ -97,21 +97,22 @@ public abstract class Personnage  implements Serializable {
 		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();
 		int y = posActuelle.getY();
-
+		
 		Direction next = getDirectionVoulue();
 		if(next == null) {
 			return false;
 		}
-
+		
 		int nextX = x + next.getX();
 		int nextY = y + next.getY();
 		Position nextPos = new Position(nextX, nextY);
 
 		//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
 		if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
-
+			
 			if(estMonstre && modeEtoile) {
 				setPosition(nextPos);
+				
 				etoileTimer--;
 				if(etoileTimer == 0) modeEtoile=false;
 				return true;
