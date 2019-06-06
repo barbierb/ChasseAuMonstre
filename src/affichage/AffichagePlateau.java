@@ -78,7 +78,7 @@ public class AffichagePlateau {
 
 		herbe = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
 		etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
-		longueVue = new Image("File:img/longuevue.jpg", tailleBaseImg, tailleBaseImg, true, true);
+		longueVue = new Image("File:img/longuevue.png", tailleBaseImg, tailleBaseImg, true, true);
 		chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
 		monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
 		endTurn.setVisible(false);
@@ -94,7 +94,7 @@ public class AffichagePlateau {
 					pchass = new Position(new Random().nextInt(c.getPlateau().getTaille()), new Random().nextInt(c.getPlateau().getTaille()));
 				}
 				c.getPlateau().setChasseur(new Chasseur(pchass));
-				//c.getPlateau().placerEtoiles(); //TODO VERIF ICI
+				c.getPlateau().placerEtoiles();
 				c.getPlateau().setTour(c.getPlateau().getTour()+1);
 				c.monTour = true; // pas obligatoire
 				update();
