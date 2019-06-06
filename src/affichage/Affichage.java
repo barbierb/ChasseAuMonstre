@@ -1,5 +1,7 @@
 package affichage;
 
+import java.io.InputStream;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Affichage extends Application {
+	
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
 
 	private static Affichage affichage;
 	
@@ -33,10 +39,12 @@ public class Affichage extends Application {
 		primaryStage.show();
 	}
 
-	public static void main(String[] args) {
-		Application.launch(args);
+    public static InputStream chargerImg(String chemin) {
+		InputStream in = MenuPrincControl.class.getResourceAsStream(chemin);
+		if(in == null) {
+			in = MenuPrincControl.class.getResourceAsStream("/"+chemin);
+		}
+		return in;
 	}
-
-	
 
 }

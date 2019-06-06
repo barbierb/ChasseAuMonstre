@@ -2,8 +2,6 @@ package affichage;
 
 import java.io.IOException;
 
-import org.hamcrest.core.Is;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -13,11 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -28,11 +23,10 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import reseau.Client;
 import reseau.Serveur;
 
 public class Menus {
-	private static boolean isMonstre;
+	
 	protected static Scene getSceneSolo() {
 		BorderPane root = new BorderPane();
 		background(root, Color.GRAY);
@@ -64,19 +58,13 @@ public class Menus {
 		CheckBox chasseur = new CheckBox("Jouer en tant que chasseur");
 		centergauche.getChildren().addAll(monstre,chasseur);
 		monstre.addEventHandler(ActionEvent.ACTION, e -> {
-			isMonstre = true;
+			// lancer le jeu en començant comme un monstre
 		});
 		chasseur.addEventHandler(ActionEvent.ACTION, e -> {
-			isMonstre = false;
+			// lancer le jeu en commençant comme un chasseur
 		});
 		
-		HBox bottom = new HBox();
-		bottom.setAlignment(Pos.CENTER);
-		Button lancer = new Button("Lancer la partie");
-		lancer.addEventHandler(ActionEvent.ACTION, e -> {
-			// lancer le jeu avec la bonne config
-			Affichage.stage.setScene(getSceneJeu());
-		});
+		
 		
 		return new Scene(root,1280,720);
 	}
@@ -126,11 +114,9 @@ public class Menus {
 		
 		return new Scene(root,1280,720);
 	}
-
-	private static String nomServeur="";
 	
 	protected static Scene getSceneMulti() {
-		BorderPane root = new BorderPane();
+		/*BorderPane root = new BorderPane();
 		VBox top = new VBox();
 		HBox top0 = new HBox();
 		HBox top1 = new HBox();
@@ -198,8 +184,13 @@ public class Menus {
 	    	Client.connecter("127.0.0.1", Serveur.PORT_JEU);
 		});
 		
-		root.setCenter(center);
-
+		root.setCenter(center);*/
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(Affichage.class.getResource("menu_multi.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return new Scene(root,1280,720);
 	}
 	
@@ -214,7 +205,7 @@ public class Menus {
 		return new Scene(root,1280,720);
 	}
 	
-	private static Scene getSceneHebergement(String nom) {
+	static Scene getSceneHebergement(String nom) {
 		Serveur.demarrerServeur(nom, System.getProperty("user.name"));
 		BorderPane root = new BorderPane();
 		VBox center = new VBox();
@@ -255,7 +246,7 @@ public class Menus {
 	}
 	
 	private static ImageView boutonRetour() {
-		ImageView retour = new ImageView(new Image("file:data/robot.png"));
+		ImageView retour = new ImageView(new Image("file:img/Back-PNG-Image.png"));
 		retour.setFitWidth(96);
 		retour.setFitHeight(60.6);
 		
@@ -266,6 +257,7 @@ public class Menus {
 				e.printStackTrace();
 			}
 		});
+		
 		return retour;
 	}
 

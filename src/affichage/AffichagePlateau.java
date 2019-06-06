@@ -65,7 +65,7 @@ public class AffichagePlateau{
     
     public void update() {
     	//affichage tour
-    	tour.setText("Tour "+testAffichagePlateau.p.tour);
+    	tour.setText("Tour "+testAffichagePlateau.p.getTour());
     	
     	//affichage tour de qui
     	changerTourDeQui();
@@ -147,7 +147,7 @@ public class AffichagePlateau{
     }
     
     private void changerTourDeQui() {
-    	if(testAffichagePlateau.p.tour % 2 == 0) {
+    	if(testAffichagePlateau.p.getTour() % 2 == 0) {
     		if(testAffichagePlateau.estMonstre) {
     			tourDeQui.setText("C'est ton tour !");
     		}

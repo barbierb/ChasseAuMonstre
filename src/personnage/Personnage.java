@@ -34,7 +34,10 @@ public abstract class Personnage {
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
-	public abstract Direction getDirectionVoulue();
+	
+	public Direction getDirectionVoulue() {
+		return nouvelleDirection;
+	}
 	protected abstract void setPosition(Position p);
 	/**
 	 * Constructeur de personnage 
