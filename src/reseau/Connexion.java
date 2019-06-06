@@ -72,7 +72,6 @@ public class Connexion {
                     	pnew.getCase(i,j).placerLV(tmp.getLongueVue());
                     }
                 }
- 
             }
 			
 			this.out.writeObject(pnew);

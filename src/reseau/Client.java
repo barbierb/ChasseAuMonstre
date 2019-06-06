@@ -102,14 +102,8 @@ public class Client extends Thread {
 						boolean estPasse = false;
 						while(!estPasse) {
 							estPasse = plateau.getMonstre().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
-							try {
-								sleep(1);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							} // sans ce println le déplacement n'est pas pris en compte
+							sleep(1);
 						}
-						
-						System.out.println("CLIENT end input move listening");
 					} else {
 						//plateau.getChasseur().placerLongueVue();
 						// methode abs permettant le placement de longue vue par ia
@@ -117,11 +111,7 @@ public class Client extends Thread {
 						boolean estPasse = false;
 						while(!estPasse) {
 							estPasse = plateau.getChasseur().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
-							try {
-								sleep(1);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							} // sans ce println le déplacement n'est pas pris en compte
+							sleep(1);
 						}
 						//while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
 						
