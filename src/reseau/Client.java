@@ -73,7 +73,7 @@ public class Client extends Thread {
 				
 				while(plateau.getMonstre() == null) {
 					// NE SARRETTE PAS TANT QUE LE MONSTRE EST PAS PLACE
-					
+					System.out.println("CLIENT EN ATTENTE DU PLACEMENT DU MONSTRE PAR LIHM");
 				}
 				System.out.println("monstre placé on commence :D");
 			} else {
@@ -99,36 +99,41 @@ public class Client extends Thread {
 				if(monTour) {
 					AffichagePlateau.getInstance().update();
 					if(estMonstre) {
-						plateau.getMonstre().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
-						// -> si NON IA 
-						// --> activer un boolean dans interface: interf renvoie le plateau au serv
-						// -> sinon
-						// --> deplacer le monstre avec une ia
-
-					} else {
-						plateau.getChasseur().placerLongueVue();
-						// methode abs permettant le placement de longue vue par ia
-						// et autorise le placement dans l'interface.
-
-						while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
-						
-						while(plateau.getChasseur().getDirectionVoulue()==null) {
-							plateau.getChasseur().deplace(); // tu peux te déplacer
+						boolean estPasse = false;
+						while(!estPasse) {
+							estPasse = plateau.getMonstre().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
+							System.out.println("CLIENT monstre estPasse "+estPasse);
 						}
 						// -> si NON IA 
 						// --> activer un boolean dans interface: interf renvoie le plateau au serv
 						// -> sinon
 						// --> deplacer le monstre avec une ia
+						System.out.println("CLIENT end input move listening");
+					} else {
+						//plateau.getChasseur().placerLongueVue();
+						// methode abs permettant le placement de longue vue par ia
+						// et autorise le placement dans l'interface.
+						boolean estPasse = false;
+						while(!estPasse) {
+							estPasse = plateau.getChasseur().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
+							System.out.println("CLIENT chass estPasse "+estPasse);
+						}
+						//while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
+						
+						// -> si NON IA 
+						// --> activer un boolean dans interface: interf renvoie le plateau au serv
+						// -> sinon
+						// --> deplacer le monstre avec une ia
 					}
+					monTour = false;
 					AffichagePlateau.getInstance().update();
 					envoyerPlateau();
 					System.out.println("CLIENT tour fini.");
 					
 				} else {
-					this.plateau = connexion.recevoirPlateau(); // attente déplacement monstre
-					monTour = true;
+					this.plateau = connexion.recevoirPlateau(); // attente déplacement autre
 					AffichagePlateau.getInstance().update();
-					// AFFICHER PLATEAU ET ATTENDRE PLATEAU
+					monTour = true;
 				}
 			}
 
@@ -231,7 +236,6 @@ socket.close();
 	}
 	
 	public void envoyerPlateau() {
-        System.out.println("MONSTRE = null ? "+(getPlateau().getMonstre()==null));
         this.connexion.envoyer(getPlateau());
     }
 

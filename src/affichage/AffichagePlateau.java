@@ -133,7 +133,7 @@ public class AffichagePlateau {
 							(e.getCode().equals(KeyCode.NUMPAD1) ||  e.getCode().equals(KeyCode.NUMPAD3) 
 									|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
 				Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
-
+				System.out.println("direction: "+d.getLabel());
 				if(Client.getInstance().estMonstre)  {
 					Client.getInstance().getPlateau().getMonstre().setDirection(d);
 				} else Client.getInstance().getPlateau().getChasseur().setDirection(d);	  

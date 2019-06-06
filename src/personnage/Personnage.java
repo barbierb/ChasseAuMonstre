@@ -21,14 +21,14 @@ public abstract class Personnage  implements Serializable {
 	protected int nbEtoiles;
 
 	protected final int MAX_TIMER_ETOILE = 3;
-	
+
 	protected Direction nouvelleDirection;
-	
+
 	public void setDirection(Direction d) {
 		nouvelleDirection = d;
 	}
 
-	
+
 	/**
 	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est. <br>
 	 * Un monstre ne peut repasser où il est déjà allé<br>
@@ -37,7 +37,7 @@ public abstract class Personnage  implements Serializable {
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
-	
+
 	public Direction getDirectionVoulue() {
 		return nouvelleDirection;
 	}
@@ -61,7 +61,7 @@ public abstract class Personnage  implements Serializable {
 			if(i instanceof Etoile) return true;
 		}
 		return false;
-		*/
+		 */
 		return false;
 	}
 	/**
@@ -78,7 +78,7 @@ public abstract class Personnage  implements Serializable {
 					break;
 				}
 			}
-			*/
+			 */
 		}
 	}
 	/**
@@ -91,45 +91,38 @@ public abstract class Personnage  implements Serializable {
 	/**
 	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
-	public void deplace() {
+	public boolean deplace() {
 		Case[][] tab = Client.getInstance().getPlateau().getCases();
-		
+
 		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();
 		int y = posActuelle.getY();
 
-		boolean flag=true;
+		Direction next = getDirectionVoulue();
+		if(next == null) {
+			return false;
+		}
 
-		while(flag) {
-			
-			Direction next = getDirectionVoulue();
-			if(next == null) break;
-			
-			int nextX = x + next.getX();
-			int nextY = y + next.getY();
-			Position nextPos = new Position(nextX, nextY);
-			
-			//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
-			if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
-				
-				if(estMonstre && modeEtoile) {
-					setPosition(nextPos);
-					etoileTimer--;
-					if(etoileTimer == 0) modeEtoile=false;
-					flag=false;
-					
-				} else if (peutPasser(nextPos)) {
-					setPosition(nextPos);
-					flag=false;
-					if(aEtoile) {
-						
-					}
-				} else  {
-					System.out.println("Vous ne pouvez pas aller là"); // TODO un label ou un truc qui montre que c'est pas bon
-				}
+		int nextX = x + next.getX();
+		int nextY = y + next.getY();
+		Position nextPos = new Position(nextX, nextY);
+
+		//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
+		if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
+
+			if(estMonstre && modeEtoile) {
+				setPosition(nextPos);
+				etoileTimer--;
+				if(etoileTimer == 0) modeEtoile=false;
+				return true;
+
+			} else if (peutPasser(nextPos)) {
+				setPosition(nextPos);
+				return true;
 			}
 
 		}
+		return false;
 	}
 	public boolean isEtoile() {
 		return modeEtoile;
@@ -138,7 +131,7 @@ public abstract class Personnage  implements Serializable {
 	public int getNbEtoiles() {
 		return nbEtoiles;
 	}
-	
+
 	public void ajouterEtoile() {
 		this.nbEtoiles++;
 	}
