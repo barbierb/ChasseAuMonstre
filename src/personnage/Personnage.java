@@ -127,10 +127,10 @@ public abstract class Personnage  implements Serializable {
 	}
 
 	public int getNbEtoiles() {
-		return nbEtoiles;
+		return nbEtoile;
 	}
 
 	public void ajouterEtoile() {
-		this.nbEtoiles++;
+		this.nbEtoile++;
 	}
 }
