@@ -15,10 +15,9 @@ public abstract class Personnage  implements Serializable {
 	private static final long serialVersionUID = 42;
 	protected Position pos;
 	protected boolean modeEtoile;
-	protected boolean aEtoile;
 	protected int etoileTimer;
 	protected boolean estMonstre;
-	protected int nbEtoiles;
+	protected int nbEtoile;
 
 	protected final int MAX_TIMER_ETOILE = 3;
 
@@ -49,37 +48,22 @@ public abstract class Personnage  implements Serializable {
 	public Personnage(Position p) {
 		this.pos = p;
 		this.modeEtoile = false;
-		this.aEtoile = false;
+		this.nbEtoile = 0;
 		this.etoileTimer = 0;
 	}
 	/**
 	 * Vérifie si le personnage a une étoile dans son sac
 	 */
 	public boolean aEtoile() {
-		/*
-		for(Item i:sac) {
-			if(i instanceof Etoile) return true;
-		}
-		return false;
-		 */
-		return false;
+		return nbEtoile>0;
 	}
 	/**
 	 * Utilise une étoile si le personnage a une étoile dans son sac
 	 */
 	public void utiliseEtoile() {
-		if(aEtoile()) {
-			this.modeEtoile=true;
-			this.etoileTimer = MAX_TIMER_ETOILE;
-			/*
-			for(Item i : this.sac) {
-				if(i instanceof Etoile) {
-					this.sac.remove(i);
-					break;
-				}
-			}
-			 */
-		}
+		this.modeEtoile=true;
+		this.etoileTimer = MAX_TIMER_ETOILE;
+		nbEtoile--;
 	}
 	/**
 	 * @return la position du personnage
@@ -110,15 +94,28 @@ public abstract class Personnage  implements Serializable {
 		//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
 		if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
 			
+			
+			
 			if(estMonstre && modeEtoile) {
 				setPosition(nextPos);
 				
 				etoileTimer--;
 				if(etoileTimer == 0) modeEtoile=false;
+				
+				if(Client.getInstance().getPlateau().getCase(nextPos).hasEtoile()) {
+					nbEtoile++;
+					Client.getInstance().getPlateau().getCase(nextPos).enleverEtoile();
+				}
+				
 				return true;
 
 			} else if (peutPasser(nextPos)) {
 				setPosition(nextPos);
+
+				if(Client.getInstance().getPlateau().getCase(nextPos).hasEtoile()) {
+					nbEtoile++;
+					Client.getInstance().getPlateau().getCase(nextPos).enleverEtoile();
+				}
 				return true;
 			}
 
