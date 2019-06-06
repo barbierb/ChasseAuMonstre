@@ -30,16 +30,13 @@ public class Engine extends Thread {
 		plateau = serv.hote.recevoirPlateau(); // plateau sans monstre
 		
 		
-		
 		serv.opposant.envoyer(plateau); // plateau sans monstre
 		
-		
 
-		plateau = serv.hote.recevoirPlateau();
+		plateau = serv.hote.recevoirPlateau(); // plateau avec monstre et chass
 		
 		serv.opposant.envoyer(plateau); // plateau avec monstre et chass
 		
-
 		System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
 		while(true) {
 			System.out.println("ENGINE TOUR "+plateau.getTour());
