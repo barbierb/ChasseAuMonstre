@@ -2,7 +2,7 @@ package personnage.chasseur;
 
 import java.io.Serializable;
 
-import personnage.Direction;
+import affichage.Affichage;
 import personnage.Personnage;
 import plateau.Case;
 import plateau.Position;
@@ -38,15 +38,8 @@ public class Chasseur extends Personnage implements Serializable {
 		Client.getInstance().getPlateau().getCase(p).incrNbPassageChass();				
 	}
 
-	@Override
-	public Direction getDirectionVoulue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void placerLongueVue() {
-		// TODO Auto-generated method stub
-		
+		Affichage.placerLongueVue=true;		
 	}
 
 }
