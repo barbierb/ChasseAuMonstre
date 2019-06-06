@@ -111,7 +111,9 @@ public class AffichagePlateau {
 					y = y/tailleBaseImg;
 					Position p = new Position((int)x,(int)y);
 					Case caseActuelle = Client.getInstance().getPlateau().getCase(p);
-					caseActuelle.placerLV();    			  
+					caseActuelle.placerLV();
+					update();
+					Affichage.placerLongueVue=false;
 				}
 			}
 		});
