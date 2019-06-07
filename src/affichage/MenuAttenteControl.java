@@ -20,20 +20,16 @@ public class MenuAttenteControl {
 		};
 	public static int att_id = 0;
 
-    @FXML
-    private Pane screen;
 
     @FXML
-    private ImageView fond;
+    private Pane screen;
 
     @FXML
     private Text textattente;
 
     @FXML
     private ImageView quitter;
-
-    @FXML
-    private Text rejoindretext1;
+    
 	public static Timer timer;
 
 	@FXML
