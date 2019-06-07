@@ -108,7 +108,6 @@ public class Client extends Thread {
 						}
 					} else {
 						plateau.getChasseur().placerLongueVue();
-						plateau.getChasseur().placerLongueVue();
 						while(Affichage.placerLongueVue) {
 							sleep(1);
 						}
