@@ -20,6 +20,7 @@ import personnage.Direction;
 import personnage.chasseur.Chasseur;
 import personnage.monstre.Monstre;
 import plateau.Case;
+import plateau.Plateau;
 import plateau.Position;
 import reseau.Client;
 
@@ -128,21 +129,32 @@ public class AffichagePlateau {
 				System.out.println("pas ton tour :')");
 				return;
 			}
-			if(e.getCode().equals(KeyCode.NUMPAD2) 
-					|| e.getCode().equals(KeyCode.NUMPAD4) || e.getCode().equals(KeyCode.NUMPAD6) 
-					|| e.getCode().equals(KeyCode.NUMPAD8) 
-					|| (Client.getInstance().estMonstre && 
-							(e.getCode().equals(KeyCode.NUMPAD1) ||  e.getCode().equals(KeyCode.NUMPAD3) 
-									|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
-				Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
-				c.getPlateau().setTour(c.getPlateau().getTour()+1);
-				if(Client.getInstance().estMonstre)  {
-					Client.getInstance().getPlateau().getMonstre().setDirection(d);
-				} else Client.getInstance().getPlateau().getChasseur().setDirection(d);	  
+			if(!Affichage.placerLongueVue)
+				if(e.getCode().equals(KeyCode.NUMPAD2) 
+						|| e.getCode().equals(KeyCode.NUMPAD4) || e.getCode().equals(KeyCode.NUMPAD6) 
+						|| e.getCode().equals(KeyCode.NUMPAD8) 
+						|| (Client.getInstance().estMonstre && 
+								(e.getCode().equals(KeyCode.NUMPAD1) ||  e.getCode().equals(KeyCode.NUMPAD3) 
+										|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
+
+					Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
+					c.getPlateau().setTour(c.getPlateau().getTour()+1);
+					if(Client.getInstance().estMonstre)  {
+						Client.getInstance().getPlateau().getMonstre().setDirection(d);
+					} else Client.getInstance().getPlateau().getChasseur().setDirection(d);	  
+				}
+			if(e.getCode().equals(KeyCode.ASTERISK) || e.getCode().equals(KeyCode.MULTIPLY)) {
+				Plateau p = Client.getInstance().getPlateau();
+				if(Client.getInstance().estMonstre) {
+					Monstre m = p.getMonstre();
+					if(m.aEtoile()) m.utiliseEtoile();
+				} else {
+					Chasseur c = p.getChasseur();
+					if(c.aEtoile()) c.utiliseEtoile();
+				}
+				update();
 			}
-
 		});
-
 		update();
 	}
 

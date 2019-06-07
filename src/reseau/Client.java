@@ -15,8 +15,10 @@ import java.util.TimerTask;
 
 import affichage.Affichage;
 import affichage.AffichagePlateau;
+import affichage.MenuMultiControl;
 import affichage.Menus;
 import javafx.application.Platform;
+import plateau.Case;
 import plateau.Plateau;
 
 public class Client extends Thread {
@@ -106,8 +108,12 @@ public class Client extends Thread {
 						}
 					} else {
 						plateau.getChasseur().placerLongueVue();
+						plateau.getChasseur().placerLongueVue();
 						while(Affichage.placerLongueVue) {
 							sleep(1);
+						}
+						for(Case c : plateau) {
+							if(c.hasLV()) c.decrLV();
 						}
 						// methode abs permettant le placement de longue vue par ia
 						// et autorise le placement dans l'interface.
@@ -209,11 +215,10 @@ public class Client extends Thread {
 
 		brdTask = new Timer();
 		brdTask.schedule(new TimerTask() {
-			private int occurence = 1;
 			@Override
 			public void run() {
-				System.out.println("CLT pingServeurs()");
-				if(occurence++>=5) cancel();
+				System.out.println("CLIENT pingServeurs()");
+				if(Client.getInstance() != null || MenuMultiControl.instance == null) cancel();
 				Enumeration<NetworkInterface> cartes = null;
 				try {
 					cartes = NetworkInterface.getNetworkInterfaces();
@@ -246,6 +251,10 @@ public class Client extends Thread {
 				}
 				String serv = new String(receivePacket.getData()).trim();
 				System.out.println("BROADCAST réponse reçue:"+serv);
+				String nom = serv.split(" ")[1];
+				String user = serv.split(" ")[2];
+				String ip = receivePacket.getAddress().toString().substring(1);
+				MenuMultiControl.instance.addServeur(nom, user, ip);
 			}
 		}, 0, 1000);
 

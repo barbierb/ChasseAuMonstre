@@ -66,7 +66,7 @@ public class Menus {
 		
 		
 		
-		return new Scene(root,1280,720);
+		return new Scene(root);
 	}
 	
 	
@@ -112,86 +112,17 @@ public class Menus {
 
 		root.setCenter(hboxcenter);
 		
-		return new Scene(root,1280,720);
+		return new Scene(root);
 	}
 	
 	protected static Scene getSceneMulti() {
-		/*BorderPane root = new BorderPane();
-		VBox top = new VBox();
-		HBox top0 = new HBox();
-		HBox top1 = new HBox();
-		HBox top2 = new HBox();
-		HBox top3 = new HBox();
-		
-		root.setTop(top);
-
-		top.getChildren().add(boutonRetour());
-		top.getChildren().add(top0);
-		top.getChildren().add(top1);
-		top.getChildren().add(top2);
-		top.getChildren().add(top3);
-		
-		
-		background(root,Color.GRAY);
-		
-		top0.setAlignment(Pos.CENTER);
-		top1.setAlignment(Pos.CENTER);
-		top2.setAlignment(Pos.CENTER);
-		top3.setAlignment(Pos.CENTER);
-		
-		Label titre =  new Label("Multijoueur");
-		titre.setFont(getFontTitre(45));
-		top0.getChildren().add(titre);
-		
-		Label hosting =  new Label("Heberger un serveur");
-		
-		hosting.setFont(getFontTitre());
-		top1.getChildren().add(hosting);
-		
-		Button hebergement = new Button("Héberger ma partie");
-		top3.getChildren().add(hebergement);
-		hebergement.addEventHandler(ActionEvent.ACTION, e -> {
-			Affichage.stage.setScene(getSceneHebergement(nomServeur));
-		});
-		
-		TextField tf = new TextField();
-		top2.getChildren().add(tf);
-		tf.setPromptText("Nom du serveur");
-		tf.addEventHandler(KeyEvent.KEY_TYPED, e -> {
-			nomServeur+=e.getCharacter();
-		});
-		
-		BorderPane center = new BorderPane();
-		ListView<String> listServeurs = new ListView<String>(); // aucune idée de comment gérer ça
-		center.setCenter(listServeurs); // c'est moche c'est pas important
-		center.setPadding(new Insets(30,300,30,300));
-		
-		HBox centreHaut = new HBox();
-		centreHaut.setAlignment(Pos.CENTER);
-		Label listeServ = new Label("Liste des serveurs");
-		listeServ.setFont(getFontTitre());
-		centreHaut.getChildren().add(listeServ);
-		center.setTop(centreHaut);
-		
-		Button join = new Button("Rejoindre ce serveur");
-		HBox bot = new HBox();
-		center.setBottom(bot);
-		bot.setAlignment(Pos.CENTER);
-		bot.getChildren().add(join);
-		join.addEventHandler(ActionEvent.ACTION, e -> {
-			// rejoindre ce serveur = listServeurs.getSelectionModel().getSelectedItem();
-			// Affichage.stage.setScene(getSceneJeu());
-	    	Client.connecter("127.0.0.1", Serveur.PORT_JEU);
-		});
-		
-		root.setCenter(center);*/
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(Affichage.class.getResource("menu_multi.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Scene(root,1280,720);
+		return new Scene(root);
 	}
 	
 
@@ -202,33 +133,18 @@ public class Menus {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Scene(root,1280,720);
+		return new Scene(root);
 	}
 	
 	static Scene getSceneHebergement(String nom) {
 		Serveur.demarrerServeur(nom, System.getProperty("user.name"));
-		BorderPane root = new BorderPane();
-		VBox center = new VBox();
-		root.setCenter(center);
-		center.setAlignment(Pos.CENTER);
-		Label wait = new Label("En attente d'un opposant...");
-		center.getChildren().add(wait);
-		Button exit = new Button("Exit");
-		Button cancel = new Button("Cancel");
-		HBox bot = new HBox();
-		root.setBottom(bot);
-		bot.setAlignment(Pos.CENTER);
-		bot.getChildren().add(cancel);
-		bot.getChildren().add(exit);
-		
-		exit.addEventHandler(ActionEvent.ACTION, e -> {
-			System.exit(0);
-		});
-		cancel.addEventHandler(ActionEvent.ACTION, e -> {
-			Affichage.stage.setScene(getSceneMulti());
-		});
-		
-		return new Scene(root,1280,720);
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(Affichage.class.getResource("menu_attente.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new Scene(root);
 	}
 		
 	public static void listerFontsConsole() {
