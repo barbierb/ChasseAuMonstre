@@ -70,48 +70,13 @@ public class Menus {
 	}
 	
 	
-	protected static Scene getSceneControls() {
-		BorderPane root = new BorderPane();
-		VBox vboxtop = new VBox();
-		HBox top = new HBox();
-		top.setAlignment(Pos.CENTER);
-
-		vboxtop.getChildren().add(boutonRetour());
-		vboxtop.getChildren().add(top);
-		root.setTop(vboxtop);
-		
-		background(root,Color.GRAY);
-		Label titre = new Label("Controls");
-		titre.setFont(getFontTitre());
-		top.getChildren().add(titre);
-		
-		HBox hboxcenter = new HBox();
-		hboxcenter.setAlignment(Pos.CENTER);
-		VBox center1 = new VBox();
-		center1.setAlignment(Pos.CENTER);
-		hboxcenter.getChildren().add(center1);
-		
-		ImageView touchesM = new ImageView(new Image("file:data/ten-keysv1.png"));
-		touchesM.setFitWidth(420);
-		touchesM.setFitHeight(420);
-		Label monstre = new Label("Monstre");
-		monstre.setFont(getFontTitre());
-		center1.getChildren().add(monstre);
-		center1.getChildren().add(touchesM);
-		
-		VBox center2 = new VBox();
-		center2.setAlignment(Pos.CENTER);
-		ImageView touchesC = new ImageView(new Image("file:data/ten-keysv12.png"));
-		touchesC.setFitWidth(420);
-		touchesC.setFitHeight(420);
-		Label chasseur = new Label("Chasseur");
-		chasseur.setFont(getFontTitre());
-		center2.getChildren().add(chasseur);
-		center2.getChildren().add(touchesC);
-		hboxcenter.getChildren().add(center2);
-
-		root.setCenter(hboxcenter);
-		
+	protected static Scene getSceneAide() {
+		Parent root = null;
+		try {
+			root = FXMLLoader.load(Affichage.class.getResource("menu_aide.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return new Scene(root);
 	}
 	

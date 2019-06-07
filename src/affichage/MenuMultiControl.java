@@ -6,13 +6,10 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -26,31 +23,32 @@ public class MenuMultiControl {
 
 	public static final Image serv = new Image(Affichage.chargerImg("../serv.png"), 400, 80, true, true);
 	public static final Image serv_selected = new Image(Affichage.chargerImg("../serv_selected.png"), 400, 80, true, true);
-	
+    @FXML
+    private Pane screen;
 
-	@FXML
-	private Pane screen;
+    @FXML
+    private ImageView fond;
 
-	@FXML
-	private ImageView fond;
+    @FXML
+    private VBox listeserv;
 
-	@FXML
-	private ImageView heberger;
+    @FXML
+    private ImageView heberger;
 
-	@FXML
-	private Text hebergertext;
+    @FXML
+    private Text hebergertext;
 
-	@FXML
-	private ImageView rejoindre;
+    @FXML
+    private ImageView rejoindre;
 
-	@FXML
-	private Text rejoindretext;
+    @FXML
+    private Text rejoindretext;
 
-	@FXML
-	private TextField nomserv;
+    @FXML
+    private TextField nomserv;
 
-	@FXML
-	private VBox listeserv;
+    @FXML
+    private ImageView quitter;
 
 	private ArrayList<PingServeur> serveurs;
 
@@ -94,7 +92,6 @@ public class MenuMultiControl {
 		});
 
 		rejoindre.setOnMouseClicked(e -> {
-			//Affichage.stage.setScene(getSceneJeu());
 			Client.connecter(ip, Serveur.PORT_JEU);
 		});
 		rejoindre.setOnMouseEntered(e -> {
@@ -103,9 +100,24 @@ public class MenuMultiControl {
 		rejoindre.setOnMouseExited(e -> {
 			rejoindre.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
 		});
+		quitter.setOnMouseClicked(e->{
+			if(Client.brdTask != null) Client.brdTask.cancel();
+			try {
+				Affichage.getInstance().start(Affichage.stage);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+		quitter.setOnMouseEntered(e -> {
+			quitter.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+		});
+		quitter.setOnMouseExited(e -> {
+			quitter.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+		});
 
 		screen.setOnKeyPressed(e -> {
 			if(!e.getCode().equals(KeyCode.ESCAPE)) return;
+			if(Client.brdTask != null) Client.brdTask.cancel();
 			try {
 				Affichage.getInstance().start(Affichage.stage);
 			} catch (Exception e1) {

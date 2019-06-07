@@ -14,7 +14,7 @@
    <children>
       <ImageView fx:id="fond" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../../data/firewatch-game-sunset-artwork.jpg" />
+            <Image url="@../../img/fond.jpg" />
          </image>
       </ImageView>
       <GridPane prefHeight="720.0" prefWidth="1280.0">
@@ -52,7 +52,7 @@
                   <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="controles" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="3">
+            <ImageView fx:id="aide" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../img/conteneur.png" />
                </image>
@@ -62,21 +62,21 @@
                   <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
-            <Text fx:id="solotext" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Solo" textAlignment="CENTER" GridPane.rowIndex="1">
+            <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Solo" textAlignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="NewsgeekSerif" size="35.0" />
                </font></Text>
-            <Text fx:id="multitext" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Multijoueur" textAlignment="CENTER" GridPane.rowIndex="2">
+            <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Multijoueur" textAlignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="NewsgeekSerif" size="35.0" />
                </font>
             </Text>
-            <Text fx:id="controlestext" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Controles" textAlignment="CENTER" GridPane.rowIndex="3">
+            <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Aide" textAlignment="CENTER" GridPane.rowIndex="3">
                <font>
                   <Font name="NewsgeekSerif" size="35.0" />
                </font>
             </Text>
-            <Text fx:id="quittertext" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Quitter" textAlignment="CENTER" GridPane.rowIndex="4">
+            <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Quitter" textAlignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font name="NewsgeekSerif" size="35.0" />
                </font>

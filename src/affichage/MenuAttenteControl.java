@@ -32,7 +32,7 @@ public class MenuAttenteControl {
     
 	public static Timer timer;
 
-	@FXML
+	@FXML 	
 	void initialize() {
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {

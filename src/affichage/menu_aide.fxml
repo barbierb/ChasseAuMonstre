@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane fx:id="screen" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuAideControl">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../../img/fond.jpg" />
+         </image>
+      </ImageView>
+      <GridPane prefHeight="720.0" prefWidth="1280.0">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" percentHeight="70.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <StackPane maxHeight="500.0" maxWidth="1000.0" prefHeight="500.0" prefWidth="1000.0">
+               <children>
+                  <ImageView fitHeight="500.0" fitWidth="1000.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../img/aide.png" />
+                     </image>
+                  </ImageView>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints halignment="CENTER" minWidth="10.0" percentWidth="1.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" percentHeight="40.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Aide" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.valignment="TOP">
+                           <font>
+                              <Font name="NewsgeekSerif" size="35.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets top="20.0" />
+                           </GridPane.margin>
+                        </Text>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                           <image>
+                              <Image url="@../../img/control_chasseur.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="130.0" fitWidth="130.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                           <image>
+                              <Image url="@../../img/control_monstre.png" />
+                           </image>
+                        </ImageView>
+                        <GridPane GridPane.rowIndex="1">
+                          <columnConstraints>
+                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" percentHeight="70.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Chasseur" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="32.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Déplacement: pavé numérique, pas de diagonale" textAlignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Place une longue vue par tour, permettant de" textAlignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="30.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="voir le tour de passage du monstre sur une case" textAlignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="47.0" />
+                                 </GridPane.margin>
+                              </Text>
+                              <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Doit trouver le monstre pour gagner" textAlignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="80.0" />
+                                 </GridPane.margin>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" percentHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="70.0" prefHeight="30.0" valignment="TOP" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Monstre" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="32.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Déplacement: pavé numérique" textAlignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="18.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Doit détruire 75% du champ pour gagner." textAlignment="CENTER" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="NewsgeekSerif" size="18.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="80.0" />
+                                 </GridPane.margin>
+                              </Text>
+                           </children>
+                        </GridPane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Déroulement de la partie:" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font name="NewsgeekSerif" size="32.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets left="50.0" />
+                           </GridPane.margin>
+                        </Text>
+                        <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="Le monstre choisi sa position, et chaque" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="NewsgeekSerif" size="19.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets bottom="50.0" right="50.0" />
+                           </GridPane.margin>
+                        </Text>
+                        <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="personnage se déplace pour atteindre son" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="NewsgeekSerif" size="19.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="50.0" />
+                           </GridPane.margin>
+                        </Text>
+                        <Text fill="#2f2f2f" strokeType="OUTSIDE" strokeWidth="0.0" text="objectif a tour de role." textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                           <font>
+                              <Font name="NewsgeekSerif" size="19.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="50.0" top="55.0" />
+                           </GridPane.margin>
+                        </Text>
+                     </children>
+                  </GridPane>
+               </children>
+               <GridPane.margin>
+                  <Insets top="70.0" />
+               </GridPane.margin>
+            </StackPane>
+            <ImageView fx:id="quitter" fitHeight="90.0" fitWidth="500.0" pickOnBounds="true" smooth="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <image>
+                  <Image url="@../../img/conteneur.png" />
+               </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </ImageView>
+            <Text fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu principal" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="NewsgeekSerif" size="35.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Text>
+         </children>
+      </GridPane>
+   </children>
+</Pane>
