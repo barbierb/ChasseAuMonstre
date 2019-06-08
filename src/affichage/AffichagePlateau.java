@@ -22,7 +22,7 @@ public class AffichagePlateau{
     @FXML
     private Label tourDeQui;
     @FXML
-    private Canvas affichageNbEtoiles;
+    private Canvas nbEtoiles;
     private GraphicsContext afficheEtoiles;
     @FXML
     private Label tour;
@@ -34,13 +34,22 @@ public class AffichagePlateau{
     private Image monstre;
     private Image img;
     
+    @FXML
+    private Canvas controles;
+    private GraphicsContext afficheControles;
+    
+    @FXML
+    private Canvas nbLongueVues;
+    private GraphicsContext afficheLongueVues;
+    
     public void initialize() {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
         System.out.println("Initilisation...");
         
         gc = grille.getGraphicsContext2D();
         tailleBaseImg = (int) grille.getWidth() / testAffichagePlateau.p.getTaille();
-        afficheEtoiles = affichageNbEtoiles.getGraphicsContext2D();
+        afficheEtoiles = nbEtoiles.getGraphicsContext2D();
+        afficheLongueVues = nbLongueVues.getGraphicsContext2D();
         
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
@@ -53,6 +62,10 @@ public class AffichagePlateau{
         //paramètres tourDeQui
         tourDeQui.setFont(new Font("Arial", 28));
         tourDeQui.setAlignment(Pos.CENTER);
+        
+        //affichage controles
+        afficheControles = controles.getGraphicsContext2D();
+        afficherControles();
         
         herbe = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
         etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
@@ -72,6 +85,11 @@ public class AffichagePlateau{
     	
     	//affichage etoiles que le joueur a
         afficherEtoilesJoueur();
+        
+        //affichage longues-vues que le chasseur a si le joueur est un chasseur
+        if(!testAffichagePlateau.estMonstre) {
+        	afficherLongueVues();
+        }
     	
         for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
@@ -169,14 +187,27 @@ public class AffichagePlateau{
     	if(testAffichagePlateau.estMonstre) {
     		for(int i = 0; i < testAffichagePlateau.p.getMonstre().getNbEtoiles(); i++) {
     			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
-    			afficheEtoiles.drawImage(etoile, i*(affichageNbEtoiles.getWidth()/3),0, affichageNbEtoiles.getWidth()/3, affichageNbEtoiles.getWidth()/3);
+    			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
     		}
     	}
     	else {
     		for(int i = 0; i < testAffichagePlateau.p.getChasseur().getNbEtoiles(); i++) {
     			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
-    			afficheEtoiles.drawImage(etoile, i*(affichageNbEtoiles.getWidth()/3),0, affichageNbEtoiles.getWidth()/3, affichageNbEtoiles.getWidth()/3);
+    			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
     		}
     	}
+    }
+    
+    private void afficherControles() {
+    	if(testAffichagePlateau.estMonstre) {
+    		afficheControles.drawImage(new Image("File:data/ten-keysMv2.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    	}
+    	else {
+    		afficheControles.drawImage(new Image("File:data/ten-keysCv2.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    	}
+    }
+    
+    private void afficherLongueVues() {
+    	
     }
 }

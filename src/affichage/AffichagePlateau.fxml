@@ -9,7 +9,8 @@
    <left>
       <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: brown;" BorderPane.alignment="CENTER">
          <children>
-            <Canvas fx:id="affichageNbEtoiles" height="100.0" width="280.0" />
+            <Canvas fx:id="nbEtoiles" height="100.0" width="280.0" />
+            <Canvas fx:id="nbLongueVues" height="100.0" width="280.0" />
          </children></VBox>
    </left>
    <right>
@@ -17,6 +18,8 @@
          <children>
             <Label fx:id="tour" prefHeight="64.0" prefWidth="280.0" textAlignment="CENTER" />
             <Label fx:id="tourDeQui" prefHeight="64.0" prefWidth="280.0" />
+            <Label prefHeight="245.0" prefWidth="280.0" />
+            <Canvas fx:id="controles" height="348.0" width="280.0" />
          </children></VBox>
    </right>
    <center>
