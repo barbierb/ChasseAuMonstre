@@ -2,6 +2,7 @@ package testsPlateau;
 
 import java.io.IOException;
 
+import affichage.AffichagePlateau;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,11 +29,12 @@ public class testAffichagePlateau extends Application{
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(getClass().getResource("../affichage/AffichagePlateau.fxml"));
          Parent root = loader.load();
-
+         
          Scene scene = new Scene(root);
          stage.setScene(scene);
          stage.setTitle("Chasse au monstre");
          stage.show();
+         //AffichagePlateau.afficherAttente(stage);
 	 }
 	
 	 public static void main(String[] args) {

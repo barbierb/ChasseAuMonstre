@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class Affichage extends Application {
@@ -34,9 +35,11 @@ public class Affichage extends Application {
 		stage=primaryStage;
 		Parent root = FXMLLoader.load(getClass().getResource("menu_princ.fxml"));
 		//stage.setResizable(false);
+		Font.loadFont(MenuPrincControl.class.getResourceAsStream("../data/NewsgeekSerif.TTF"), 15);
 		primaryStage.setTitle("Chasse Au Monstre");
 		primaryStage.setScene(new Scene(root,1280,720));
 		primaryStage.show();
+		primaryStage.setOnCloseRequest(e -> System.exit(0));
 	}
 
     public static InputStream chargerImg(String chemin) {

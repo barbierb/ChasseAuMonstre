@@ -1,5 +1,7 @@
 package personnage;
 
+import java.io.Serializable;
+
 import plateau.Case;
 import plateau.Position;
 import reseau.Client;
@@ -9,23 +11,23 @@ import reseau.Client;
  * @author Sylvain
  *
  */
-public abstract class Personnage {
+public abstract class Personnage  implements Serializable {
+	private static final long serialVersionUID = 42;
 	protected Position pos;
 	protected boolean modeEtoile;
-	protected boolean aEtoile;
 	protected int etoileTimer;
 	protected boolean estMonstre;
-	protected int nbEtoiles;
+	protected int nbEtoile;
 
 	protected final int MAX_TIMER_ETOILE = 3;
-	
+
 	protected Direction nouvelleDirection;
-	
+
 	public void setDirection(Direction d) {
 		nouvelleDirection = d;
 	}
 
-	
+
 	/**
 	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est. <br>
 	 * Un monstre ne peut repasser où il est déjà allé<br>
@@ -34,7 +36,7 @@ public abstract class Personnage {
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
-	
+
 	public Direction getDirectionVoulue() {
 		return nouvelleDirection;
 	}
@@ -46,37 +48,22 @@ public abstract class Personnage {
 	public Personnage(Position p) {
 		this.pos = p;
 		this.modeEtoile = false;
-		this.aEtoile = false;
+		this.nbEtoile = 0;
 		this.etoileTimer = 0;
 	}
 	/**
 	 * Vérifie si le personnage a une étoile dans son sac
 	 */
 	public boolean aEtoile() {
-		/*
-		for(Item i:sac) {
-			if(i instanceof Etoile) return true;
-		}
-		return false;
-		*/
-		return false;
+		return nbEtoile>0;
 	}
 	/**
 	 * Utilise une étoile si le personnage a une étoile dans son sac
 	 */
 	public void utiliseEtoile() {
-		if(aEtoile()) {
-			this.modeEtoile=true;
-			this.etoileTimer = MAX_TIMER_ETOILE;
-			/*
-			for(Item i : this.sac) {
-				if(i instanceof Etoile) {
-					this.sac.remove(i);
-					break;
-				}
-			}
-			*/
-		}
+		this.modeEtoile=true;
+		this.etoileTimer = MAX_TIMER_ETOILE;
+		nbEtoile--;
 	}
 	/**
 	 * @return la position du personnage
@@ -88,55 +75,62 @@ public abstract class Personnage {
 	/**
 	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
-	public void deplace() {
+	public boolean deplace() {
 		Case[][] tab = Client.getInstance().getPlateau().getCases();
-		
+
 		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();
 		int y = posActuelle.getY();
+		
+		Direction next = getDirectionVoulue();
+		if(next == null) {
+			return false;
+		}
+		
+		int nextX = x + next.getX();
+		int nextY = y + next.getY();
+		Position nextPos = new Position(nextX, nextY);
 
-		boolean flag=true;
-
-		while(flag) {
+		//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
+		if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
 			
-			Direction next = getDirectionVoulue();
-			if(next == null) break;
 			
-			int nextX = x + next.getX();
-			int nextY = y + next.getY();
-			Position nextPos = new Position(nextX, nextY);
 			
-			//Si la position actuelle plus le mouvement voulu est dans les bornes du tableau
-			if(nextX<tab.length && nextX>=0 && nextY<tab[0].length && nextY>=0) {
+			if(estMonstre && modeEtoile) {
+				setPosition(nextPos);
 				
-				if(estMonstre && modeEtoile) {
-					setPosition(nextPos);
-					etoileTimer--;
-					if(etoileTimer == 0) modeEtoile=false;
-					flag=false;
-					
-				} else if (peutPasser(nextPos)) {
-					setPosition(nextPos);
-					flag=false;
-					if(aEtoile) {
-						
-					}
-				} else  {
-					System.out.println("Vous ne pouvez pas aller là"); // TODO un label ou un truc qui montre que c'est pas bon
+				etoileTimer--;
+				if(etoileTimer == 0) modeEtoile=false;
+				
+				if(Client.getInstance().getPlateau().getCase(nextPos).hasEtoile()) {
+					nbEtoile++;
+					Client.getInstance().getPlateau().getCase(nextPos).enleverEtoile();
 				}
+				
+				return true;
+
+			} else if (peutPasser(nextPos)) {
+				setPosition(nextPos);
+
+				if(Client.getInstance().getPlateau().getCase(nextPos).hasEtoile()) {
+					nbEtoile++;
+					Client.getInstance().getPlateau().getCase(nextPos).enleverEtoile();
+				}
+				return true;
 			}
 
 		}
+		return false;
 	}
 	public boolean isEtoile() {
 		return modeEtoile;
 	}
 
 	public int getNbEtoiles() {
-		return nbEtoiles;
+		return nbEtoile;
 	}
-	
+
 	public void ajouterEtoile() {
-		this.nbEtoiles++;
+		this.nbEtoile++;
 	}
 }

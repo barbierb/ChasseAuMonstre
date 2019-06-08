@@ -1,10 +1,13 @@
 package plateau;
 
+import java.io.Serializable;
+
 /**
  * Position sur un plateau avec deux coordonnées x et y
  * @author Sylvain
  */
-public class Position {
+public class Position  implements Serializable {
+	private static final long serialVersionUID = 42;
 	
 	private int x, y;
 
@@ -33,5 +36,10 @@ public class Position {
 		if (y != obj.y)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Position [x=" + x + ", y=" + y + "]";
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
 
+import affichage.MenuAttenteControl;
 import launcher.Engine;
 
 public class Serveur {
@@ -45,6 +46,7 @@ public class Serveur {
 		System.out.println("SRV Attente d'un opposant");
 		try {
 			this.opposant = new Connexion(serveurListener.accept());
+			MenuAttenteControl.timer.cancel();
 			this.brdTask.interrupt();
 			System.out.println("SRV opposant connecté ");
 			

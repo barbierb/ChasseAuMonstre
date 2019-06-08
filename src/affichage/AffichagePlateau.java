@@ -1,14 +1,22 @@
 package affichage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import plateau.Case;
 import plateau.Position;
 import testsPlateau.testAffichagePlateau;
@@ -38,30 +46,40 @@ public class AffichagePlateau{
     private Canvas controles;
     private GraphicsContext afficheControles;
     
-    @FXML
-    private Canvas nbLongueVues;
-    private GraphicsContext afficheLongueVues;
+    private Pane attente;
+    private static Scene sceneAttente;
     
-    public void initialize() {
+    @FXML
+    private Label competence;
+    
+    private Font police;
+    
+    public void initialize() throws FileNotFoundException {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
         System.out.println("Initilisation...");
         
         gc = grille.getGraphicsContext2D();
         tailleBaseImg = (int) grille.getWidth() / testAffichagePlateau.p.getTaille();
         afficheEtoiles = nbEtoiles.getGraphicsContext2D();
-        afficheLongueVues = nbLongueVues.getGraphicsContext2D();
         
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
         gc.setFont(new Font(tailleBaseImg/3));
         
+        //chargement de la police d'écriture
+        police = Font.loadFont(new FileInputStream(new File("data/NewsgeekSerif.ttf")), 22);
+        
         //paramètres tour
-        tour.setFont(new Font("Arial", 28));
+        tour.setFont(police);
         tour.setAlignment(Pos.CENTER);
         
         //paramètres tourDeQui
-        tourDeQui.setFont(new Font("Arial", 28));
+        tourDeQui.setFont(police);
         tourDeQui.setAlignment(Pos.CENTER);
+        
+        //paramètres competence
+        competence.setFont(police);
+        competence.setAlignment(Pos.CENTER);
         
         //affichage controles
         afficheControles = controles.getGraphicsContext2D();
@@ -73,10 +91,27 @@ public class AffichagePlateau{
         chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
         
+        //paramètres attente
+        attente = new Pane();
+        attente.setStyle("-fx-background-color: #686463");
+        attente.setMinSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        attente.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        attente.setOpacity(0.5);
+        sceneAttente = new Scene(attente);
+        
+        //à remplacer pas un Pane derrière tout le reste
+        
         update();
     }
     
+    public static void afficherAttente(Stage stage) {
+    	stage.setScene(sceneAttente);
+    	stage.show();
+    }
+    
     public void update() {
+    	//attente.setOpacity(1);
+    	
     	//affichage tour
     	tour.setText("Tour "+testAffichagePlateau.p.getTour());
     	
@@ -185,12 +220,18 @@ public class AffichagePlateau{
     
     private void afficherEtoilesJoueur() {
     	if(testAffichagePlateau.estMonstre) {
+    		if(testAffichagePlateau.p.getMonstre().getNbEtoiles() > 0) {
+    			competence.setText("\"E\" pour activer");
+    		}
     		for(int i = 0; i < testAffichagePlateau.p.getMonstre().getNbEtoiles(); i++) {
     			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
     		}
     	}
     	else {
+    		if(testAffichagePlateau.p.getChasseur().getNbEtoiles() > 0) {
+    			competence.setText("\"E\" pour activer");
+    		}
     		for(int i = 0; i < testAffichagePlateau.p.getChasseur().getNbEtoiles(); i++) {
     			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);

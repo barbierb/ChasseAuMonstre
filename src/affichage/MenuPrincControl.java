@@ -8,31 +8,22 @@ import javafx.scene.text.Text;
 public class MenuPrincControl {
 
     @FXML
-    private ImageView solo;
-    @FXML
-    private Text solotext;
-
-    @FXML
-    private ImageView multi;
-    @FXML
-    private Text multitext;
-
-    @FXML
-    private ImageView controles;
-    @FXML
-    private Text controlestext;
-    
-    @FXML
     private ImageView fond;
 
     @FXML
-    private ImageView quitter;
+    private ImageView solo;
+
     @FXML
-    private Text quittertext;
+    private ImageView multi;
+
+    @FXML
+    private ImageView aide;
+
+    @FXML
+    private ImageView quitter;
     
     @FXML
     void initialize() {
-    	
     	solo.setOnMouseClicked(e -> {
         	Affichage.stage.setScene(Menus.getSceneSolo());
     	});
@@ -42,9 +33,6 @@ public class MenuPrincControl {
     	solo.setOnMouseExited(e -> {
     		solo.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
     	});
-    	solotext.setMouseTransparent(true);
-    	
-    	
     	
     	multi.setOnMouseClicked(e -> {
         	Affichage.stage.setScene(Menus.getSceneMulti());
@@ -55,23 +43,16 @@ public class MenuPrincControl {
     	multi.setOnMouseExited(e -> {
     		multi.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
     	});
-    	multitext.setMouseTransparent(true);
     	
-    	
-    	
-    	
-    	controles.setOnMouseClicked(e -> {
-        	Affichage.stage.setScene(Menus.getSceneControls());
+    	aide.setOnMouseClicked(e -> {
+        	Affichage.stage.setScene(Menus.getSceneAide());
     	});
-    	controles.setOnMouseEntered(e -> {
-    		controles.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+    	aide.setOnMouseEntered(e -> {
+    		aide.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
     	});
-    	controles.setOnMouseExited(e -> {
-    		controles.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+    	aide.setOnMouseExited(e -> {
+    		aide.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
     	});
-    	controlestext.setMouseTransparent(true);
-    	
-    	
     	
     	quitter.setOnMouseClicked(e -> {
         	System.exit(0);
@@ -82,6 +63,5 @@ public class MenuPrincControl {
     	quitter.setOnMouseExited(e -> {
     		quitter.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
     	});
-    	quittertext.setMouseTransparent(true);
     }
 }
