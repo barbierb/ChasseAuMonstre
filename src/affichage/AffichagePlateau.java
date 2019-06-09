@@ -18,13 +18,28 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import personnage.Direction;
 import personnage.chasseur.Chasseur;
+import personnage.chasseur.ChasseurIA;
 import personnage.monstre.Monstre;
 import plateau.Case;
 import plateau.Plateau;
 import plateau.Position;
 import reseau.Client;
+import reseau.Serveur;
 
 public class AffichagePlateau {
+	
+	/* 
+	 * LE TOUR
+	 * 
+	 * INFO DU TOUR
+	 * 
+	 *
+	 * COMPETENCE DISPONIBLE APPUYER SUR E
+	 * NB ETOILE POSSEDEE
+	 * 
+	 *(pas sur) LE CHASSEUR EST PAS LOIN !
+	 */
+	
 	@FXML
 	private BorderPane screen;
 	@FXML
@@ -94,7 +109,8 @@ public class AffichagePlateau {
 				while(pmonstre.equals(pchass)) {
 					pchass = new Position(new Random().nextInt(c.getPlateau().getTaille()), new Random().nextInt(c.getPlateau().getTaille()));
 				}
-				c.getPlateau().setChasseur(new Chasseur(pchass));
+				c.getPlateau().setChasseur(Serveur.getInstance().solo?
+						new ChasseurIA(pchass):new Chasseur(pchass));
 				c.getPlateau().placerEtoiles();
 				c.getPlateau().setTour(c.getPlateau().getTour()+1);
 				c.monTour = true; // pas obligatoire
@@ -198,14 +214,14 @@ public class AffichagePlateau {
 							}
 						}
 						if(c.getPlateau().getChasseur() != null) {
-							if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
+							if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) /*&& !c.estMonstre*/) {
 								img = chasseur;
 								afficherImg(img, getNbEntites(tmp, i, j), i, j, nbImg, gc);
 								nbImg++;
 							}
 						}
 						if(c.getPlateau().getMonstre() != null) {
-							if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
+							if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) /*&& c.estMonstre*/) {
 								img = monstre;
 								afficherImg(img, getNbEntites(tmp, i, j), i, j, nbImg, gc);
 								nbImg++;

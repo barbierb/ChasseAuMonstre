@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,8 +19,12 @@ import affichage.AffichagePlateau;
 import affichage.MenuMultiControl;
 import affichage.Menus;
 import javafx.application.Platform;
+import personnage.chasseur.Chasseur;
+import personnage.chasseur.ChasseurIA;
+import personnage.monstre.MonstreIA;
 import plateau.Case;
 import plateau.Plateau;
+import plateau.Position;
 
 public class Client extends Thread {
 
@@ -32,19 +37,22 @@ public class Client extends Thread {
 	public Plateau plateau;
 	public boolean estMonstre;
 	public boolean monTour;
-	
 
-	public Client(Socket socket) {
+	private boolean affichage;
+
+
+	public Client(Socket socket, boolean affichage) {
 		this.connexion = new Connexion(socket);
+		this.affichage = affichage;
 		this.start();
 	}
 
 	public void run() {
 		try {
 			while(true) {
-				System.out.println("CLT en attente des infos de base ");
+				System.out.println(affichage?"CLIENT":"IA"+" en attente des infos de base ");
 				String recu = (String) this.connexion.in.readObject();
-				System.out.println("CLT infos de base="+recu);
+				System.out.println(affichage?"CLIENT":"IA"+" infos de base="+recu);
 				if(recu!=null) {
 					if(recu.equals(MessageReseau.ESTMONSTRE.toString())) {
 						this.estMonstre = true;
@@ -58,48 +66,64 @@ public class Client extends Thread {
 				} else {
 					continue;
 				}
-				System.out.println("CLT info de base recues: estmonstre="+estMonstre+" montour="+monTour);
+				System.out.println(affichage?"CLIENT":"IA"+" info de base recues: estmonstre="+estMonstre+" montour="+monTour);
 				break;
 			}
-			
+
 			if(estMonstre) {
 				plateau = new Plateau(10);
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						Affichage.stage.setScene(Menus.getSceneJeu());
-						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Monstre");
-					}
-				});
+				if(affichage)
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							Affichage.stage.setScene(Menus.getSceneJeu());
+							Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Monstre");
+						}
+					});
 				envoyerPlateau(); // envoi sans entites
-				
-				while(plateau.getMonstre() == null) {
-					// NE SARRETTE PAS TANT QUE LE MONSTRE EST PAS PLACE
-					System.out.println("CLIENT EN ATTENTE DU PLACEMENT DU MONSTRE PAR LIHM");
+
+				if(affichage)
+					while(plateau.getMonstre() == null) {
+						sleep(10);
+						// NE SARRETTE PAS TANT QUE LE MONSTRE EST PAS PLACE
+						//System.out.println(affichage?"CLIENT":"IA"+" EN ATTENTE DU PLACEMENT DU MONSTRE PAR LIHM");
+					}
+				else  {
+					plateau.setMonstre(new MonstreIA(new Position(new Random().nextInt(plateau.getTaille()),new Random().nextInt(plateau.getTaille()))));
+					Position pchass = new Position(plateau.getMonstre().getPosition().getX(), plateau.getMonstre().getPosition().getY());
+					while(plateau.getMonstre().getPosition().equals(pchass)) {
+						pchass = new Position(new Random().nextInt(plateau.getTaille()), new Random().nextInt(plateau.getTaille()));
+					}
+					plateau.setChasseur(new Chasseur(pchass));
+					plateau.placerEtoiles();
+					plateau.setTour(plateau.getTour()+1);
+					envoyerPlateau();
 				}
-				System.out.println("monstre placé on commence :D");
+				System.out.println(affichage?"CLIENT":"IA"+" monstre placé on commence :D");
 			} else {
 				plateau = connexion.recevoirPlateau(); // reception sans entites
-				
-				Platform.runLater(new Runnable() {
-					@Override
-					public void run() {
-						Affichage.stage.setScene(Menus.getSceneJeu());
-						Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Chasseur");
-					}
-				});
+				if(affichage)
+					Platform.runLater(new Runnable() {
+						@Override
+						public void run() {
+							Affichage.stage.setScene(Menus.getSceneJeu());
+							Affichage.stage.setTitle(Affichage.stage.getTitle()+" - Chasseur");
+						}
+					});
 				this.plateau = connexion.recevoirPlateau(); // reception avec montre placé et chasseur
-				System.out.println("CLIENT -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
-				AffichagePlateau.getInstance().update();
+				System.out.println(affichage?"CLIENT":"IA"+" -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
+				if(affichage)
+					AffichagePlateau.getInstance().update();
 			}
-			
-			
-			
-			
-			System.out.println("CLIENT démarrage boucle prin");
+
+
+
+
+			System.out.println(affichage?"CLIENT":"IA"+" démarrage boucle prin");
 			while(true) {
 				if(monTour) {
-					AffichagePlateau.getInstance().update();
+					if(affichage)
+						AffichagePlateau.getInstance().update();
 					if(estMonstre) {
 						boolean estPasse = false;
 						while(!estPasse) {
@@ -107,38 +131,43 @@ public class Client extends Thread {
 							sleep(1);
 						}
 					} else {
-						plateau.getChasseur().placerLongueVue();
-						while(Affichage.placerLongueVue) {
-							sleep(1);
-						}
-						for(Case c : plateau) {
-							if(c.hasLV()) c.decrLV();
+						if(affichage) {
+							plateau.getChasseur().placerLongueVue();
+							while(Affichage.placerLongueVue) {
+								sleep(1);
+							}
+							for(Case c : plateau) {
+								if(c.hasLV()) c.decrLV();
+							}
 						}
 						// methode abs permettant le placement de longue vue par ia
 						// et autorise le placement dans l'interface.
 						boolean estPasse = false;
+						System.out.println("chass deplace");
 						while(!estPasse) {
-							estPasse = plateau.getChasseur().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
-							sleep(1);
+							estPasse = plateau.getChasseur().deplace();
+							sleep(1000);
+							System.out.println("chass deplace end");
 						}
 						//while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
-						
+
 						// -> si NON IA 
 						// --> activer un boolean dans interface: interf renvoie le plateau au serv
 						// -> sinon
 						// --> deplacer le monstre avec une ia
 					}
-					
-					AffichagePlateau.getInstance().update();
-					
+					if(affichage)
+						AffichagePlateau.getInstance().update();
+
 					verifWinner();
 					monTour = false;
 					envoyerPlateau();
-					System.out.println("CLIENT tour fini.");
-					
+					System.out.println(affichage?"CLIENT":"IA"+" tour fini.");
+
 				} else {
 					this.plateau = connexion.recevoirPlateau(); // attente déplacement autre
-					AffichagePlateau.getInstance().update();
+					if(affichage)
+						AffichagePlateau.getInstance().update();
 					verifWinner();
 					monTour = true;
 				}
@@ -155,7 +184,7 @@ public class Client extends Thread {
 
 	private void verifWinner() throws InterruptedException {
 		if(plateau.getMonstre().getPosition().equals(plateau.getChasseur().getPosition())) {
-			
+
 			if(estMonstre) {
 				// afficher defaite
 				System.out.println("MONSTRE DEFAITE");
@@ -167,9 +196,9 @@ public class Client extends Thread {
 				envoyerPlateau();
 				sleep(750000);
 			}
-			
+
 		}
-		
+
 		if(plateau.getMonstre().getCasesEcrassee() >= plateau.getNbCases()*0.75) {
 			if(estMonstre) {
 				// afficher victoire
@@ -182,7 +211,7 @@ public class Client extends Thread {
 				envoyerPlateau();
 				sleep(750000);
 			}
-			
+
 		}
 	}
 
@@ -199,12 +228,12 @@ public class Client extends Thread {
 			@Override
 			public void run() {
 				try {
-					System.out.println("CLT connexion à "+ip+":"+port);
-					instance = new Client(new Socket(ip, port));
-					System.out.println("CLT connecté au serveur "+ip+":"+port);
+					System.out.println("CLIENT connexion à "+ip+":"+port);
+					instance = new Client(new Socket(ip, port), true);
+					System.out.println("CLIENT connecté au serveur "+ip+":"+port);
 					if(brdTask != null) brdTask.cancel();
 				} catch (IOException e) {
-					System.out.println("CLT Ce serveur est innacessible.");
+					System.out.println("CLIENT Ce serveur est innacessible.");
 				} 
 			}
 		}).start();
@@ -279,10 +308,10 @@ socket.close();
 
 		//TODO METTRE A JOUR LA LISTE DES SERVEURS DANS LINTERFACE
 	}
-	
+
 	public void envoyerPlateau() {
-        this.connexion.envoyer(getPlateau());
-    }
+		this.connexion.envoyer(getPlateau());
+	}
 
 	public static Client getInstance() {
 		return instance;

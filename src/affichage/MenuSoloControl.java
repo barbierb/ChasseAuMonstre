@@ -39,7 +39,9 @@ public class MenuSoloControl {
     @FXML
     public void initialize() {
     	monstre.setOnMouseClicked(e -> {
-			//Affichage.stage.setScene(null);
+    		Serveur.demarrerServeur("local", System.getProperty("user.name"), true);
+    		Affichage.stage.setScene(Menus.getSceneJeu());
+    		
 		});
     	monstre.setOnMouseEntered(e -> {
     		monstre.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));

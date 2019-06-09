@@ -6,7 +6,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import personnage.chasseur.Chasseur;
+import personnage.chasseur.ChasseurIA;
 import personnage.monstre.Monstre;
+import personnage.monstre.MonstreIA;
 import plateau.Case;
 import plateau.Plateau;
 import plateau.Position;
@@ -57,9 +59,15 @@ public class Connexion {
 			Plateau pnew = new Plateau(p.getTaille());
 			pnew.setTour(p.getTour());
 			if(p.getMonstre() != null)
-				pnew.setMonstre(new Monstre(p.getMonstre().getPosition()));
+				if(p.getMonstre() instanceof MonstreIA)
+					pnew.setMonstre(new MonstreIA(p.getMonstre().getPosition()));
+				else
+					pnew.setMonstre(new Monstre(p.getMonstre().getPosition()));
 			if(p.getChasseur() != null)
-				pnew.setChasseur(new Chasseur(p.getChasseur().getPosition()));
+				if(p.getChasseur() instanceof ChasseurIA)
+					pnew.setChasseur(new ChasseurIA(p.getChasseur().getPosition()));	
+				else
+					pnew.setChasseur(new Chasseur(p.getChasseur().getPosition()));
 			
 			for(int i = 0; i < p.getTaille(); i++) {
                 for(int j = 0; j < p.getTaille(); j++) {
@@ -83,7 +91,7 @@ public class Connexion {
 	}
 
 	public Plateau recevoirPlateau() {
-		System.out.println("Connexion: en attente de plateau");
+		//System.out.println("Connexion: en attente de plateau");
 		try {
 			Plateau p = (Plateau) this.in.readObject();
 			return p;

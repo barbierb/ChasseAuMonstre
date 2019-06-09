@@ -24,6 +24,7 @@ public abstract class Personnage  implements Serializable {
 	protected Direction nouvelleDirection;
 
 	public void setDirection(Direction d) {
+		System.out.println("DIR SETTED : "+d.getLabel());
 		nouvelleDirection = d;
 	}
 
@@ -36,10 +37,7 @@ public abstract class Personnage  implements Serializable {
 	 * @return true si il peut passer, false sinon
 	 */
 	protected abstract boolean peutPasser(Position p);
-
-	public Direction getDirectionVoulue() {
-		return nouvelleDirection;
-	}
+	public abstract Direction getDirectionVoulue();
 	protected abstract void setPosition(Position p);
 	/**
 	 * Constructeur de personnage 
@@ -84,8 +82,10 @@ public abstract class Personnage  implements Serializable {
 		
 		Direction next = getDirectionVoulue();
 		if(next == null) {
+			System.out.println("DIR VOULUE NULL");
 			return false;
 		}
+		System.out.println("deplacement");
 		
 		int nextX = x + next.getX();
 		int nextY = y + next.getY();

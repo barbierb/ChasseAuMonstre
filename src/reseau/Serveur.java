@@ -3,6 +3,7 @@ package reseau;
 import java.io.IOException;
 import java.net.BindException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 import affichage.MenuAttenteControl;
 import launcher.Engine;
@@ -20,9 +21,11 @@ public class Serveur {
 
 	private ServerSocket serveurListener;
 	private Thread brdTask;
+	public boolean solo;
 
-	private Serveur(String nomServeur, String nomHote) {
+	private Serveur(String nomServeur, String nomHote, boolean solo) {
 		instance = this;
+		this.solo = solo;
 		try {
 			System.out.println("SRV démarrage du serveur");
 
@@ -45,8 +48,27 @@ public class Serveur {
 
 		System.out.println("SRV Attente d'un opposant");
 		try {
-			this.opposant = new Connexion(serveurListener.accept());
-			MenuAttenteControl.timer.cancel();
+			if(this.solo) {
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							
+							System.out.println("IA connexion à ");
+							new Client(new Socket("127.0.0.1", Serveur.PORT_JEU), false);
+							System.out.println("IA connecté au serveur ");
+							while(true) { }
+							
+						} catch (IOException e) {
+							System.out.println("IA Ce serveur est innacessible.");
+						}
+					}
+				}).start();
+				this.opposant = new Connexion(serveurListener.accept());
+			} else {
+				this.opposant = new Connexion(serveurListener.accept());
+				MenuAttenteControl.timer.cancel();
+			}
 			this.brdTask.interrupt();
 			System.out.println("SRV opposant connecté ");
 			
@@ -58,11 +80,11 @@ public class Serveur {
 		}
 	}
 
-	public static void demarrerServeur(String nomServeur, String nomHote) {
+	public static void demarrerServeur(String nomServeur, String nomHote, boolean solo) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				new Serveur(nomServeur, nomHote);
+				new Serveur(nomServeur, nomHote, solo);
 			}
 		}).start();;
 	}

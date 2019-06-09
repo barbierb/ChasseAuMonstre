@@ -52,7 +52,7 @@ public class Menus {
 	}
 	
 	static Scene getSceneHebergement(String nom) {
-		Serveur.demarrerServeur(nom, System.getProperty("user.name"));
+		Serveur.demarrerServeur(nom, System.getProperty("user.name"), false);
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(Affichage.class.getResource("menu_attente.fxml"));

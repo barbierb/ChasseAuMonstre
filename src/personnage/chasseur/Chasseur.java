@@ -3,6 +3,7 @@ package personnage.chasseur;
 import java.io.Serializable;
 
 import affichage.Affichage;
+import personnage.Direction;
 import personnage.Personnage;
 import plateau.Case;
 import plateau.Position;
@@ -41,6 +42,12 @@ public class Chasseur extends Personnage implements Serializable {
 
 	public void placerLongueVue() {
 		Affichage.placerLongueVue=true;		
+	}
+
+	@Override
+	public Direction getDirectionVoulue() {
+		System.out.println("DIR VOULUE CHASSEUR");
+		return nouvelleDirection;
 	}
 
 }

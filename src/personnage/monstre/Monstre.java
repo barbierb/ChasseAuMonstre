@@ -2,6 +2,7 @@ package personnage.monstre;
 
 import java.io.Serializable;
 
+import personnage.Direction;
 import personnage.Personnage;
 import plateau.Case;
 import plateau.Position;
@@ -37,7 +38,6 @@ public class Monstre extends Personnage implements Serializable {
 		this.pos=p;
 		if(Client.getInstance().getPlateau().getCase(p).getTourPassage()==Client.getInstance().getPlateau().getTour()) {
 			System.out.println("INCREMENTATION OK COOL");
-			System.out.println();
 			nbCases++;
 		}
 		Client.getInstance().getPlateau().getCase(p).setTourPassage();
@@ -45,5 +45,10 @@ public class Monstre extends Personnage implements Serializable {
 	
 	public int getCasesEcrassee() {
 		return nbCases;
+	}
+
+	@Override
+	public Direction getDirectionVoulue() {
+		return nouvelleDirection;
 	}
 }
