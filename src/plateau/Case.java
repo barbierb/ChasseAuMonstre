@@ -55,8 +55,8 @@ public class Case implements ContientItem, Serializable {
 	/**
 	 * Mets à jour le tour de passage du monstre sur la case
 	 */
-	public void setTourPassage() {
-		tourPassage = Client.getInstance().getPlateau().getTour();
+	public void setTourPassage(int tour) {
+		tourPassage = tour;
 	}
 
 	

@@ -16,19 +16,10 @@ public class Engine extends Thread {
 	public void run() {
 		Serveur serv = Serveur.getInstance();
 		
-		
-		
-		
 		serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
 		serv.opposant.envoyer(MessageReseau.ESTCHASSEUR.toString());
 		
-		
-		
-		
-		
-		
 		plateau = serv.hote.recevoirPlateau(); // plateau sans monstre
-		
 		
 		serv.opposant.envoyer(plateau); // plateau sans monstre
 		
@@ -60,14 +51,6 @@ public class Engine extends Thread {
 			if(plateau.getWinner() != null) {
 				break;
 			}
-		}
-	}
-	
-	private void attendre(long duree) {
-		try {
-			sleep(duree);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 

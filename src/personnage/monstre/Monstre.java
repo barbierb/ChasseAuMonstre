@@ -36,11 +36,11 @@ public class Monstre extends Personnage implements Serializable {
 	@Override
 	protected void setPosition(Position p) {
 		this.pos=p;
+		Client.getInstance().getPlateau().getCase(p).setTourPassage(Client.getInstance().getPlateau().getTour());
 		if(Client.getInstance().getPlateau().getCase(p).getTourPassage()==Client.getInstance().getPlateau().getTour()) {
 			System.out.println("INCREMENTATION OK COOL");
 			nbCases++;
 		}
-		Client.getInstance().getPlateau().getCase(p).setTourPassage();
 	}
 	
 	public int getCasesEcrassee() {

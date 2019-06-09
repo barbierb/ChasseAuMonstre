@@ -20,7 +20,6 @@ import affichage.MenuMultiControl;
 import affichage.Menus;
 import javafx.application.Platform;
 import personnage.chasseur.Chasseur;
-import personnage.chasseur.ChasseurIA;
 import personnage.monstre.MonstreIA;
 import plateau.Case;
 import plateau.Plateau;
@@ -128,13 +127,13 @@ public class Client extends Thread {
 						boolean estPasse = false;
 						while(!estPasse) {
 							estPasse = plateau.getMonstre().deplace(); // while true de la getDisrectionVoulue(), ou bien déplacement d'une ia.
-							sleep(1);
+							sleep(10);
 						}
 					} else {
 						if(affichage) {
 							plateau.getChasseur().placerLongueVue();
 							while(Affichage.placerLongueVue) {
-								sleep(1);
+								sleep(10);
 							}
 							for(Case c : plateau) {
 								if(c.hasLV()) c.decrLV();
@@ -146,7 +145,7 @@ public class Client extends Thread {
 						System.out.println("chass deplace");
 						while(!estPasse) {
 							estPasse = plateau.getChasseur().deplace();
-							sleep(1000);
+							sleep(10);
 							System.out.println("chass deplace end");
 						}
 						//while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}

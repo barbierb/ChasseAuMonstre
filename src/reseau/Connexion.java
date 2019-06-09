@@ -79,6 +79,7 @@ public class Connexion {
                     if(tmp.hasLV()) {
                     	pnew.getCase(i,j).placerLV(tmp.getLongueVue());
                     }
+                    pnew.getCase(i, j).setTourPassage(tmp.getTourPassage());
                 }
             }
 			
