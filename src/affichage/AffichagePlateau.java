@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -13,7 +12,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -27,15 +25,15 @@ public class AffichagePlateau{
     private Canvas grille;
     private GraphicsContext gc;
     private int tailleBaseImg;
-    @FXML
-    private Label tourDeQui;
+   /* @FXML
+    private Label tourDeQui;*/
     @FXML
     private Canvas nbEtoiles;
     private GraphicsContext afficheEtoiles;
     @FXML
     private Label tour;
     
-    private Image herbe;
+    private Image ble;
     private Image etoile;
     private Image longueVue;
     private Image chasseur;
@@ -46,8 +44,10 @@ public class AffichagePlateau{
     private Canvas controles;
     private GraphicsContext afficheControles;
     
+    @FXML
     private Pane attente;
-    private static Scene sceneAttente;
+    @FXML
+    private Label labelAttente;
     
     @FXML
     private Label competence;
@@ -60,7 +60,10 @@ public class AffichagePlateau{
         
         gc = grille.getGraphicsContext2D();
         tailleBaseImg = (int) grille.getWidth() / testAffichagePlateau.p.getTaille();
+        
+        //preparation affichage étoiles
         afficheEtoiles = nbEtoiles.getGraphicsContext2D();
+        //afficheEtoiles.drawImage(new Image("File:img/conteneur.png",  nbEtoiles.getWidth(), nbEtoiles.getHeight(), true, true), 0, 0);
         
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
@@ -73,9 +76,9 @@ public class AffichagePlateau{
         tour.setFont(police);
         tour.setAlignment(Pos.CENTER);
         
-        //paramètres tourDeQui
+       /* //paramètres tourDeQui
         tourDeQui.setFont(police);
-        tourDeQui.setAlignment(Pos.CENTER);
+        tourDeQui.setAlignment(Pos.CENTER);*/
         
         //paramètres competence
         competence.setFont(police);
@@ -85,38 +88,29 @@ public class AffichagePlateau{
         afficheControles = controles.getGraphicsContext2D();
         afficherControles();
         
-        herbe = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
+        ble = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
         etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
         longueVue = new Image("File:img/longue-vue.jpg", tailleBaseImg, tailleBaseImg, true, true);
         chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
         
-        //paramètres attente
-        attente = new Pane();
-        attente.setStyle("-fx-background-color: #686463");
-        attente.setMinSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        attente.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        attente.setOpacity(0.5);
-        sceneAttente = new Scene(attente);
-        
-        //à remplacer pas un Pane derrière tout le reste
-        
         update();
     }
     
-    public static void afficherAttente(Stage stage) {
-    	stage.setScene(sceneAttente);
-    	stage.show();
+    private void afficherAttente() {
+    	attente.setOpacity(0.7);
+    	labelAttente.setOpacity(1);
     }
     
     public void update() {
-    	//attente.setOpacity(1);
+    	attente.setOpacity(0);
+    	labelAttente.setOpacity(0);
     	
     	//affichage tour
     	tour.setText("Tour "+testAffichagePlateau.p.getTour());
     	
-    	//affichage tour de qui
-    	changerTourDeQui();
+    	/*//affichage tour de qui
+    	changerTourDeQui();*/
     	
     	//affichage etoiles que le joueur a
         afficherEtoilesJoueur();
@@ -128,7 +122,7 @@ public class AffichagePlateau{
     	
         for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
-        		gc.drawImage(herbe, i*herbe.getWidth(), j*herbe.getHeight());
+        		gc.drawImage(ble, i*ble.getWidth(), j*ble.getHeight());
         		int nbImg = 0;
         		
         		if(testAffichagePlateau.p.getCase(i, j).hasEtoile()) {
@@ -161,6 +155,10 @@ public class AffichagePlateau{
         		}	
         	}
 		}
+        
+        if(!testAffichagePlateau.monTour) {
+        	afficherAttente();
+        }
     }
     
     private int getNbEntites(Case c, int x, int y) {
@@ -199,7 +197,7 @@ public class AffichagePlateau{
     	gc.drawImage(img, x*tailleBaseImg, y*tailleBaseImg);
     }
     
-    private void changerTourDeQui() {
+    /*private void changerTourDeQui() {
     	if(testAffichagePlateau.p.getTour() % 2 == 0) {
     		if(testAffichagePlateau.estMonstre) {
     			tourDeQui.setText("C'est ton tour !");
@@ -216,7 +214,7 @@ public class AffichagePlateau{
     			tourDeQui.setText("Ce n'est pas ton tour");
     		}
     	}
-    }
+    }*/
     
     private void afficherEtoilesJoueur() {
     	if(testAffichagePlateau.estMonstre) {
@@ -224,7 +222,6 @@ public class AffichagePlateau{
     			competence.setText("\"E\" pour activer");
     		}
     		for(int i = 0; i < testAffichagePlateau.p.getMonstre().getNbEtoiles(); i++) {
-    			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
     		}
     	}
@@ -233,7 +230,6 @@ public class AffichagePlateau{
     			competence.setText("\"E\" pour activer");
     		}
     		for(int i = 0; i < testAffichagePlateau.p.getChasseur().getNbEtoiles(); i++) {
-    			//afficherImg(etoile, i*tailleBaseImg, 0, afficheEtoiles);
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
     		}
     	}
