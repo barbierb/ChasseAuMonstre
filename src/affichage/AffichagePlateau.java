@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -14,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import plateau.Case;
 import plateau.Position;
 import testsPlateau.testAffichagePlateau;
@@ -45,9 +43,9 @@ public class AffichagePlateau{
     private GraphicsContext afficheControles;
     
     @FXML
-    private Pane attente;
+    private Pane blocage;
     @FXML
-    private Label labelAttente;
+    private Label labelBlocage;
     
     @FXML
     private Label competence;
@@ -70,7 +68,7 @@ public class AffichagePlateau{
         gc.setFont(new Font(tailleBaseImg/3));
         
         //chargement de la police d'écriture
-        police = Font.loadFont(new FileInputStream(new File("data/NewsgeekSerif.ttf")), 22);
+        police = Font.loadFont(new FileInputStream(new File("data/NewsgeekSerif.ttf")), 30);
         
         //paramètres tour
         tour.setFont(police);
@@ -88,9 +86,9 @@ public class AffichagePlateau{
         afficheControles = controles.getGraphicsContext2D();
         afficherControles();
         
-        ble = new Image("File:img/grass_tile_1.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
+        ble = new Image("File:img/ble.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
         etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
-        longueVue = new Image("File:img/longue-vue.jpg", tailleBaseImg, tailleBaseImg, true, true);
+        longueVue = new Image("File:img/longuevue.png", tailleBaseImg, tailleBaseImg, true, true);
         chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
         monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
         
@@ -98,13 +96,14 @@ public class AffichagePlateau{
     }
     
     private void afficherAttente() {
-    	attente.setOpacity(0.7);
-    	labelAttente.setOpacity(1);
+    	blocage.setOpacity(0.7);
+    	labelBlocage.setOpacity(1);
+    	labelBlocage.setText("L'ENNEMI JOUE...");
     }
     
     public void update() {
-    	attente.setOpacity(0);
-    	labelAttente.setOpacity(0);
+    	blocage.setOpacity(0);
+    	labelBlocage.setOpacity(0);
     	
     	//affichage tour
     	tour.setText("Tour "+testAffichagePlateau.p.getTour());
