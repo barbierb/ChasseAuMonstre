@@ -63,6 +63,7 @@ public class AffichagePlateau{
         
         //preparation affichage étoiles
         afficheEtoiles = nbEtoiles.getGraphicsContext2D();
+        afficheEtoiles.drawImage(new Image("File:img/aide.png"), 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
         
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
@@ -232,24 +233,10 @@ public class AffichagePlateau{
      * @return la distance calculée
      */
     private int distanceMonstreChasseur() {
-    	if(testAffichagePlateau.p.monstre.getPosition().getX() == testAffichagePlateau.p.chasseur.getPosition().getX()) {
-    		if(testAffichagePlateau.p.monstre.getPosition().getY() > testAffichagePlateau.p.chasseur.getPosition().getY()) {
-    			return testAffichagePlateau.p.monstre.getPosition().getY() - testAffichagePlateau.p.chasseur.getPosition().getY();
-    		}
-    		else {
-    			return testAffichagePlateau.p.chasseur.getPosition().getY() - testAffichagePlateau.p.monstre.getPosition().getY();
-    		}
-    	}
-    	else if(testAffichagePlateau.p.monstre.getPosition().getY() == testAffichagePlateau.p.chasseur.getPosition().getY()) {
-    		if(testAffichagePlateau.p.monstre.getPosition().getX() > testAffichagePlateau.p.chasseur.getPosition().getX()) {
-    			return testAffichagePlateau.p.monstre.getPosition().getX() - testAffichagePlateau.p.chasseur.getPosition().getX();
-    		}
-    		else {
-    			return testAffichagePlateau.p.chasseur.getPosition().getX() - testAffichagePlateau.p.monstre.getPosition().getX();
-    		}
-    	}
-    	else {
     		return (int) Math.sqrt(Math.pow(testAffichagePlateau.p.monstre.getPosition().getX() - testAffichagePlateau.p.chasseur.getPosition().getX(), 2) + Math.pow(testAffichagePlateau.p.monstre.getPosition().getY() - testAffichagePlateau.p.chasseur.getPosition().getY(), 2));
-    	}//Pythagore
+    }//Pythagore
+    
+    private void affichageGagnant() {
+    	blocage.setOpacity(1);
     }
 }

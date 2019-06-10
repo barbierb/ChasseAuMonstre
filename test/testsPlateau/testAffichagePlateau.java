@@ -21,10 +21,11 @@ public class testAffichagePlateau extends Application{
 		 p.getCase(4, 4).placerEtoile();
 		 p.getCase(2, 2).placerLV();
 		 p.monstre = new Monstre(new Position(0,0));
-		 p.chasseur = new Chasseur(new Position(1,2));
+		 p.chasseur = new Chasseur(new Position(0,1));
 		 p.getCase(4,4).placerLV();
 		 p.setTour(2);
 		 p.chasseur.ajouterEtoile();
+		 p.monstre.ajouterEtoile();
 		 p.monstre.ajouterEtoile();
 		 p.monstre.ajouterEtoile();
 		 

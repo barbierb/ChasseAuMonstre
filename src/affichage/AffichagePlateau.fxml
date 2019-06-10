@@ -24,7 +24,7 @@
             <VBox prefHeight="537.0" prefWidth="364.0" BorderPane.alignment="CENTER">
                <children>
                   <Canvas fx:id="nbEtoiles" height="100.0" width="300.0" />
-                  <Label fx:id="competence" prefHeight="39.0" prefWidth="363.0" />
+                  <Label fx:id="competence" prefHeight="39.0" prefWidth="300.0" />
                   <Canvas fx:id="controles" height="346.0" width="363.0" />
                </children>
             </VBox>
