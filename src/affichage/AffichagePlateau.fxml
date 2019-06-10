@@ -2,26 +2,51 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #28752c;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.AffichagePlateau">
-   <left>
-      <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: brown;" BorderPane.alignment="CENTER">
-         <children>
-            <Canvas fx:id="nbEtoiles" height="100.0" width="280.0" />
-            <Label fx:id="competence" prefHeight="100.0" prefWidth="280.0" />
-         </children></VBox>
-   </left>
-   <right>
-      <VBox prefHeight="720.0" prefWidth="280.0" style="-fx-background-color: brown;" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="tour" prefHeight="64.0" prefWidth="280.0" textAlignment="CENTER" />
-            <Label fx:id="tourDeQui" prefHeight="64.0" prefWidth="280.0" />
-            <Canvas fx:id="controles" height="348.0" width="280.0" />
-         </children></VBox>
-   </right>
-   <center>
-      <Canvas fx:id="grille" height="720.0" width="720.0" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.AffichagePlateau">
+   <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../img/fondPlateau.png" />
+         </image>
+      </ImageView>
+      <BorderPane prefHeight="720.0" prefWidth="1280.0">
+         <center>
+            <Canvas fx:id="grille" height="450.0" width="467.0" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <VBox prefHeight="537.0" prefWidth="364.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Canvas fx:id="nbEtoiles" height="100.0" width="300.0" />
+                  <Label fx:id="competence" prefHeight="39.0" prefWidth="363.0" />
+                  <Canvas fx:id="controles" height="346.0" width="363.0" />
+               </children>
+            </VBox>
+         </right>
+         <bottom>
+            <Label fx:id="tour" prefHeight="95.0" prefWidth="348.0" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <Pane prefHeight="625.0" prefWidth="405.0" BorderPane.alignment="CENTER" />
+         </left>
+         <top>
+            <Pane prefHeight="110.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="attention" layoutX="377.0" layoutY="51.0" prefHeight="59.0" prefWidth="582.0" />
+               </children></Pane>
+         </top>
+      </BorderPane>
+      <Pane fx:id="blocage" opacity="0.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #686463;" />
+      <Label fx:id="labelBlocage" layoutX="414.0" layoutY="313.0" opacity="0.0">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

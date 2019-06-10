@@ -23,8 +23,7 @@ public class AffichagePlateau{
     private Canvas grille;
     private GraphicsContext gc;
     private int tailleBaseImg;
-   /* @FXML
-    private Label tourDeQui;*/
+ 
     @FXML
     private Canvas nbEtoiles;
     private GraphicsContext afficheEtoiles;
@@ -52,6 +51,9 @@ public class AffichagePlateau{
     
     private Font police;
     
+    @FXML
+    private Label attention;
+    
     public void initialize() throws FileNotFoundException {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
         System.out.println("Initilisation...");
@@ -61,7 +63,6 @@ public class AffichagePlateau{
         
         //preparation affichage étoiles
         afficheEtoiles = nbEtoiles.getGraphicsContext2D();
-        //afficheEtoiles.drawImage(new Image("File:img/conteneur.png",  nbEtoiles.getWidth(), nbEtoiles.getHeight(), true, true), 0, 0);
         
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.YELLOW);
@@ -74,13 +75,14 @@ public class AffichagePlateau{
         tour.setFont(police);
         tour.setAlignment(Pos.CENTER);
         
-       /* //paramètres tourDeQui
-        tourDeQui.setFont(police);
-        tourDeQui.setAlignment(Pos.CENTER);*/
-        
         //paramètres competence
         competence.setFont(police);
         competence.setAlignment(Pos.CENTER);
+        
+        //paramètre attention
+        attention.setFont(police);
+        attention.setAlignment(Pos.CENTER);
+        attention.setTextFill(Color.web("E30A0A"));
         
         //affichage controles
         afficheControles = controles.getGraphicsContext2D();
@@ -108,15 +110,16 @@ public class AffichagePlateau{
     	//affichage tour
     	tour.setText("Tour "+testAffichagePlateau.p.getTour());
     	
-    	/*//affichage tour de qui
-    	changerTourDeQui();*/
-    	
     	//affichage etoiles que le joueur a
         afficherEtoilesJoueur();
         
-        //affichage longues-vues que le chasseur a si le joueur est un chasseur
-        if(!testAffichagePlateau.estMonstre) {
-        	afficherLongueVues();
+        if(distanceMonstreChasseur() < 3 && testAffichagePlateau.estMonstre) {
+        	if(distanceMonstreChasseur() == 1) {
+        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" case");
+        	}
+        	else {
+        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" cases");
+        	}
         }
     	
         for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
@@ -196,25 +199,6 @@ public class AffichagePlateau{
     	gc.drawImage(img, x*tailleBaseImg, y*tailleBaseImg);
     }
     
-    /*private void changerTourDeQui() {
-    	if(testAffichagePlateau.p.getTour() % 2 == 0) {
-    		if(testAffichagePlateau.estMonstre) {
-    			tourDeQui.setText("C'est ton tour !");
-    		}
-    		else {
-    			tourDeQui.setText("Ce n'est pas ton tour");
-    		}
-    	}
-    	else {
-    		if(!testAffichagePlateau.estMonstre) {
-    			tourDeQui.setText("C'est ton tour !");
-    		}
-    		else {
-    			tourDeQui.setText("Ce n'est pas ton tour");
-    		}
-    	}
-    }*/
-    
     private void afficherEtoilesJoueur() {
     	if(testAffichagePlateau.estMonstre) {
     		if(testAffichagePlateau.p.getMonstre().getNbEtoiles() > 0) {
@@ -243,7 +227,29 @@ public class AffichagePlateau{
     	}
     }
     
-    private void afficherLongueVues() {
-    	
+    /**
+     * calcule la distance entre le monstre et le chasseur
+     * @return la distance calculée
+     */
+    private int distanceMonstreChasseur() {
+    	if(testAffichagePlateau.p.monstre.getPosition().getX() == testAffichagePlateau.p.chasseur.getPosition().getX()) {
+    		if(testAffichagePlateau.p.monstre.getPosition().getY() > testAffichagePlateau.p.chasseur.getPosition().getY()) {
+    			return testAffichagePlateau.p.monstre.getPosition().getY() - testAffichagePlateau.p.chasseur.getPosition().getY();
+    		}
+    		else {
+    			return testAffichagePlateau.p.chasseur.getPosition().getY() - testAffichagePlateau.p.monstre.getPosition().getY();
+    		}
+    	}
+    	else if(testAffichagePlateau.p.monstre.getPosition().getY() == testAffichagePlateau.p.chasseur.getPosition().getY()) {
+    		if(testAffichagePlateau.p.monstre.getPosition().getX() > testAffichagePlateau.p.chasseur.getPosition().getX()) {
+    			return testAffichagePlateau.p.monstre.getPosition().getX() - testAffichagePlateau.p.chasseur.getPosition().getX();
+    		}
+    		else {
+    			return testAffichagePlateau.p.chasseur.getPosition().getX() - testAffichagePlateau.p.monstre.getPosition().getX();
+    		}
+    	}
+    	else {
+    		return (int) Math.sqrt(Math.pow(testAffichagePlateau.p.monstre.getPosition().getX() - testAffichagePlateau.p.chasseur.getPosition().getX(), 2) + Math.pow(testAffichagePlateau.p.monstre.getPosition().getY() - testAffichagePlateau.p.chasseur.getPosition().getY(), 2));
+    	}//Pythagore
     }
 }
