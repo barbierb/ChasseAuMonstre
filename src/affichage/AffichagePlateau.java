@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import personnage.Personnage;
+import personnage.chasseur.Chasseur;
+import personnage.monstre.Monstre;
 import plateau.Case;
 import plateau.Position;
 import testsPlateau.testAffichagePlateau;
@@ -31,6 +34,7 @@ public class AffichagePlateau{
     private Label tour;
     
     private Image ble;
+    private Image bleEcrase;
     private Image etoile;
     private Image longueVue;
     private Image chasseur;
@@ -90,6 +94,7 @@ public class AffichagePlateau{
         afficherControles();
         
         ble = new Image("File:img/ble.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
+        bleEcrase = new Image("File:img/bleEcrase.png", tailleBaseImg, tailleBaseImg, true, true);
         etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
         longueVue = new Image("File:img/longuevue.png", tailleBaseImg, tailleBaseImg, true, true);
         chasseur = new Image("File:img/Chasseur templerun/Idle__000.png", tailleBaseImg, tailleBaseImg, true, true);
@@ -125,7 +130,12 @@ public class AffichagePlateau{
     	
         for(int i = 0; i < testAffichagePlateau.p.getTaille(); i++) { //changer par taille plateau Client
         	for(int j = 0; j < testAffichagePlateau.p.getTaille(); j++) { //idem
-        		gc.drawImage(ble, i*ble.getWidth(), j*ble.getHeight());
+        		if(testAffichagePlateau.p.getCase(i, j).getTourPassage() > -1 && testAffichagePlateau.estMonstre) {
+        			gc.drawImage(bleEcrase, i*ble.getWidth(), j*ble.getHeight());
+        		}
+        		else {
+        			gc.drawImage(ble, i*ble.getWidth(), j*ble.getHeight());
+        		}
         		int nbImg = 0;
         		
         		if(testAffichagePlateau.p.getCase(i, j).hasEtoile()) {
@@ -161,6 +171,9 @@ public class AffichagePlateau{
         
         if(!testAffichagePlateau.monTour) {
         	afficherAttente();
+        }
+        if(testAffichagePlateau.gagnant != null) {
+        	affichageFin(testAffichagePlateau.gagnant);
         }
     }
     
@@ -236,7 +249,24 @@ public class AffichagePlateau{
     		return (int) Math.sqrt(Math.pow(testAffichagePlateau.p.monstre.getPosition().getX() - testAffichagePlateau.p.chasseur.getPosition().getX(), 2) + Math.pow(testAffichagePlateau.p.monstre.getPosition().getY() - testAffichagePlateau.p.chasseur.getPosition().getY(), 2));
     }//Pythagore
     
-    private void affichageGagnant() {
-    	blocage.setOpacity(1);
+    private void affichageFin(Personnage gagnant) {
+    	blocage.setOpacity(0.7);
+    	labelBlocage.setOpacity(1);
+    	if(testAffichagePlateau.estMonstre) {
+    		if(gagnant instanceof Monstre) {
+    			labelBlocage.setText("Vous avez gagné !!");
+    		}
+    		else {
+    			labelBlocage.setText("Vous avez Perdu");
+    		}
+    	}
+    	else {
+    		if(gagnant instanceof Chasseur) {
+    			labelBlocage.setText("Vous avez gagné !!");
+    		}
+    		else {
+    			labelBlocage.setText("Vous avez perdu");
+    		}
+    	}
     }
 }

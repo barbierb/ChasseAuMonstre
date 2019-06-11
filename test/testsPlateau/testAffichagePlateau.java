@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import personnage.Personnage;
 import personnage.chasseur.Chasseur;
 import personnage.monstre.Monstre;
 import plateau.Plateau;
@@ -16,6 +17,7 @@ public class testAffichagePlateau extends Application{
 	 public static Plateau p = new Plateau(10);
 	 public static boolean estMonstre = true;
 	 public static boolean monTour = true;
+	 public static Personnage gagnant = null;
 	
 	 public void start(Stage stage) throws IOException {
 		 p.getCase(4, 4).placerEtoile();
@@ -28,6 +30,7 @@ public class testAffichagePlateau extends Application{
 		 p.monstre.ajouterEtoile();
 		 p.monstre.ajouterEtoile();
 		 p.monstre.ajouterEtoile();
+		 gagnant = p.monstre;
 		 
          FXMLLoader loader = new FXMLLoader();
          loader.setLocation(getClass().getResource("../affichage/AffichagePlateau.fxml"));
