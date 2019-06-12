@@ -137,12 +137,5 @@ public class ChasseurIA extends Chasseur {
 		AffichagePlateau.getInstance().update();
 		Affichage.placerLongueVue=false;
 	}
-	
-/*	private ArrayList<Position> getAlentoursCase() {
-		ArrayList<Position> aRenvoyer = new ArrayList<Position>();
-		for(int i = 0; i < 
-		return aRenvoyer;
-	}*/
-
 }
 

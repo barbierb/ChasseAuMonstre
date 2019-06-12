@@ -3,7 +3,7 @@ package affichage;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
+import javafx.scene.input.MouseEvent;
 public class MenuPrincControl {
 	
     @FXML
@@ -25,6 +25,16 @@ public class MenuPrincControl {
     private ImageView quitter;
     
     @FXML
+	private void mouseEntered(MouseEvent event) {
+		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+	}
+
+	@FXML
+	private void mouseExited(MouseEvent event) {
+		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+	}
+    
+    @FXML
     void initialize() {
     	fond.setImage(ImagesConstantes.getInstance().FOND);
     	solo.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
@@ -34,43 +44,22 @@ public class MenuPrincControl {
     	imgtitre.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur_titre.png")));
     	
     	solo.setOnMouseClicked(e -> {
-        Affichage.stage.setScene(Menus.getSceneSolo());
-    	});
-    	solo.setOnMouseEntered(e -> {
-    		solo.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-    	});
-    	solo.setOnMouseExited(e -> {
-    		solo.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+        	Affichage.stage.setScene(Menus.getSceneSolo());
     	});
     	
     	multi.setOnMouseClicked(e -> {
         	Affichage.stage.setScene(Menus.getSceneMulti());
     	});
-    	multi.setOnMouseEntered(e -> {
-    		multi.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-    	});
-    	multi.setOnMouseExited(e -> {
-    		multi.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-    	});
+    	
     	
     	aide.setOnMouseClicked(e -> {
         	Affichage.stage.setScene(Menus.getSceneAide());
     	});
-    	aide.setOnMouseEntered(e -> {
-    		aide.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-    	});
-    	aide.setOnMouseExited(e -> {
-    		aide.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-    	});
+    
     	
     	quitter.setOnMouseClicked(e -> {
         	System.exit(0);
     	});
-    	quitter.setOnMouseEntered(e -> {
-    		quitter.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-    	});
-    	quitter.setOnMouseExited(e -> {
-    		quitter.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-    	});
+
     }
 }
