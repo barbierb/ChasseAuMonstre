@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -54,7 +55,17 @@ public class MenuMultiControl {
 
 	public static MenuMultiControl instance;
 	public static String ip = "127.0.0.1";
+	
+    @FXML
+	private void mouseEntered(MouseEvent event) {
+		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+	}
 
+	@FXML
+	private void mouseExited(MouseEvent event) {
+		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+	}
+	
 	@FXML
 	void initialize() {
 		instance = this;
@@ -84,21 +95,8 @@ public class MenuMultiControl {
 		heberger.setOnMouseClicked(e -> {
 			Affichage.stage.setScene(Menus.getSceneHebergement(nomserv.getText()));
 		});
-		heberger.setOnMouseEntered(e -> {
-			heberger.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-		});
-		heberger.setOnMouseExited(e -> {
-			heberger.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-		});
-
 		rejoindre.setOnMouseClicked(e -> {
 			Client.connecter(ip, Serveur.PORT_JEU);
-		});
-		rejoindre.setOnMouseEntered(e -> {
-			rejoindre.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-		});
-		rejoindre.setOnMouseExited(e -> {
-			rejoindre.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
 		});
 		quitter.setOnMouseClicked(e->{
 			if(Client.brdTask != null) Client.brdTask.cancel();
@@ -108,13 +106,7 @@ public class MenuMultiControl {
 				e1.printStackTrace();
 			}
 		});
-		quitter.setOnMouseEntered(e -> {
-			quitter.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-		});
-		quitter.setOnMouseExited(e -> {
-			quitter.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-		});
-
+		
 		screen.setOnKeyPressed(e -> {
 			if(!e.getCode().equals(KeyCode.ESCAPE)) return;
 			if(Client.brdTask != null) Client.brdTask.cancel();

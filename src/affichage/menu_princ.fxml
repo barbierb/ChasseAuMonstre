@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuPrincControl">
+<Pane maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuPrincControl">
    <children>
       <ImageView fx:id="fond" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" smooth="false">
          <image>
@@ -29,7 +34,7 @@
             <RowConstraints percentHeight="15.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ImageView fx:id="solo" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <ImageView fx:id="solo" fitHeight="150.0" fitWidth="400.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../../img/conteneur.png" />
                </image>
@@ -47,17 +52,17 @@
                   <Font name="NewsgeekSerif" size="40.0" />
                </font>
             </Text>
-            <ImageView fx:id="multi" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="2">
+            <ImageView fx:id="multi" fitHeight="150.0" fitWidth="400.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="2">
                <image>
                   <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="aide" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="3">
+            <ImageView fx:id="aide" fitHeight="150.0" fitWidth="400.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="3">
                <image>
                   <Image url="@../../img/conteneur.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="quitter" fitHeight="150.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="4">
+            <ImageView fx:id="quitter" fitHeight="150.0" fitWidth="400.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true" smooth="false" GridPane.rowIndex="4">
                <image>
                   <Image url="@../../img/conteneur.png" />
                </image>

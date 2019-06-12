@@ -230,7 +230,7 @@ public class AffichagePlateau{
     			blocage.toBack();
     			
     			afficheEtoiles.clearRect(0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
-    			gc.clearRect(0, 0, grille.getWidth(), grille.getHeight());
+       			gc.clearRect(0, 0, grille.getWidth(), grille.getHeight());
 		    	
 		    	//affichage tour
 		    	tour.setText("Tour "+c.getPlateau().getTour());

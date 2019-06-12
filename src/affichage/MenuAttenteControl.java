@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -31,6 +32,16 @@ public class MenuAttenteControl {
     private ImageView quitter;
     
 	public static Timer timer;
+	
+    @FXML
+	private void mouseEntered(MouseEvent event) {
+		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+	}
+
+	@FXML
+	private void mouseExited(MouseEvent event) {
+		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+	}
 
 	@FXML 	
 	void initialize() {
@@ -61,13 +72,6 @@ public class MenuAttenteControl {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});
-		
-		quitter.setOnMouseEntered(e -> {
-			quitter.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
-		});
-		quitter.setOnMouseExited(e -> {
-			quitter.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
 		});
 	}
 
