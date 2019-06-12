@@ -142,7 +142,7 @@ public class ChasseurIA extends Chasseur {
 		ArrayList<Position> aRenvoyer = new ArrayList<Position>();
 		for(int i = 0; i < 
 		return aRenvoyer;
-	}*/
+	}*/ 
 
 }
 
