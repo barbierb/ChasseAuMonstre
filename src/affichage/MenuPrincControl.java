@@ -26,22 +26,22 @@ public class MenuPrincControl {
     
     @FXML
 	private void mouseEntered(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+		((ImageView)event.getTarget()).setImage(ImagesConstantes.getInstance().CONTENEUR_HOVER);
 	}
 
 	@FXML
 	private void mouseExited(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+		((ImageView)event.getTarget()).setImage(ImagesConstantes.getInstance().CONTENEUR);
 	}
     
     @FXML
     void initialize() {
     	fond.setImage(ImagesConstantes.getInstance().FOND);
-    	solo.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
-    	multi.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
-    	aide.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
-    	quitter.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
-    	imgtitre.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur_titre.png")));
+    	solo.setImage(ImagesConstantes.getInstance().CONTENEUR);
+    	multi.setImage(ImagesConstantes.getInstance().CONTENEUR);
+    	aide.setImage(ImagesConstantes.getInstance().CONTENEUR);
+    	quitter.setImage(ImagesConstantes.getInstance().CONTENEUR);
+    	imgtitre.setImage(ImagesConstantes.getInstance().CONTENEUR_TITRE);
     	
     	solo.setOnMouseClicked(e -> {
         	Affichage.stage.setScene(Menus.getSceneSolo());
