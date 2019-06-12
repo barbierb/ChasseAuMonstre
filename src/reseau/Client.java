@@ -145,14 +145,12 @@ public class Client extends Thread {
 							sleep(10);
 						}
 					} else {
-						if(affichage) {
-							this.plateau.getChasseur().placerLongueVue();
-							while(Affichage.placerLongueVue) {
-								sleep(10);
-							}
-							for(Case c : plateau) {
-								if(c.hasLV()) c.decrLV();
-							}
+						this.plateau.getChasseur().placerLongueVue();
+						while(Affichage.placerLongueVue) {
+							sleep(10);
+						}
+						for(Case c : plateau) {
+							if(c.hasLV()) c.decrLV();
 						}
 						// methode abs permettant le placement de longue vue par ia
 						// et autorise le placement dans l'interface.

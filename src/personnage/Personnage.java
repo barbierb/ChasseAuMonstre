@@ -13,6 +13,7 @@ import reseau.Client;
  */
 public abstract class Personnage  implements Serializable {
 	private static final long serialVersionUID = 42;
+	
 	protected Position pos;
 	protected boolean modeEtoile;
 	protected int etoileTimer;
@@ -24,11 +25,13 @@ public abstract class Personnage  implements Serializable {
 	protected Direction nouvelleDirection;
 
 	public void setDirection(Direction d) {
-		System.out.println("DIR SETTED : "+d.getLabel());
-		nouvelleDirection = d;
+		this.nouvelleDirection = d;
 	}
-
-
+	public void setNbEtoiles(int i) {
+		this.nbEtoile = i;
+	}
+	
+	
 	/**
 	 * Teste si le personnage a le droit de passer en fonction de quel personnage il est. <br>
 	 * Un monstre ne peut repasser où il est déjà allé<br>
@@ -124,6 +127,9 @@ public abstract class Personnage  implements Serializable {
 	}
 	public boolean isEtoile() {
 		return modeEtoile;
+	}
+	public void setModeEtoile(boolean b) {
+		this.modeEtoile = b;
 	}
 
 	public int getNbEtoiles() {

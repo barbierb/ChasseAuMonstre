@@ -59,15 +59,29 @@ public class Connexion {
 			Plateau pnew = new Plateau(p.getTaille());
 			pnew.setTour(p.getTour());
 			if(p.getMonstre() != null)
-				if(p.getMonstre() instanceof MonstreIA)
-					pnew.setMonstre(new MonstreIA(p.getMonstre().getPosition()));
-				else
-					pnew.setMonstre(new Monstre(p.getMonstre().getPosition()));
+				if(p.getMonstre() instanceof MonstreIA) {
+					MonstreIA m = new MonstreIA(p.getMonstre().getPosition());
+					m.setNbEtoiles(p.getMonstre().getNbEtoiles());
+					m.setModeEtoile(m.isEtoile());
+					pnew.setMonstre(m);
+				} else {
+					Monstre m = new Monstre(p.getMonstre().getPosition());
+					m.setNbEtoiles(p.getMonstre().getNbEtoiles());
+					m.setModeEtoile(m.isEtoile());
+					pnew.setMonstre(m);
+				}
 			if(p.getChasseur() != null)
-				if(p.getChasseur() instanceof ChasseurIA)
-					pnew.setChasseur(new ChasseurIA(p.getChasseur().getPosition()));	
-				else
-					pnew.setChasseur(new Chasseur(p.getChasseur().getPosition()));
+				if(p.getChasseur() instanceof ChasseurIA) {
+					ChasseurIA c = new ChasseurIA(p.getChasseur().getPosition());
+					c.setNbEtoiles(p.getChasseur().getNbEtoiles());
+					c.setModeEtoile(c.isEtoile());
+					pnew.setChasseur(c);	
+				}else {
+					Chasseur c = new Chasseur(p.getChasseur().getPosition());
+					c.setNbEtoiles(p.getChasseur().getNbEtoiles());
+					c.setModeEtoile(c.isEtoile());
+					pnew.setChasseur(c);
+				}
 			
 			for(int i = 0; i < p.getTaille(); i++) {
                 for(int j = 0; j < p.getTaille(); j++) {
