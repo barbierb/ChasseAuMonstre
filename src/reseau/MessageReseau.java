@@ -1,5 +1,9 @@
 package reseau;
-
+/**
+ * Enumeration des messages réseaux de setup
+ * @author Sylvain
+ *
+ */
 public enum MessageReseau {
 
 	ESTMONSTRE("monstre"),

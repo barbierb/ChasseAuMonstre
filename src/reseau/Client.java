@@ -161,9 +161,7 @@ public class Client extends Thread {
 					verifWinner();
 					monTour = false;
 					sleep(100);
-					System.out.println((affichage?"CLIENT":"             IA")+" tour fini envoi du plateau");
 					envoyerPlateau();
-					System.out.println((affichage?"CLIENT":"             IA")+" tour fini plat envoyé.");
 
 				} else {
 					this.plateau = connexion.recevoirPlateau(); // attente déplacement autre
@@ -191,13 +189,11 @@ public class Client extends Thread {
 			if(estMonstre) {
 				if(affichage)
 					AffichagePlateau.getInstance().affichageFin(false);
-				System.out.println("MONSTRE DEFAITE");
 				envoyerPlateau();
 				sleep(750000);
 			} else {
 				if(affichage)
 					AffichagePlateau.getInstance().affichageFin(true);
-				System.out.println("CHASSEUR VICTOIRE");
 				envoyerPlateau();
 				sleep(750000);
 			}
@@ -208,13 +204,11 @@ public class Client extends Thread {
 			if(estMonstre) {
 				if(affichage)
 				AffichagePlateau.getInstance().affichageFin(true);
-				System.out.println("MONSTRE VICTOIRE");
 				envoyerPlateau();
 				sleep(750000);
 			} else {
 				if(affichage)
 				AffichagePlateau.getInstance().affichageFin(false);
-				System.out.println("CHASSEUR DEFAITE");
 				envoyerPlateau();
 				sleep(750000);
 			}
@@ -235,9 +229,7 @@ public class Client extends Thread {
 			@Override
 			public void run() {
 				try {
-					System.out.println("CLIENT connexion à "+ip+":"+port);
 					Client.instance = new Client(new Socket(ip, port), true);
-					System.out.println("CLIENT connecté au serveur "+ip+":"+port);
 					if(brdTask != null) brdTask.cancel();
 				} catch (IOException e) {
 					System.out.println("CLIENT Ce serveur est innacessible.");
@@ -252,7 +244,6 @@ public class Client extends Thread {
 		brdTask.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				System.out.println("CLIENT pingServeurs()");
 				if(Client.getInstance() != null || MenuMultiControl.instance == null) cancel();
 				Enumeration<NetworkInterface> cartes = null;
 				try {
@@ -285,35 +276,12 @@ public class Client extends Thread {
 					return;
 				}
 				String serv = new String(receivePacket.getData()).trim();
-				System.out.println("BROADCAST réponse reçue:"+serv);
 				String nom = serv.split(" ")[1];
 				String user = serv.split(" ")[2];
 				String ip = receivePacket.getAddress().toString().substring(1);
 				MenuMultiControl.instance.addServeur(nom, user, ip);
 			}
 		}, 0, 1000);
-
-		//TODO ESSAYER/
-		/*
-MulticastSocket socket = new MulticastSocket(4446);
-InetAddress group = InetAddress.getByName("203.0.113.0");
-socket.joinGroup(group);
-
-DatagramPacket packet;
-for (int i = 0; i < 5; i++) {
-    byte[] buf = new byte[256];
-    packet = new DatagramPacket(buf, buf.length);
-    socket.receive(packet);
-
-    String received = new String(packet.getData());
-    System.out.println("Quote of the Moment: " + received);
-}
-
-socket.leaveGroup(group);
-socket.close();
-		 */
-
-		//TODO METTRE A JOUR LA LISTE DES SERVEURS DANS LINTERFACE
 	}
 
 	public void envoyerPlateau() {

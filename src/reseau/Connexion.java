@@ -12,7 +12,10 @@ import personnage.monstre.MonstreIA;
 import plateau.Case;
 import plateau.Plateau;
 import plateau.Position;
-
+/**
+ * Classe qui gère le lien entre le serveur et le client, via les envois de plateau
+ * @author Sylvain
+ */
 public class Connexion {
 	
 	private Socket socket;

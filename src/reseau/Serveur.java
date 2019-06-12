@@ -6,7 +6,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import affichage.MenuAttenteControl;
-
+/**
+ * Classe qui initialise et stocke les connexions entre les clients
+ * Acceptation des différents cas de figure de connexions en réseau
+ * @author Sylvain
+ */
 public class Serveur {
 
 	public static final int 	PORT_JEU = 12345;
@@ -28,16 +32,11 @@ public class Serveur {
 		this.solo = solo;
 		this.nomServeur = nomServeur;
 		try {
-			System.out.println("SRV démarrage du serveur");
-
 			serveurListener = new ServerSocket(Serveur.PORT_JEU);
-			System.out.println("SRV serveur démarré "+serveurListener.getInetAddress().toString());
 
 			Client.connecter("127.0.0.1", Serveur.PORT_JEU);
 
-			System.out.println("SRV connexion de l'hote");
 			this.hote = new Connexion(serveurListener.accept());
-			System.out.println("SRV hote connecté ");
 		} catch(BindException e) {
 			System.out.println("SRV Un serveur est déjà démarré.");
 		} catch (IOException e) {
@@ -46,17 +45,13 @@ public class Serveur {
 
 		this.brdTask = new BroadcastTask(nomServeur, nomHote);
 		this.brdTask.start();
-
-		System.out.println("SRV Attente d'un opposant");
 		try {
 			if(this.solo) {
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
 						try {
-							System.out.println("IA connexion à 127.0.0.1");
 							new Client(new Socket("127.0.0.1", Serveur.PORT_JEU), false);
-							System.out.println("IA connecté au serveur.");
 							while(true) {}
 							
 						} catch (IOException e) {
@@ -70,11 +65,9 @@ public class Serveur {
 				MenuAttenteControl.timer.cancel();
 			}
 			this.brdTask.interrupt();
-			System.out.println("SRV opposant connecté ");
 			
 			new Engine().start(); // démarrage d'une nouvelle partie.
 			
-			System.out.println("SRV Engine démarrée");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
