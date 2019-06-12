@@ -1,8 +1,17 @@
 <img src="logo.png" align="right" />
-# Chasse au monstre
-> Projet de fin de semestre II de notre DUT INFORMATIQUE à l'IUT A.
 
-## Présentation de Chasse au monstre
+# Chasse au monstre
+
+> Projet de fin de semestre II de notre DUT Informatique à l'IUT A.
+
+## Sommaire
+
+> Les différentes parties de la présentation
+
+- [Présentation](#Présentation)
+- [Team](#Team)
+
+## Présentation
 
 Le jeu Chasse au monstre oppose deux personnages: un chasseur et un monstre. Il peut ainsi se jouer en multijoueur ou seul avec un adversaire géré par une intelligence artificielle. 
 Le monstre a pour but de passer sur toutes les cases du plateau avec pour contraintes de ne pas passer 2 fois sur la même case et de ne pas se faire attraper par le chasseur. Le chasseur, quant à lui, doit arriver sur la même case que le monstre afin de l'attraper. Pour se faire, il dispose de 5 longue-vues qu'il peut placer sur la carte, une par tour. Lorsqu'il a placé ses 5 longues-vues, au tour suivant il devra déplacer la plus ancienne d'entre elles. Ces longues-vues l'avertiront lorsque le monstre passera sur l'une d'entre elles. Ainsi, si le monstre est déjà passé sur la case au moment de l'activation de la longue-vue ou si le monstre passe sur la longue-vue, le numéro du tour auquel il est passé s'affiche sur la case.
@@ -10,3 +19,11 @@ Les déplacements de chaque personnages sont aussi différents: le chasseur ne p
 Des bonus sont aussi présents sur la carte sous forme d'étoiles. Une fois que l'un des joueurs a acquis l'une de ces étoiles, il peut accéder à un bonus propre à son personnage pendant 3 tours. Pour le chasseur, il s'agit de pouvoir placer 3 longue-vues supplémentaires tandis que le monstre peut se déplacer sur les cases qu'il a déjà visité.
 
 Nous espèrons que vous prendrez autant de plaisir à jouer à ce jeu que nous en avons pris et prenons toujours pendant son développement.
+
+## Team
+> Les personnes qui ont travaillé sur le projet
+
+| <a href="http://ItsPower.fr" target="_blank">**BARBIER Benoît**</a> | <a href="https://github.com/Syarit" target="_blank">**BRETIN Sylvain**</a> | <a href="https://eportfoliocaloonecantin.wordpress.com/" target="_blank">**CALOONE Cantin**</a> | <a href="https://dheillyvincent.wordpress.com/" target="_blank">**DHEILLY Vincent**</a> |
+| :---: |:---:| :---:| :---:|
+| [![FVCproductions](https://avatars2.githubusercontent.com/u/34723487?v=3&s=200)](http://fvcproductions.com)    | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com) | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com)  | [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com)  |
+| <a href="http://github.com/ItsPower" target="_blank">`github.com/ItsPower`</a> | <a href="https://github.com/Syarit" target="_blank">`github.com/Syarit`</a> | <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> | <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> 
