@@ -97,7 +97,7 @@ public class AffichagePlateau{
         afficheEtoiles.drawImage(new Image("File:img/aide.png"), 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
         
         //taille et couleur de l'écriture dans les cases
-        gc.setFill(Color.YELLOW);
+        gc.setFill(Color.GREEN);
         gc.setFont(new Font(tailleBaseImg/3));
         
         //chargement de la police d'écriture
