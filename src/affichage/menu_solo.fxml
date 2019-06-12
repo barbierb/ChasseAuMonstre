@@ -50,7 +50,7 @@
                         <Insets />
                      </GridPane.margin>
                   </ImageView>
-                  <Text fx:id="hebergertext" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jouer le Monstre" textAlignment="CENTER">
+                  <Text fx:id="hebergertext" fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Jouer le Monstre" textAlignment="CENTER">
                      <font>
                         <Font name="NewsgeekSerif" size="35.0" />
                      </font>
@@ -66,7 +66,7 @@
                         <Insets />
                      </GridPane.margin>
                   </ImageView>
-                  <Text fx:id="rejoindretext" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jouer le Chasseur" textAlignment="CENTER" GridPane.columnIndex="1">
+                  <Text fx:id="rejoindretext" fill="WHITE" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Jouer le Chasseur" textAlignment="CENTER" GridPane.columnIndex="1">
                      <font>
                         <Font name="NewsgeekSerif" size="35.0" />
                      </font>

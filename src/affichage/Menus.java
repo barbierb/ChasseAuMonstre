@@ -10,6 +10,7 @@ import reseau.Serveur;
 public class Menus {
 	
 	protected static Scene getSceneSolo() {
+		AffichagePlateau.solo = true;
 		Parent root = null;
 		try {
 			root = FXMLLoader.load(Affichage.class.getResource("menu_solo.fxml"));

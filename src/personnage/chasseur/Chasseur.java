@@ -41,7 +41,7 @@ public class Chasseur extends Personnage implements Serializable {
 	}
 
 	public void placerLongueVue() {
-		Affichage.placerLongueVue=true;		
+		Affichage.placerLongueVue = true;
 	}
 
 	@Override

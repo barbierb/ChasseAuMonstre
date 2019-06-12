@@ -2,6 +2,7 @@ package personnage.chasseur;
 
 import java.util.Random;
 
+import affichage.Affichage;
 import personnage.Direction;
 import plateau.Position;
 /**
@@ -14,7 +15,6 @@ public class ChasseurIA extends Chasseur {
 
 	public ChasseurIA(Position p) {
 		super(p);
-		System.out.println("CHASSEUR IA PTDR");
 	}
 	
 	@Override
@@ -22,5 +22,8 @@ public class ChasseurIA extends Chasseur {
 		System.out.println("DIR VOULUE CHASSEURIA");
 		return Direction.values()[new Random().nextInt(Direction.values().length)];
 	}
-
+	
+	public void placerLongueVue() {
+		//ICI
+	}
 }

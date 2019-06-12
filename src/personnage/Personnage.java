@@ -3,6 +3,7 @@ package personnage;
 import java.io.Serializable;
 
 import plateau.Case;
+import plateau.Plateau;
 import plateau.Position;
 import reseau.Client;
 
@@ -74,7 +75,8 @@ public abstract class Personnage  implements Serializable {
 	 * Deplace le personnage et boucle tant que le déplacement est invalide
 	 */
 	public boolean deplace() {
-		Case[][] tab = Client.getInstance().getPlateau().getCases();
+		Case[][] tab = Client.getInstance().plateau.getCases();
+		
 
 		Position posActuelle = this.getPosition();
 		int x = posActuelle.getX();

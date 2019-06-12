@@ -22,10 +22,12 @@ public class Serveur {
 	private ServerSocket serveurListener;
 	private Thread brdTask;
 	public boolean solo;
+	public String nomServeur;
 
 	private Serveur(String nomServeur, String nomHote, boolean solo) {
-		instance = this;
+		Serveur.instance = this;
 		this.solo = solo;
+		this.nomServeur = nomServeur;
 		try {
 			System.out.println("SRV démarrage du serveur");
 
@@ -53,11 +55,10 @@ public class Serveur {
 					@Override
 					public void run() {
 						try {
-							
-							System.out.println("IA connexion à ");
+							System.out.println("IA connexion à 127.0.0.1");
 							new Client(new Socket("127.0.0.1", Serveur.PORT_JEU), false);
-							System.out.println("IA connecté au serveur ");
-							while(true) { }
+							System.out.println("IA connecté au serveur.");
+							while(true) {}
 							
 						} catch (IOException e) {
 							System.out.println("IA Ce serveur est innacessible.");

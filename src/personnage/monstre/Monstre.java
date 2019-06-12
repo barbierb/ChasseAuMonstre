@@ -43,7 +43,7 @@ public class Monstre extends Personnage implements Serializable {
 		}
 	}
 	
-	public int getCasesEcrassee() {
+	public int getCasesEcrasees() {
 		return nbCases;
 	}
 

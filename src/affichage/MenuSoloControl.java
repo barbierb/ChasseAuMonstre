@@ -39,7 +39,7 @@ public class MenuSoloControl {
     @FXML
     public void initialize() {
     	monstre.setOnMouseClicked(e -> {
-    		Serveur.demarrerServeur("local", System.getProperty("user.name"), true);
+    		Serveur.demarrerServeur("monstrelocal", System.getProperty("user.name"), true);
     		Affichage.stage.setScene(Menus.getSceneJeu());
     		
 		});
@@ -51,7 +51,8 @@ public class MenuSoloControl {
 		});
 
     	chasseur.setOnMouseClicked(e -> {
-			//Client.connecter(ip, Serveur.PORT_JEU);
+    		Serveur.demarrerServeur("chasseurlocal", System.getProperty("user.name"), true);
+    		//Affichage.stage.setScene(Menus.getSceneJeu());
 		});
     	chasseur.setOnMouseEntered(e -> {
     		chasseur.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
