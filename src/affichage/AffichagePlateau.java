@@ -148,7 +148,6 @@ public class AffichagePlateau{
 				c.getPlateau().setChasseur(Serveur.getInstance().solo?
 						new ChasseurIA(pchass):new Chasseur(pchass));
 				c.getPlateau().placerEtoiles();
-				c.getPlateau().setTour(c.getPlateau().getTour()+1);
 				c.monTour = true; // pas obligatoire
 				update();
 				c.envoyerPlateau();
@@ -191,7 +190,6 @@ public class AffichagePlateau{
 
 					Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
 					lastdir = d;
-					c.getPlateau().setTour(c.getPlateau().getTour()+1);
 					if(Client.getInstance().estMonstre)  {
 						Client.getInstance().getPlateau().getMonstre().setDirection(d);
 					} else Client.getInstance().getPlateau().getChasseur().setDirection(d);	  
@@ -259,7 +257,7 @@ public class AffichagePlateau{
 		        			img = etoile;
 		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
 		        			nbImg++;
-		        		}	
+		        		}
 		        		if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
 		        			img = longueVue;
 		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
