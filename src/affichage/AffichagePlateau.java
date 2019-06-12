@@ -20,7 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import personnage.Direction;
-import personnage.Personnage;
 import personnage.chasseur.Chasseur;
 import personnage.chasseur.ChasseurIA;
 import personnage.monstre.Monstre;
@@ -148,7 +147,8 @@ public class AffichagePlateau{
 				c.getPlateau().setChasseur(Serveur.getInstance().solo?
 						new ChasseurIA(pchass):new Chasseur(pchass));
 				c.getPlateau().placerEtoiles();
-				c.monTour = true; // pas obligatoire
+				c.getPlateau().getCase(pmonstre).setTourPassage(0);
+				c.getPlateau().setTour(1);
 				update();
 				c.envoyerPlateau();
 			}
@@ -173,7 +173,6 @@ public class AffichagePlateau{
 		Affichage.stage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
 			System.out.println("event");
 			if(c.getPlateau().getTour() == 0) {
-				System.out.println("tour 0 :')");
 				return;
 			}
 			if(!c.monTour) {
@@ -379,27 +378,21 @@ public class AffichagePlateau{
     		return (int) Math.sqrt(Math.pow(c.getPlateau().getMonstre().getPosition().getX() - c.getPlateau().getChasseur().getPosition().getX(), 2) + Math.pow(c.getPlateau().getMonstre().getPosition().getY() - c.getPlateau().getChasseur().getPosition().getY(), 2));
     }//Pythagore
     
-    public void affichageFin(Personnage gagnant) {
-    	blocage.toFront();
-    	labelBlocage.toFront();
-    	blocage.setOpacity(0.7);
-    	labelBlocage.setOpacity(1);
-    	if(c.estMonstre) {
-    		if(gagnant instanceof Monstre) {
-    			labelBlocage.setText("Vous avez gagné !!");
-    		}
-    		else {
-    			labelBlocage.setText("Vous avez Perdu");
-    		}
-    	}
-    	else {
-    		if(gagnant instanceof Chasseur) {
-    			labelBlocage.setText("Vous avez gagné !!");
-    		}
-    		else {
-    			labelBlocage.setText("Vous avez perdu");
-    		}
-    	}
+    public void affichageFin(boolean gagne) {
+    	Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				blocage.toFront();
+		    	labelBlocage.toFront();
+		    	blocage.setOpacity(0.7);
+		    	labelBlocage.setOpacity(1);
+		    	if(gagne) {
+		    		labelBlocage.setText("Vous avez gagné !");
+		    	} else {
+		    		labelBlocage.setText("Vous avez perdu.");
+		    	}
+			}
+    	});
     }
     
 	public static AffichagePlateau getInstance() {

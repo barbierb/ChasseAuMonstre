@@ -39,7 +39,6 @@ public class Client extends Thread {
 
 	private boolean affichage;
 
-
 	public Client(Socket socket, boolean affichage) {
 		this.connexion = new Connexion(socket);
 		this.affichage = affichage;
@@ -202,12 +201,14 @@ public class Client extends Thread {
 		if(plateau.getMonstre().getPosition().equals(plateau.getChasseur().getPosition())) {
 
 			if(estMonstre) {
-				// afficher defaite
+				if(affichage)
+					AffichagePlateau.getInstance().affichageFin(false);
 				System.out.println("MONSTRE DEFAITE");
 				envoyerPlateau();
 				sleep(750000);
 			} else {
-				// afficher victoire
+				if(affichage)
+					AffichagePlateau.getInstance().affichageFin(true);
 				System.out.println("CHASSEUR VICTOIRE");
 				envoyerPlateau();
 				sleep(750000);
@@ -217,12 +218,14 @@ public class Client extends Thread {
 
 		if(plateau.getMonstre().getCasesEcrasees() >= plateau.getNbCases()*0.75) {
 			if(estMonstre) {
-				// afficher victoire
+				if(affichage)
+				AffichagePlateau.getInstance().affichageFin(true);
 				System.out.println("MONSTRE VICTOIRE");
 				envoyerPlateau();
 				sleep(750000);
 			} else {
-				// afficher defaite
+				if(affichage)
+				AffichagePlateau.getInstance().affichageFin(false);
 				System.out.println("CHASSEUR DEFAITE");
 				envoyerPlateau();
 				sleep(750000);
