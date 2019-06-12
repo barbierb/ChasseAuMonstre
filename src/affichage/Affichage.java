@@ -8,17 +8,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
+/**
+ * Classe principale qui démarre l'application
+ * @author Sylvain
+ *
+ */
 public class Affichage extends Application {
-	
+
 	public static void main(String[] args) {
 		Application.launch(args);
 	}
 
 	private static Affichage affichage;
-	
-	public static Stage stage;
 
+	public static Stage stage;
+	/**
+	 * Variable qui définit si le jeu attend le placement d'une longueVue
+	 */
 	public static boolean placerLongueVue;
 
 	public Affichage() {
@@ -42,7 +48,7 @@ public class Affichage extends Application {
 		primaryStage.setOnCloseRequest(e -> System.exit(0));
 	}
 
-    public static InputStream chargerImg(String chemin) {
+	public static InputStream chargerImg(String chemin) {
 		InputStream in = MenuPrincControl.class.getResourceAsStream(chemin);
 		if(in == null) {
 			in = MenuPrincControl.class.getResourceAsStream("/"+chemin);

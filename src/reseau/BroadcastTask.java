@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
+/**
+ * Classe qui gère le broadcast sur le réseau local
+ * @author Sylvain
+ *
+ */
 public class BroadcastTask extends Thread implements Runnable {
 
 	private DatagramSocket socket;
@@ -22,7 +26,6 @@ public class BroadcastTask extends Thread implements Runnable {
 			socket = new DatagramSocket(Serveur.PORT_BRD, InetAddress.getByName("0.0.0.0"));
 			socket.setBroadcast(true);
 
-			System.out.println("BROADCAST > démarrage de l'écoute...");
 			while(true) {
 
 				byte[] buffer = new byte[1500];
@@ -35,8 +38,6 @@ public class BroadcastTask extends Thread implements Runnable {
 
 					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, packet.getAddress(), packet.getPort());
 					socket.send(sendPacket);
-
-					System.out.println("BROADCAST > Réponse envoyé à " + sendPacket.getAddress().getHostAddress());
 				}
 			}
 		} catch (IOException ex) {}

@@ -8,7 +8,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import reseau.Client;
 import reseau.Serveur;
-
+/**
+ * Menu de choix de la taille du tableau et du personnage avec qui l'on joue
+ * @author Sylvain
+ */
 public class MenuSoloControl {
 
 	@FXML

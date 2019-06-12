@@ -1,7 +1,10 @@
 package affichage;
 
 import javafx.scene.image.Image;
-
+/**
+ * Classe qui définit les différentes images utilisées dans le jeu, pour qu'elles fonctionnent aussi bien en .jar que depuis Eclipse
+ * @author Sylvain
+ */
 public class ImagesConstantes {
 	
 	private static ImagesConstantes instance;

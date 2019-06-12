@@ -3,7 +3,7 @@
 import java.util.Iterator;
 
 /**
- * It�rateur pour le plateau
+ * Iterateur pour le plateau
  * @author Sylvain
  *
  */

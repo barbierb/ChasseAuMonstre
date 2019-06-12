@@ -5,7 +5,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-
+/**
+ * Menu qui détaille les différentes règles du jeu
+ * @author Sylvain
+ */
 public class MenuAideControl {
     @FXML
     private Pane screen;

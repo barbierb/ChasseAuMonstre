@@ -3,6 +3,11 @@ package affichage;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
+/**
+ * Menu principal
+ * @author Sylvain
+ */
 public class MenuPrincControl {
 	
     @FXML

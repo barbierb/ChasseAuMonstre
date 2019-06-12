@@ -6,7 +6,7 @@ import java.io.Serializable;
  * La case permet de mémoriser le tour du passage du monstre, le nombre de fois où le chasseur est passé dessus ainsi que les item éventuellement dessus
  * @author Sylvain
  */
-public class Case implements ContientItem, Serializable {
+public class Case implements Serializable {
 	private static final long serialVersionUID = 42;
 	
 	private int tourPassage;
@@ -58,27 +58,19 @@ public class Case implements ContientItem, Serializable {
 	}
 
 	
-	
-	
-	@Override
 	public boolean hasEtoile() {
 		return etoile;
 	}
 
-	@Override
 	public int getLongueVue() {
 		return longueVue;
 	}
-
-	@Override
 	public void placerEtoile() {
 		etoile=true;		
 	}
-	@Override
 	public void placerLVTemp() {
 		placerLV(3);
 	}
-	@Override
 	public void placerLV() {
 		placerLV(5);
 	}
@@ -86,12 +78,10 @@ public class Case implements ContientItem, Serializable {
 		longueVue=temps;
 	}
 	
-	@Override
 	public void enleverEtoile() {
 		etoile=false;		
 	}
 
-	@Override
 	public void decrLV() {
 		longueVue--;
 	}

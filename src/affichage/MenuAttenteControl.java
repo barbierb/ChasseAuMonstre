@@ -9,7 +9,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-
+/**
+ * Menu d'attente d'un joueur opposant en réseau
+ * @author Sylvain
+ */
 public class MenuAttenteControl {
 
 	private final String[] ATT = new String[] {

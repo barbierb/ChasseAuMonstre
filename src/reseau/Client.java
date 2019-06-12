@@ -25,7 +25,10 @@ import personnage.monstre.MonstreIA;
 import plateau.Case;
 import plateau.Plateau;
 import plateau.Position;
-
+/**
+ * Classe du Client, qui est considéré comme le joueur, chaque joueur est une instance de Client lié à un serveur
+ * @author Sylvain
+ */
 public class Client extends Thread {
 
 	private static Client instance;
@@ -49,9 +52,7 @@ public class Client extends Thread {
 	public void run() {
 		try {
 			while(true) {
-				System.out.println((affichage?"CLIENT":"             IA")+" en attente des infos de base ");
 				String recu = (String) this.connexion.in.readObject();
-				System.out.println((affichage?"CLIENT":"             IA")+" infos de base="+recu);
 				if(recu!=null) {
 					if(recu.equals(MessageReseau.ESTMONSTRE.toString())) {
 						this.estMonstre = true;
@@ -65,7 +66,6 @@ public class Client extends Thread {
 				} else {
 					continue;
 				}
-				System.out.println((affichage?"CLIENT":"             IA")+" info de base recues: estmonstre="+estMonstre+" montour="+monTour);
 				break;
 			}
 
@@ -83,7 +83,6 @@ public class Client extends Thread {
 					sleep(100);
 				}
 				envoyerPlateau(); // envoi sans entites
-				System.out.println((affichage?"CLIENT":"             IA")+" PLATEAU ENVOYE");
 				if(affichage)
 					while(plateau.getMonstre() == null) {
 						sleep(10);
@@ -113,8 +112,6 @@ public class Client extends Thread {
 					envoyerPlateau();
 					sleep(500);
 				}
-				System.out.println("placement du monstre en "+plateau.getMonstre().getPosition().getX()+" "+plateau.getMonstre().getPosition().getY());
-				System.out.println((affichage?"CLIENT":"             IA")+" monstre placé on commence :D");
 			} else {
 				this.plateau = connexion.recevoirPlateau(); // reception sans entites
 				if(affichage)
@@ -126,15 +123,11 @@ public class Client extends Thread {
 						}
 					});
 				this.plateau = connexion.recevoirPlateau(); // reception avec montre placé et chasseur
-				System.out.println((affichage?"CLIENT":"             IA")+" -newp------------->>>>>>> "+(this.plateau.getMonstre()==null)+" "+this.plateau.getTour());
 				if(affichage)
 					AffichagePlateau.getInstance().update();
 			}
 
 
-
-
-			System.out.println((affichage?"CLIENT":"             IA")+" démarrage boucle prin");
 			while(true) {
 				if(monTour) {
 					if(affichage)
@@ -153,20 +146,12 @@ public class Client extends Thread {
 						for(Case c : plateau) {
 							if(c.hasLV()) c.decrLV();
 						}
-						// methode abs permettant le placement de longue vue par ia
-						// et autorise le placement dans l'interface.
 						boolean estPasse = false;
 						System.out.println("chass deplace");
 						while(!estPasse) {
 							estPasse = plateau.getChasseur().deplace();
-							sleep(10);
+							sleep(10); // sleep obligatoire car sinon la fonction deplace ne voit pas les modifications par les évènements du jeu
 						}
-						//while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
-
-						// -> si NON IA 
-						// --> activer un boolean dans interface: interf renvoie le plateau au serv
-						// -> sinon
-						// --> deplacer le monstre avec une ia
 					}
 					if(affichage)
 						AffichagePlateau.getInstance().update();

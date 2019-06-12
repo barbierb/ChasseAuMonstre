@@ -1,7 +1,10 @@
 package reseau;
 
 import plateau.Plateau;
-
+/**
+ * Classe qui gère le déroulement de la partie
+ * @author Sylvain
+ */
 public class Engine extends Thread {
 
 	private static Engine instance;
@@ -31,7 +34,7 @@ public class Engine extends Thread {
 			
 			
 			System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
-			while(true) {
+			while(plateau.getWinner() == null) {
 				System.out.println("ENGINE TOUR "+plateau.getTour());
 
 				System.out.println("ENGINE EN ATTENTE DU PLATEAU DU MONSTRE");
@@ -51,14 +54,8 @@ public class Engine extends Thread {
 				System.out.println("ENGINE ENVOYE DU PLATEAU AU MONSTRE      ");
 				serv.opposant.envoyer(plateau);
 				System.out.println("ENGINE PLATEAU ENVOYE AU MONSTRE");
-
-				if(plateau.getWinner() != null) {
-					break;
-				}
 				
 			}
-			
-			
 			
 		} else {
 			serv.hote.envoyer(MessageReseau.ESTMONSTRE.toString());
@@ -77,7 +74,7 @@ public class Engine extends Thread {
 			serv.opposant.envoyer(plateau); // plateau avec monstre et chass
 			
 			System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
-			while(true) {
+			while(plateau.getWinner() == null) {
 				System.out.println("ENGINE TOUR "+plateau.getTour());
 
 				System.out.println("ENGINE EN ATTENTE DU PLATEAU DU MONSTRE");
@@ -98,9 +95,7 @@ public class Engine extends Thread {
 				serv.hote.envoyer(plateau);
 				System.out.println("ENGINE PLATEAU ENVOYE AU MONSTRE");
 
-				if(plateau.getWinner() != null) {
-					break;
-				}
+				
 			}
 		}
 	}

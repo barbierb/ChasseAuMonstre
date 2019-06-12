@@ -27,8 +27,11 @@ import plateau.Plateau;
 import plateau.Position;
 import reseau.Client;
 import reseau.Serveur;
-
-public class AffichagePlateau{
+/**
+ * Controller de AffichagePlateau.fxml donc de la scène de jeu
+ * @author Sylvain
+ */
+public class AffichagePlateau {
 	
     @FXML
     private Canvas grille;
@@ -123,7 +126,9 @@ public class AffichagePlateau{
     	blocage.toFront();
     	labelBlocage.toFront();
     }
-    
+    /**
+     * Met à jour l'affichage du plateau
+     */
     public void update() {	
     	Platform.runLater(new Runnable() {
     		@Override

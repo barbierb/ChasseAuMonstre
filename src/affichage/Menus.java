@@ -7,6 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import reseau.Serveur;
 
+/**
+ * Classe d'outils permettant de changer facilement de scène dans les menus.
+ * @author Sylvain
+ */
 public class Menus {
 	
 	protected static Scene getSceneSolo() {

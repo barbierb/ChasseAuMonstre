@@ -19,10 +19,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import reseau.Client;
 import reseau.Serveur;
-
+/**
+ * Menu de sélection du serveur ou de choix du nom du serveur que l'on veut héberger
+ * @author Sylvain
+ *
+ */
 public class MenuMultiControl {
 
-	//TODO
 	public static final Image serv = new Image(Affichage.chargerImg("../img/serv.png"), 400, 80, true, true);
 	public static final Image serv_selected = new Image(Affichage.chargerImg("../img/serv_selected.png"), 400, 80, true, true);
     @FXML
