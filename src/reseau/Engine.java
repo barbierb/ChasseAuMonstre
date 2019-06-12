@@ -32,7 +32,7 @@ public class Engine extends Thread {
 			
 			System.out.println("ENGINE DEMARRAGE DE LA PARTIE");
 			while(true) {
-				System.out.println("ENGINE TOUR "+plateau.getTour());
+				System.out.println("ENGINE TOURe "+plateau.getTour());
 
 				System.out.println("ENGINE EN ATTENTE DU PLATEAU DU MONSTRE");
 				plateau = serv.opposant.recevoirPlateau();
@@ -42,13 +42,16 @@ public class Engine extends Thread {
 				serv.hote.envoyer(plateau);
 				System.out.println("ENGINE PLATEAU ENVOYE AU CHASSEUR");
 
-				System.out.println("ENGINE EN ATTENTE DU PLATEAU DU CHASSEUR");
+				System.out.println("ENGINE EN ATTENTE DU PLATEAU DU CHASSEUR      ");
 				plateau = serv.hote.recevoirPlateau();
-				System.out.println("ENGINE PLATEAU CHASSEUR RECU");
-
-				plateau.setTour(plateau.getTour()+1);
+				System.out.println("ENGINE PLATEAU CHASSEUR RECU ");
 				
-				System.out.println("ENGINE ENVOYE DU PLATEAU AU MONSTRE");
+				System.out.println("INCREMENTAZTION LOL");
+				
+				plateau.setTour(plateau.getTour()+1);
+				System.out.println(plateau.getTour());
+				
+				System.out.println("ENGINE ENVOYE DU PLATEAU AU MONSTRE      ");
 				serv.opposant.envoyer(plateau);
 				System.out.println("ENGINE PLATEAU ENVOYE AU MONSTRE");
 
