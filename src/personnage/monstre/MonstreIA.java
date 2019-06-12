@@ -7,7 +7,7 @@ import reseau.Client;
 /**
  * Classe monstre pour son IA qui étend la classe Monstre et qui gère les déplacements calculés par l'IA
  * @author Cantin
- */
+ */ 
 public class MonstreIA extends Monstre {
 	private static final long serialVersionUID = 42;
 	private int taillePlateau = Client.getInstance().getPlateau().getTaille();
