@@ -76,6 +76,7 @@ public class AffichagePlateau{
 	private static AffichagePlateau ap;
 	
 	public static boolean solo;
+	private Direction lastdir = Direction.S;
     
     public void initialize() throws FileNotFoundException {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
@@ -127,7 +128,6 @@ public class AffichagePlateau{
         
         monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
 
-        
 		grille.setOnMouseClicked(e -> {
 			if(c.estMonstre && c.getPlateau().getTour() == 0) {
 				Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
@@ -181,6 +181,7 @@ public class AffichagePlateau{
 										|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
 
 					Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
+					lastdir = d;
 					c.getPlateau().setTour(c.getPlateau().getTour()+1);
 					if(Client.getInstance().estMonstre)  {
 						Client.getInstance().getPlateau().getMonstre().setDirection(d);
@@ -262,15 +263,13 @@ public class AffichagePlateau{
 		        		}
 		        		if(c.getPlateau().getChasseur() != null) {
 			        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
-			        			if(c.getPlateau().getChasseur().getDirectionVoulue() == null) {
-			        				img = chasseurBas;
-			        			} else if(c.getPlateau().getChasseur().getDirectionVoulue().equals(Direction.N)) {
+			        			if(lastdir.equals(Direction.N)) {
 			        				img = chasseurHaut;
-			        			} else if(c.getPlateau().getChasseur().getDirectionVoulue().equals(Direction.O)) {
+			        			} else if(lastdir.equals(Direction.O)) {
 			        				img = chasseurGauche;
-			        			} else if(c.getPlateau().getChasseur().getDirectionVoulue().equals(Direction.E)) {
+			        			} else if(lastdir.equals(Direction.E)) {
 			        				img = chasseurDroite;
-			        			} else if(c.getPlateau().getChasseur().getDirectionVoulue().equals(Direction.S)) {
+			        			} else {
 			        				img = chasseurBas;
 			        			}
 			        	    	afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
