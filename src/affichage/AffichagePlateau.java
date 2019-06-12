@@ -83,9 +83,7 @@ public class AffichagePlateau{
 	private Image monstreDroite;
     
     public void initialize() throws FileNotFoundException {
-        assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
-        System.out.println("Initilisation...");
-        
+
     	labelBlocage.setTextAlignment(TextAlignment.CENTER);
     	labelBlocage.setFont(new Font("NewsgeekSerif", 42));
     	labelBlocage.setText("L'ENNEMI JOUE...");
