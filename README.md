@@ -9,4 +9,4 @@ Le monstre a pour but de passer sur toutes les cases du plateau avec pour contra
 Les déplacements de chaque personnages sont aussi différents: le chasseur ne peut se déplacer que vers le haut, le bas, la gauche et la droite tandis que le monstre peut aussi se déplacer selon des diagonales.
 Des bonus sont aussi présents sur la carte sous forme d'étoiles. Une fois que l'un des joueurs a acquis l'une de ces étoiles, il peut accéder à un bonus propre à son personnage pendant 3 tours. Pour le chasseur, il s'agit de pouvoir placer 3 longue-vues supplémentaires tandis que le monstre peut se déplacer sur les cases qu'il a déjà visité.
 
-Nous espèrons que vous prendrez autant de plaisir à jouer à ce jeu que nous en avons pris et prenons toujours pendant son développement.
+Nous espèrons que vous prendrez autant de plaisir à jouer à ce jeu que nous en avons pris pendant son développement.
