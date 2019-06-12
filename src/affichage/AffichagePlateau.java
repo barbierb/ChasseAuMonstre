@@ -1,7 +1,5 @@
 package affichage;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
@@ -12,6 +10,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -42,16 +41,6 @@ public class AffichagePlateau{
     @FXML
     private Label tour;
     
-    private Image ble;
-    private Image bleEcrase;
-    private Image etoile;
-    private Image longueVue;
-    private Image chasseurHaut;
-    private Image chasseurBas;
-    private Image chasseurDroite;
-    private Image chasseurGauche;
-    private Image img;
-    
     @FXML
     private Canvas controles;
     private GraphicsContext afficheControles;
@@ -69,6 +58,9 @@ public class AffichagePlateau{
     @FXML
     private Label attention;
     
+    @FXML
+    private ImageView fond;
+    
 	private Client c;
 
 	private static AffichagePlateau ap;
@@ -76,16 +68,13 @@ public class AffichagePlateau{
 	public static boolean solo;
 	private Direction lastdir = Direction.S;
 	
-	private Image monstreHaut;
-	private Image monstreBas;
-	private Image monstreGauche;
-	private Image monstreDroite;
-	
 	private ImagesConstantes img1 = ImagesConstantes.getInstance();
     
     public void initialize() throws FileNotFoundException {
 		c = Client.getInstance();
 		ap = this;
+		
+		fond.setImage(ImagesConstantes.getInstance().FOND_PLATEAU);
 		
 		labelBlocage.setTextAlignment(TextAlignment.CENTER);
     	labelBlocage.setFont(new Font("NewsgeekSerif", 42));
@@ -167,20 +156,18 @@ public class AffichagePlateau{
 		        for(int i = 0; i < c.getPlateau().getTaille(); i++) { //changer par taille plateau Client
 		        	for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
 		        		if(c.getPlateau().getCase(i, j).getTourPassage() > -1 && c.estMonstre) {
-		        			gc.drawImage(bleEcrase, i*ble.getWidth(), j*ble.getHeight());
+		        			gc.drawImage(img1.ble_ecrase, i*img1.ble.getWidth(), j*img1.ble.getHeight());
 		        		} else {
-		        			gc.drawImage(ble, i*ble.getWidth(), j*ble.getHeight());
+		        			gc.drawImage(img1.ble, i*img1.ble.getWidth(), j*img1.ble.getHeight());
 		        		}
 		        		int nbImg = 0;
 		        		
 		        		if(c.getPlateau().getCase(i, j).hasEtoile()) {
-		        			img = etoile;
-		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+		        			afficherImg(img1.etoile, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
 		        			nbImg++;
 		        		}
 		        		if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
-		        			img = longueVue;
-		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+		        			afficherImg(img1.longuevue, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
 		        			nbImg++;
 		        			
 		        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
@@ -189,14 +176,15 @@ public class AffichagePlateau{
 		        		}
 		        		if(c.getPlateau().getChasseur() != null) {
 			        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
+			        			Image img = null;
 			        			if(lastdir.equals(Direction.N)) {
-			        				img = chasseurHaut;
+			        				img = img1.chasseur_haut;
 			        			} else if(lastdir.equals(Direction.O)) {
-			        				img = chasseurGauche;
+			        				img = img1.chasseur_gauche;
 			        			} else if(lastdir.equals(Direction.E)) {
-			        				img = chasseurDroite;
+			        				img = img1.chasseur_droite;
 			        			} else {
-			        				img = chasseurBas;
+			        				img = img1.chasseur_bas;
 			        			}
 			        	    	afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
 			        	    	nbImg++;
@@ -204,14 +192,15 @@ public class AffichagePlateau{
 		        		}
 		        		if(c.getPlateau().getMonstre() != null) {
 			        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
+			        			Image img = null;
 			        			if(lastdir.equals(Direction.N) || lastdir.equals(Direction.NE) || lastdir.equals(Direction.NO)) {
-			        				img = monstreHaut;
+			        				img = img1.monstre_haut;
 			        			} else if(lastdir.equals(Direction.O)) {
-			        				img = monstreGauche;
+			        				img = img1.monstre_gauche;
 			        			} else if(lastdir.equals(Direction.E)) {
-			        				img = monstreDroite;
+			        				img = img1.monstre_droite;
 			        			} else {
-			        				img = monstreBas;
+			        				img = img1.monstre_bas;
 			        			}
 			        	   		afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
 			        	   		nbImg++;
@@ -228,21 +217,20 @@ public class AffichagePlateau{
     }
     
     private void initialiserImages() {
-    	//TODO
-        ble = new Image("File:img/ble.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
-        bleEcrase = new Image("File:img/bleEcrase.png", tailleBaseImg, tailleBaseImg, true, true);
-        etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
-        longueVue = new Image("File:img/longuevue.png", tailleBaseImg, tailleBaseImg, true, true);
+    	img1.ble = new Image(img1.getClass().getResourceAsStream("/img/ble.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.etoile = new Image(img1.getClass().getResourceAsStream("/img/etoile.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.ble_ecrase = new Image(img1.getClass().getResourceAsStream("/img/bleEcrase.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.longuevue = new Image(img1.getClass().getResourceAsStream("/img/longuevue.png"), tailleBaseImg, tailleBaseImg, true, true);
 
-        chasseurHaut = new Image("File:img/chasseur_haut.png", tailleBaseImg, tailleBaseImg, true, true);
-        chasseurBas = new Image("File:img/chasseur_bas.png", tailleBaseImg, tailleBaseImg, true, true);
-        chasseurGauche = new Image("File:img/chasseur_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
-        chasseurDroite = new Image("File:img/chasseur_droite.png", tailleBaseImg, tailleBaseImg, true, true);
+    	img1.chasseur_haut = new Image(img1.getClass().getResourceAsStream("/img/chasseur_haut.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.chasseur_bas = new Image(img1.getClass().getResourceAsStream("/img/chasseur_bas.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.chasseur_gauche = new Image(img1.getClass().getResourceAsStream("/img/chasseur_gauche.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.chasseur_droite = new Image(img1.getClass().getResourceAsStream("/img/chasseur_droite.png"), tailleBaseImg, tailleBaseImg, true, true);
 
-        monstreHaut = new Image("File:img/monstre_haut.png", tailleBaseImg, tailleBaseImg, true, true);
-        monstreBas = new Image("File:img/monstre_bas.png", tailleBaseImg, tailleBaseImg, true, true);
-        monstreGauche = new Image("File:img/monstre_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
-        monstreDroite = new Image("File:img/monstre_droite.png", tailleBaseImg, tailleBaseImg, true, true);
+    	img1.monstre_haut = new Image(img1.getClass().getResourceAsStream("/img/monstre_haut.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.monstre_bas = new Image(img1.getClass().getResourceAsStream("/img/monstre_bas.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.monstre_gauche = new Image(img1.getClass().getResourceAsStream("/img/monstre_gauche.png"), tailleBaseImg, tailleBaseImg, true, true);
+    	img1.monstre_droite = new Image(img1.getClass().getResourceAsStream("/img/monstre_droite.png"), tailleBaseImg, tailleBaseImg, true, true);
     }
     
     private void ajouterEvenements() {
@@ -369,7 +357,7 @@ public class AffichagePlateau{
     			competence.setText("* pour activer");
     		}
     		for(int i = 0; i < c.getPlateau().getMonstre().getNbEtoiles(); i++) {
-    			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
+    			afficheEtoiles.drawImage(img1.etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
     		}
     	}
     	else {
@@ -377,7 +365,7 @@ public class AffichagePlateau{
     			competence.setText("* pour activer");
     		}
     		for(int i = 0; i < c.getPlateau().getChasseur().getNbEtoiles(); i++) {
-    			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
+    			afficheEtoiles.drawImage(img1.etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
     		}
     	}
     }

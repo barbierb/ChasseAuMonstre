@@ -22,7 +22,9 @@ public class MenuPrincControl {
 
     @FXML
     private ImageView quitter;
+    
     private ImagesConstantes img = ImagesConstantes.getInstance();
+    
     @FXML
 	private void mouseEntered(MouseEvent event) {
 		((ImageView)event.getTarget()).setImage(img.CONTENEUR_HOVER);

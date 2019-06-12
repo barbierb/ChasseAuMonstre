@@ -10,6 +10,7 @@ import reseau.Client;
  */
 public class MonstreIA extends Monstre {
 	private static final long serialVersionUID = 42;
+	private int taillePlateau = Client.getInstance().getPlateau().getTaille();
 
 	public MonstreIA(Position p) {
 		super(p);
@@ -32,7 +33,10 @@ public class MonstreIA extends Monstre {
 			nextPos = new Position(this.pos.getX() + direc.getX(), this.pos.getY()+ direc.getY());
 			
 			tourPassage = Client.getInstance().getPlateau().getCase(nextPos).getTourPassage();
-
+			
+			if(nextPos.getX() > taillePlateau -1 || nextPos.getX() < 0  || nextPos.getY() > taillePlateau -1 || nextPos.getY() < 0) {
+				direc = null;
+			}
 			if( !this.peutPasser(nextPos) || tourPassage != -1) {
 				direc = null;
 			}
