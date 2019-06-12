@@ -246,8 +246,7 @@ public class AffichagePlateau{
 		        	for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
 		        		if(c.getPlateau().getCase(i, j).getTourPassage() > -1 && c.estMonstre) {
 		        			gc.drawImage(bleEcrase, i*ble.getWidth(), j*ble.getHeight());
-		        		}
-		        		else {
+		        		} else {
 		        			gc.drawImage(ble, i*ble.getWidth(), j*ble.getHeight());
 		        		}
 		        		int nbImg = 0;
