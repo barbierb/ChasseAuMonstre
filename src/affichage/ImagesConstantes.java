@@ -10,7 +10,7 @@ public class ImagesConstantes {
 		if(ImagesConstantes.instance == null)
 			ImagesConstantes.instance = new ImagesConstantes();
 		return ImagesConstantes.instance;
-	}
+	} 
 
 	public final Image FOND = new Image(getClass().getClassLoader().getResourceAsStream("img/fond.jpg"));
 	public final Image CONTENEUR = new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png"));
