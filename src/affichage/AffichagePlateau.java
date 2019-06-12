@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import personnage.Direction;
 import personnage.Personnage;
 import personnage.chasseur.Chasseur;
@@ -50,8 +51,6 @@ public class AffichagePlateau{
     private Image chasseurBas;
     private Image chasseurDroite;
     private Image chasseurGauche;
-    
-    private Image monstre;
     private Image img;
     
     @FXML
@@ -77,10 +76,19 @@ public class AffichagePlateau{
 	
 	public static boolean solo;
 	private Direction lastdir = Direction.S;
+	
+	private Image monstreHaut;
+	private Image monstreBas;
+	private Image monstreGauche;
+	private Image monstreDroite;
     
     public void initialize() throws FileNotFoundException {
         assert grille != null : "fx:id=\"grille\" was not injected: check your FXML file 'AffichagePlateau.fxml'.";
         System.out.println("Initilisation...");
+        
+    	labelBlocage.setTextAlignment(TextAlignment.CENTER);
+    	labelBlocage.setFont(new Font("NewsgeekSerif", 42));
+    	labelBlocage.setText("L'ENNEMI JOUE...");
         
 		c = Client.getInstance();
 		ap = this;
@@ -120,14 +128,17 @@ public class AffichagePlateau{
         bleEcrase = new Image("File:img/bleEcrase.png", tailleBaseImg, tailleBaseImg, true, true);
         etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
         longueVue = new Image("File:img/longuevue.png", tailleBaseImg, tailleBaseImg, true, true);
-        
+
         chasseurHaut = new Image("File:img/chasseur_haut.png", tailleBaseImg, tailleBaseImg, true, true);
         chasseurBas = new Image("File:img/chasseur_bas.png", tailleBaseImg, tailleBaseImg, true, true);
         chasseurGauche = new Image("File:img/chasseur_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
         chasseurDroite = new Image("File:img/chasseur_droite.png", tailleBaseImg, tailleBaseImg, true, true);
-        
-        monstre = new Image("File:img/Monstre zombie/Idle (1).png",  tailleBaseImg, tailleBaseImg, true, true);
 
+        monstreHaut = new Image("File:img/monstre_haut.png", tailleBaseImg, tailleBaseImg, true, true);
+        monstreBas = new Image("File:img/monstre_bas.png", tailleBaseImg, tailleBaseImg, true, true);
+        monstreGauche = new Image("File:img/monstre_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
+        monstreDroite = new Image("File:img/monstre_droite.png", tailleBaseImg, tailleBaseImg, true, true);
+        
 		grille.setOnMouseClicked(e -> {
 			if(c.estMonstre && c.getPlateau().getTour() == 0) {
 				Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
@@ -206,7 +217,6 @@ public class AffichagePlateau{
     private void afficherAttente() {
     	blocage.toFront();
     	labelBlocage.toFront();
-    	labelBlocage.setText("L'ENNEMI JOUE...");
     }
     
     public void update() {	
@@ -259,7 +269,7 @@ public class AffichagePlateau{
 		        			
 		        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
 		        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
-		        			}
+		        			}  
 		        		}
 		        		if(c.getPlateau().getChasseur() != null) {
 			        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
@@ -278,7 +288,15 @@ public class AffichagePlateau{
 		        		}
 		        		if(c.getPlateau().getMonstre() != null) {
 			        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
-			        	   		img = monstre;
+			        			if(lastdir.equals(Direction.N)) {
+			        				img = monstreHaut;
+			        			} else if(lastdir.equals(Direction.O)) {
+			        				img = monstreGauche;
+			        			} else if(lastdir.equals(Direction.E)) {
+			        				img = monstreDroite;
+			        			} else {
+			        				img = monstreBas;
+			        			}
 			        	   		afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
 			        	   		nbImg++;
 			        	   	}
