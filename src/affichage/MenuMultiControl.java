@@ -23,8 +23,8 @@ import reseau.Serveur;
 public class MenuMultiControl {
 
 	//TODO
-	public static final Image serv = new Image(Affichage.chargerImg("../serv.png"), 400, 80, true, true);
-	public static final Image serv_selected = new Image(Affichage.chargerImg("../serv_selected.png"), 400, 80, true, true);
+	public static final Image serv = new Image(Affichage.chargerImg("../img/serv.png"), 400, 80, true, true);
+	public static final Image serv_selected = new Image(Affichage.chargerImg("../img/serv_selected.png"), 400, 80, true, true);
     @FXML
     private Pane screen;
 
@@ -51,6 +51,9 @@ public class MenuMultiControl {
 
     @FXML
     private ImageView quitter;
+    
+    @FXML
+    private ImageView titre;
 
 	private ArrayList<PingServeur> serveurs;
 
@@ -75,6 +78,7 @@ public class MenuMultiControl {
 		rejoindre.setImage(img.CONTENEUR);
 		quitter.setImage(img.CONTENEUR);
 		fond.setImage(img.FOND);
+		titre.setImage(img.CONTENEUR_TITRE);
 		
 		instance = this;
 		serveurs = new ArrayList<PingServeur>();

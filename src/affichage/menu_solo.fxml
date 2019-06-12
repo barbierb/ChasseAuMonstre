@@ -77,7 +77,7 @@
                   </Text>
                </children>
             </GridPane>
-            <ImageView fitHeight="100.0" fitWidth="500.0" pickOnBounds="true" smooth="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <ImageView fx:id="titre" fitHeight="100.0" fitWidth="500.0" pickOnBounds="true" smooth="false" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <image>
                   <Image url="@../../img/conteneur_titre.png" />
                </image>

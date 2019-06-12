@@ -13,6 +13,17 @@ public class MenuAideControl {
     @FXML
     private ImageView quitter;
     
+    @FXML
+    private ImageView fond;
+    
+    @FXML
+    private ImageView aide;
+    
+    @FXML
+    private ImageView controlMons;
+    
+    @FXML
+    private ImageView controlChass;
     
     private ImagesConstantes img = ImagesConstantes.getInstance();
     
@@ -29,6 +40,10 @@ public class MenuAideControl {
 	@FXML
 	void initialize() {
 		quitter.setImage(img.CONTENEUR);
+		fond.setImage(img.FOND);
+		aide.setImage(img.AIDE);
+		controlChass.setImage(img.CONTROL_CHASSEUR);
+		controlMons.setImage(img.CONTROL_MONSTRE);
 		
 		quitter.setOnMouseClicked(e->{
 			try {

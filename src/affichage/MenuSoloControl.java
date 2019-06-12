@@ -34,6 +34,9 @@ public class MenuSoloControl {
 
 	@FXML
 	private ImageView fond;
+	
+	@FXML
+	private ImageView titre;
 
 	@FXML
 	private Text hebergertext;
@@ -74,6 +77,9 @@ public class MenuSoloControl {
 		dix.setImage(img.CONTENEUR_FONCE);
 		quinze.setImage(img.CONTENEUR);
 		fond.setImage(img.FOND);
+		quitter.setImage(img.CONTENEUR);
+		titre.setImage(img.CONTENEUR_TITRE);
+		
 		
 		monstre.setOnMouseClicked(e -> {
 			Serveur.demarrerServeur("monstrelocal", System.getProperty("user.name"), true);

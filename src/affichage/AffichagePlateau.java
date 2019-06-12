@@ -103,7 +103,7 @@ public class AffichagePlateau{
         gc.setFont(new Font(tailleBaseImg/3));
         
         //chargement de la police d'écriture
-        police = Font.loadFont(new FileInputStream(new File("data/NewsgeekSerif.ttf")), 30);
+        police = Font.loadFont(getClass().getResourceAsStream("/data/NewsgeekSerif.ttf"), 30);
         
         //paramètres tour
         tour.setFont(police);
