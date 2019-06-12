@@ -270,7 +270,7 @@ public class AffichagePlateau{
 		        			nbImg++;
 		        			
 		        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
-		        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
+		        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), i*tailleBaseImg + tailleBaseImg*3/8, j*tailleBaseImg + tailleBaseImg*5/6);
 		        			}  
 		        		}
 		        		if(c.getPlateau().getChasseur() != null) {
@@ -354,7 +354,7 @@ public class AffichagePlateau{
     	
     	if(c.estMonstre) {
     		if(c.getPlateau().getMonstre().getNbEtoiles() > 0) {
-    			competence.setText("\"E\" pour activer");
+    			competence.setText("* pour activer");
     		}
     		for(int i = 0; i < c.getPlateau().getMonstre().getNbEtoiles(); i++) {
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
@@ -362,7 +362,7 @@ public class AffichagePlateau{
     	}
     	else {
     		if(c.getPlateau().getChasseur().getNbEtoiles() > 0) {
-    			competence.setText("\"E\" pour activer");
+    			competence.setText("* pour activer");
     		}
     		for(int i = 0; i < c.getPlateau().getChasseur().getNbEtoiles(); i++) {
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
@@ -372,10 +372,10 @@ public class AffichagePlateau{
     
     private void afficherControles() {
     	if(c.estMonstre) {
-    		afficheControles.drawImage(new Image("File:data/ten-keysMv2.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    		afficheControles.drawImage(new Image("File:img/control_monstre.png"), 0, 0, controles.getWidth(), controles.getHeight());
     	}
     	else {
-    		afficheControles.drawImage(new Image("File:data/ten-keysCv2.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    		afficheControles.drawImage(new Image("File:img/control_chasseur.png"), 0, 0, controles.getWidth(), controles.getHeight());
     	}
     }
     
@@ -398,7 +398,7 @@ public class AffichagePlateau{
 		    	if(gagne) {
 		    		labelBlocage.setText("Vous avez gagné !");
 		    	} else {
-		    		labelBlocage.setText("Vous avez perdu.");
+		    		labelBlocage.setText("Vous avez perdu...");
 		    	}
 			}
     	});
