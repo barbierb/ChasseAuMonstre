@@ -102,26 +102,31 @@ public class ChasseurIA extends Chasseur {
 		}
 	}
 
+	private Case meilleureCase = null;
+	private ArrayList<Position> posCasesProbables = null;
+	private boolean changementMeilleureCase = true;
+	private Position positionCourante;
+	private Case caseCourante; 
+
 	public void placerLongueVue() {
 		System.out.println("fonction placer appelée");
-		Case meilleureCase = null;
+
 
 		Affichage.placerLongueVue=true;
 
 		Random genAlea = new Random();
 		int x;
 		int y;
-		Position positionCourante;
-		Case caseCourante; 
+
 
 		if(!monstre_detecte) {
-			
+
 			x = genAlea.nextInt(taillePlateau - 1);
 			y = genAlea.nextInt(taillePlateau - 1);
 			positionCourante = new Position(x, y);
 			caseCourante = Client.getInstance().getPlateau().getCase(positionCourante);
 			caseCourante.placerLV();
-			
+
 			if(caseCourante.getTourPassage() != -1) {
 
 				if(meilleureCase == null || meilleureCase.getTourPassage() < caseCourante.getTourPassage()) {
@@ -129,13 +134,46 @@ public class ChasseurIA extends Chasseur {
 					position_monstre = positionCourante;
 					monstre_detecte = true;
 				}
-			}else {
-				
 			}
+		}else {
+			if(changementMeilleureCase) {
+				posCasesProbables = getAlentoursCase();
+
+			}
+
+			Position posTemp = posCasesProbables.get(new Random().nextInt(posCasesProbables.size()));
+			Case temp = Client.getInstance().getPlateau().getCase(posTemp);
+			temp.placerLV();
+
+			if(temp.getTourPassage() > meilleureCase.getTourPassage()) {
+				meilleureCase = temp;
+				changementMeilleureCase = true;
+				position_monstre = posTemp;
+			}else {
+				changementMeilleureCase = false;
+			}
+
 		}
+
 
 		AffichagePlateau.getInstance().update();
 		Affichage.placerLongueVue=false;
 	}
-}
 
+
+
+	private ArrayList<Position> getAlentoursCase() {
+		ArrayList<Position> aRenvoyer = new ArrayList<Position>();
+		for(int i = 0; i < 8; i++) {
+			Direction direc = Direction.byNumero(i);
+
+			Position pos = new Position(positionCourante.getX() + direc.getX(), positionCourante.getY()+ direc.getY());
+
+			if(pos.getX() <= taillePlateau -1 && pos.getX() >= 0  && pos.getY() <= taillePlateau -1 && pos.getY() >= 0) {
+				aRenvoyer.add(pos);
+			}
+		}
+		return aRenvoyer;
+	}
+
+}
