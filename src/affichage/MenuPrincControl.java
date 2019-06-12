@@ -36,12 +36,14 @@ public class MenuPrincControl {
     
     @FXML
     void initialize() {
+    	// OBLIGATOIRE POUR L'EXPORT .JAR
     	fond.setImage(ImagesConstantes.getInstance().FOND);
     	solo.setImage(ImagesConstantes.getInstance().CONTENEUR);
     	multi.setImage(ImagesConstantes.getInstance().CONTENEUR);
     	aide.setImage(ImagesConstantes.getInstance().CONTENEUR);
     	quitter.setImage(ImagesConstantes.getInstance().CONTENEUR);
     	imgtitre.setImage(ImagesConstantes.getInstance().CONTENEUR_TITRE);
+    	// 
     	
     	solo.setOnMouseClicked(e -> {
         	Affichage.stage.setScene(Menus.getSceneSolo());
