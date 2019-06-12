@@ -204,6 +204,14 @@ public class AffichagePlateau{
 				}
 				update();
 			}
+			
+            if(e.getCode().equals(KeyCode.ESCAPE)) {
+                try {
+                    Affichage.getInstance().start(Affichage.stage);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
 		});
         
         update();
@@ -221,6 +229,7 @@ public class AffichagePlateau{
     			labelBlocage.toBack();
     			blocage.toBack();
     			
+    			afficheEtoiles.clearRect(0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
     			gc.clearRect(0, 0, grille.getWidth(), grille.getHeight());
 		    	
 		    	//affichage tour
@@ -341,6 +350,8 @@ public class AffichagePlateau{
     }
     
     private void afficherEtoilesJoueur() {
+    	afficheEtoiles.drawImage(new Image("File:img/aide.png"), 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
+    	
     	if(c.estMonstre) {
     		if(c.getPlateau().getMonstre().getNbEtoiles() > 0) {
     			competence.setText("\"E\" pour activer");
