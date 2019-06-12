@@ -2,8 +2,6 @@ package plateau;
 
 import java.io.Serializable;
 
-import reseau.Client;
-
 /**
  * La case permet de mémoriser le tour du passage du monstre, le nombre de fois où le chasseur est passé dessus ainsi que les item éventuellement dessus
  * @author Sylvain

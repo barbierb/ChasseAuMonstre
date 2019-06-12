@@ -1,8 +1,6 @@
-package launcher;
+package reseau;
 
 import plateau.Plateau;
-import reseau.MessageReseau;
-import reseau.Serveur;
 
 public class Engine extends Thread {
 
@@ -48,6 +46,8 @@ public class Engine extends Thread {
 				plateau = serv.hote.recevoirPlateau();
 				System.out.println("ENGINE PLATEAU CHASSEUR RECU");
 
+				plateau.setTour(plateau.getTour()+1);
+				
 				System.out.println("ENGINE ENVOYE DU PLATEAU AU MONSTRE");
 				serv.opposant.envoyer(plateau);
 				System.out.println("ENGINE PLATEAU ENVOYE AU MONSTRE");
@@ -55,6 +55,7 @@ public class Engine extends Thread {
 				if(plateau.getWinner() != null) {
 					break;
 				}
+				
 			}
 			
 			

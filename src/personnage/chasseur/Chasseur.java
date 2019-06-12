@@ -36,7 +36,6 @@ public class Chasseur extends Personnage implements Serializable {
 	@Override
 	protected void setPosition(Position p) {		
 		this.pos = p;
-		System.out.println("Chasseur "+p);
 		Client.getInstance().getPlateau().getCase(p).incrNbPassageChass();				
 	}
 
@@ -46,7 +45,6 @@ public class Chasseur extends Personnage implements Serializable {
 
 	@Override
 	public Direction getDirectionVoulue() {
-		System.out.println("DIR VOULUE CHASSEUR");
 		return nouvelleDirection;
 	}
 

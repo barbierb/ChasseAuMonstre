@@ -3,7 +3,6 @@ package personnage;
 import java.io.Serializable;
 
 import plateau.Case;
-import plateau.Plateau;
 import plateau.Position;
 import reseau.Client;
 
@@ -84,7 +83,6 @@ public abstract class Personnage  implements Serializable {
 		
 		Direction next = getDirectionVoulue();
 		if(next == null) {
-			System.out.println("DIR VOULUE NULL");
 			return false;
 		}
 		System.out.println("deplacement");

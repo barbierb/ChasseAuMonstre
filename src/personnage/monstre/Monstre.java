@@ -38,7 +38,6 @@ public class Monstre extends Personnage implements Serializable {
 		this.pos=p;
 		Client.getInstance().getPlateau().getCase(p).setTourPassage(Client.getInstance().getPlateau().getTour());
 		if(Client.getInstance().getPlateau().getCase(p).getTourPassage()==Client.getInstance().getPlateau().getTour()) {
-			System.out.println("INCREMENTATION OK COOL");
 			nbCases++;
 		}
 	}

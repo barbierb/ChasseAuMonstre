@@ -17,7 +17,6 @@ public class MonstreIA extends Monstre {
 	
 	@Override
 	public Direction getDirectionVoulue() {
-		System.out.println("DIR VOULUE CHASSEURIA");
 		return Direction.values()[new Random().nextInt(Direction.values().length)];
 	}
 }

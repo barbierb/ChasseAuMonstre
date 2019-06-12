@@ -91,18 +91,27 @@ public class Client extends Thread {
 						//System.out.println(affichage?"CLIENT":"IA"+" EN ATTENTE DU PLACEMENT DU MONSTRE PAR LIHM");
 					}
 				else  {
-					this.plateau.setMonstre(new MonstreIA(new Position(new Random().nextInt(plateau.getTaille()),new Random().nextInt(plateau.getTaille()))));
-					Position pchass = new Position(plateau.getMonstre().getPosition().getX(), plateau.getMonstre().getPosition().getY());
+					Position pmonstre = new Position(
+							new Random().nextInt(plateau.getTaille()),
+							new Random().nextInt(plateau.getTaille())
+						);
+					this.plateau.setMonstre(new MonstreIA(pmonstre));
+					Position pchass = new Position(
+							plateau.getMonstre().getPosition().getX(), 
+							plateau.getMonstre().getPosition().getY());
 					while(plateau.getMonstre().getPosition().equals(pchass)) {
-						pchass = new Position(new Random().nextInt(plateau.getTaille()), new Random().nextInt(plateau.getTaille()));
+						pchass = new Position(
+								new Random().nextInt(plateau.getTaille()), 
+								new Random().nextInt(plateau.getTaille())
+							);
 					}
-					System.out.println(plateau.toString());
 					plateau.setChasseur(new Chasseur(pchass));
+					plateau.getCase(pmonstre).setTourPassage(plateau.getTour());
 					plateau.placerEtoiles();
-					plateau.setTour(plateau.getTour()+1);
-					sleep(100);
+					plateau.setTour(1);
+					sleep(500);
 					envoyerPlateau();
-					sleep(1000);
+					sleep(500);
 				}
 				System.out.println("placement du monstre en "+plateau.getMonstre().getPosition().getX()+" "+plateau.getMonstre().getPosition().getY());
 				System.out.println((affichage?"CLIENT":"             IA")+" monstre placé on commence :D");
@@ -153,7 +162,6 @@ public class Client extends Thread {
 						while(!estPasse) {
 							estPasse = plateau.getChasseur().deplace();
 							sleep(10);
-							System.out.println("chass deplace end");
 						}
 						//while(Affichage.placerLongueVue == false) {System.out.println("slt jatt");}
 
