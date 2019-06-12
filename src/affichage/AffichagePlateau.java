@@ -122,10 +122,26 @@ public class AffichagePlateau {
         update();
     }
     
-    private void afficherAttente() {
-    	blocage.toFront();
-    	labelBlocage.toFront();
+    public void afficherAttente() {
+    	Platform.runLater(new Runnable() {
+    		@Override
+			public void run() {
+    	    	blocage.toFront();
+    	    	labelBlocage.toFront();
+    		}
+    	});
     }
+
+    public void cacherAttente() {
+    	Platform.runLater(new Runnable() {
+    		@Override
+			public void run() {
+    	    	blocage.toBack();
+    	    	labelBlocage.toBack();
+    		}
+    	});
+    }
+    
     /**
      * Met à jour l'affichage du plateau
      */
@@ -133,8 +149,6 @@ public class AffichagePlateau {
     	Platform.runLater(new Runnable() {
     		@Override
 			public void run() {
-    			labelBlocage.toBack();
-    			blocage.toBack();
     			
     			afficheEtoiles.clearRect(0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
        			gc.clearRect(0, 0, grille.getWidth(), grille.getHeight());
@@ -213,10 +227,6 @@ public class AffichagePlateau {
 		        		}	
 		        	}
 				}
-		        
-		        if(!c.monTour && !solo) {
-		        	afficherAttente();
-		        }
     		}
     	});
     }

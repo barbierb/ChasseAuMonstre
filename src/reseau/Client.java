@@ -153,8 +153,10 @@ public class Client extends Thread {
 							sleep(10); // sleep obligatoire car sinon la fonction deplace ne voit pas les modifications par les évènements du jeu
 						}
 					}
-					if(affichage)
+					if(affichage) {
 						AffichagePlateau.getInstance().update();
+						AffichagePlateau.getInstance().afficherAttente();
+					}
 
 					verifWinner();
 					monTour = false;
@@ -165,8 +167,10 @@ public class Client extends Thread {
 
 				} else {
 					this.plateau = connexion.recevoirPlateau(); // attente déplacement autre
-					if(affichage)
+					if(affichage) {
 						AffichagePlateau.getInstance().update();
+						AffichagePlateau.getInstance().cacherAttente();
+					}
 					verifWinner();
 					monTour = true;
 				}
