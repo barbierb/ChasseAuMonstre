@@ -82,13 +82,12 @@ public class AffichagePlateau{
 	private Image monstreDroite;
     
     public void initialize() throws FileNotFoundException {
-
-    	labelBlocage.setTextAlignment(TextAlignment.CENTER);
-    	labelBlocage.setFont(new Font("NewsgeekSerif", 42));
-    	labelBlocage.setText("L'ENNEMI JOUE...");
-        
 		c = Client.getInstance();
 		ap = this;
+		
+		labelBlocage.setTextAlignment(TextAlignment.CENTER);
+    	labelBlocage.setFont(new Font("NewsgeekSerif", 42));
+    	labelBlocage.setText("L'ENNEMI JOUE...");
         
         gc = grille.getGraphicsContext2D();
         tailleBaseImg = (int) grille.getWidth() / c.getPlateau().getTaille();
@@ -119,100 +118,12 @@ public class AffichagePlateau{
         
         //affichage controles
         afficheControles = controles.getGraphicsContext2D();
+        
         afficherControles();
         
-        ble = new Image("File:img/ble.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
-        bleEcrase = new Image("File:img/bleEcrase.png", tailleBaseImg, tailleBaseImg, true, true);
-        etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
-        longueVue = new Image("File:img/longuevue.png", tailleBaseImg, tailleBaseImg, true, true);
-
-        chasseurHaut = new Image("File:img/chasseur_haut.png", tailleBaseImg, tailleBaseImg, true, true);
-        chasseurBas = new Image("File:img/chasseur_bas.png", tailleBaseImg, tailleBaseImg, true, true);
-        chasseurGauche = new Image("File:img/chasseur_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
-        chasseurDroite = new Image("File:img/chasseur_droite.png", tailleBaseImg, tailleBaseImg, true, true);
-
-        monstreHaut = new Image("File:img/monstre_haut.png", tailleBaseImg, tailleBaseImg, true, true);
-        monstreBas = new Image("File:img/monstre_bas.png", tailleBaseImg, tailleBaseImg, true, true);
-        monstreGauche = new Image("File:img/monstre_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
-        monstreDroite = new Image("File:img/monstre_droite.png", tailleBaseImg, tailleBaseImg, true, true);
+        initialiserImages();
         
-		grille.setOnMouseClicked(e -> {
-			if(c.estMonstre && c.getPlateau().getTour() == 0) {
-				Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
-				c.getPlateau().setMonstre(new Monstre(pmonstre));
-				Position pchass = new Position(pmonstre.getX(), pmonstre.getY());
-				while(pmonstre.equals(pchass)) {
-					pchass = new Position(new Random().nextInt(c.getPlateau().getTaille()), new Random().nextInt(c.getPlateau().getTaille()));
-				}
-				c.getPlateau().setChasseur(Serveur.getInstance().solo?
-						new ChasseurIA(pchass):new Chasseur(pchass));
-				c.getPlateau().placerEtoiles();
-				c.getPlateau().getCase(pmonstre).setTourPassage(0);
-				c.getPlateau().setTour(1);
-				update();
-				c.envoyerPlateau();
-			}
-		});
-
-		grille.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-			if(!Client.getInstance().estMonstre && Client.getInstance().monTour) {
-				if(Affichage.placerLongueVue) {
-					double x = e.getX();
-					double y = e.getY();
-					x = x/tailleBaseImg;
-					y = y/tailleBaseImg;
-					Position p = new Position((int)x,(int)y);
-					Case caseActuelle = Client.getInstance().getPlateau().getCase(p);
-					caseActuelle.placerLV();
-					update();
-					Affichage.placerLongueVue=false;
-				}
-			}
-		});
-
-		Affichage.stage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-			System.out.println("event");
-			if(c.getPlateau().getTour() == 0) {
-				return;
-			}
-			if(!c.monTour) {
-				System.out.println("pas ton tour :')");
-				return;
-			}
-			if(!Affichage.placerLongueVue)
-				if(e.getCode().equals(KeyCode.NUMPAD2) 
-						|| e.getCode().equals(KeyCode.NUMPAD4) || e.getCode().equals(KeyCode.NUMPAD6) 
-						|| e.getCode().equals(KeyCode.NUMPAD8) 
-						|| (Client.getInstance().estMonstre && 
-								(e.getCode().equals(KeyCode.NUMPAD1) ||  e.getCode().equals(KeyCode.NUMPAD3) 
-										|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
-
-					Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
-					lastdir = d;
-					if(Client.getInstance().estMonstre)  {
-						Client.getInstance().getPlateau().getMonstre().setDirection(d);
-					} else Client.getInstance().getPlateau().getChasseur().setDirection(d);	  
-				}
-			if(e.getCode().equals(KeyCode.ASTERISK) || e.getCode().equals(KeyCode.MULTIPLY)) {
-				Plateau p = Client.getInstance().getPlateau();
-				if(Client.getInstance().estMonstre) {
-					Monstre m = p.getMonstre();
-					if(m.aEtoile()) m.utiliseEtoile();
-				} else {
-					Chasseur c = p.getChasseur();
-					if(c.aEtoile()) c.utiliseEtoile();
-				}
-				update();
-			}
-			
-            if(e.getCode().equals(KeyCode.ESCAPE)) {
-                try {
-                    Affichage.getInstance().start(Affichage.stage);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            }
-		});
+		ajouterEvenements();
         
         update();
     }
@@ -231,6 +142,7 @@ public class AffichagePlateau{
     			
     			afficheEtoiles.clearRect(0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
        			gc.clearRect(0, 0, grille.getWidth(), grille.getHeight());
+       			attention.setText("");
 		    	
 		    	//affichage tour
 		    	tour.setText("Tour "+c.getPlateau().getTour());
@@ -311,6 +223,103 @@ public class AffichagePlateau{
 		        }
     		}
     	});
+    }
+    
+    private void initialiserImages() {
+        ble = new Image("File:img/ble.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
+        bleEcrase = new Image("File:img/bleEcrase.png", tailleBaseImg, tailleBaseImg, true, true);
+        etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
+        longueVue = new Image("File:img/longuevue.png", tailleBaseImg, tailleBaseImg, true, true);
+
+        chasseurHaut = new Image("File:img/chasseur_haut.png", tailleBaseImg, tailleBaseImg, true, true);
+        chasseurBas = new Image("File:img/chasseur_bas.png", tailleBaseImg, tailleBaseImg, true, true);
+        chasseurGauche = new Image("File:img/chasseur_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
+        chasseurDroite = new Image("File:img/chasseur_droite.png", tailleBaseImg, tailleBaseImg, true, true);
+
+        monstreHaut = new Image("File:img/monstre_haut.png", tailleBaseImg, tailleBaseImg, true, true);
+        monstreBas = new Image("File:img/monstre_bas.png", tailleBaseImg, tailleBaseImg, true, true);
+        monstreGauche = new Image("File:img/monstre_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
+        monstreDroite = new Image("File:img/monstre_droite.png", tailleBaseImg, tailleBaseImg, true, true);
+    }
+    
+    private void ajouterEvenements() {
+    	grille.setOnMouseClicked(e -> {
+			if(c.estMonstre && c.getPlateau().getTour() == 0) {
+				Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
+				c.getPlateau().setMonstre(new Monstre(pmonstre));
+				Position pchass = new Position(pmonstre.getX(), pmonstre.getY());
+				while(pmonstre.equals(pchass)) {
+					pchass = new Position(new Random().nextInt(c.getPlateau().getTaille()), new Random().nextInt(c.getPlateau().getTaille()));
+				}
+				c.getPlateau().setChasseur(Serveur.getInstance().solo?
+						new ChasseurIA(pchass):new Chasseur(pchass));
+				c.getPlateau().placerEtoiles();
+				c.getPlateau().getCase(pmonstre).setTourPassage(0);
+				c.getPlateau().setTour(1);
+				update();
+				c.envoyerPlateau();
+			}
+		});
+
+		grille.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+			if(!Client.getInstance().estMonstre && Client.getInstance().monTour) {
+				if(Affichage.placerLongueVue) {
+					double x = e.getX();
+					double y = e.getY();
+					x = x/tailleBaseImg;
+					y = y/tailleBaseImg;
+					Position p = new Position((int)x,(int)y);
+					Case caseActuelle = Client.getInstance().getPlateau().getCase(p);
+					caseActuelle.placerLV();
+					update();
+					Affichage.placerLongueVue=false;
+				}
+			}
+		});
+
+		Affichage.stage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
+			System.out.println("event");
+			if(c.getPlateau().getTour() == 0) {
+				return;
+			}
+			if(!c.monTour) {
+				System.out.println("pas ton tour :')");
+				return;
+			}
+			if(!Affichage.placerLongueVue)
+				if(e.getCode().equals(KeyCode.NUMPAD2) 
+						|| e.getCode().equals(KeyCode.NUMPAD4) || e.getCode().equals(KeyCode.NUMPAD6) 
+						|| e.getCode().equals(KeyCode.NUMPAD8) 
+						|| (Client.getInstance().estMonstre && 
+								(e.getCode().equals(KeyCode.NUMPAD1) ||  e.getCode().equals(KeyCode.NUMPAD3) 
+										|| e.getCode().equals(KeyCode.NUMPAD7)|| e.getCode().equals(KeyCode.NUMPAD9))) ) {
+
+					Direction d = Direction.byNumero(Integer.parseInt(e.getText()));
+					lastdir = d;
+					if(Client.getInstance().estMonstre)  {
+						Client.getInstance().getPlateau().getMonstre().setDirection(d);
+					} else Client.getInstance().getPlateau().getChasseur().setDirection(d);	  
+				}
+			if(e.getCode().equals(KeyCode.ASTERISK) || e.getCode().equals(KeyCode.MULTIPLY)) {
+				Plateau p = Client.getInstance().getPlateau();
+				if(Client.getInstance().estMonstre) {
+					Monstre m = p.getMonstre();
+					if(m.aEtoile()) m.utiliseEtoile();
+				} else {
+					Chasseur c = p.getChasseur();
+					if(c.aEtoile()) c.utiliseEtoile();
+				}
+				update();
+			}
+			
+            if(e.getCode().equals(KeyCode.ESCAPE)) {
+                try {
+                    Affichage.getInstance().start(Affichage.stage);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
+		});
     }
     
     private int getNbEntites(Case c, int x, int y) {
