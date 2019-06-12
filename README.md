@@ -1,6 +1,6 @@
-Chasse au monstre
-
-Bretin Sylvain, Barbier Benoit, Caloone Cantin, Dheilly Vincent
+<img src="logo.png" align="right" />
+# Chasse au monstre
+> Projet de fin de semestre II de notre DUT INFORMATIQUE à l'IUT A.
 
 ## Présentation de Chasse au monstre
 
