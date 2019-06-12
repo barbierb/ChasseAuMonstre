@@ -71,6 +71,11 @@ public class MenuMultiControl {
 	
 	@FXML
 	void initialize() {
+		heberger.setImage(img.CONTENEUR);
+		rejoindre.setImage(img.CONTENEUR);
+		quitter.setImage(img.CONTENEUR);
+		fond.setImage(img.FOND);
+		
 		instance = this;
 		serveurs = new ArrayList<PingServeur>();
 		rejoindretext.setFill(Color.BLACK);

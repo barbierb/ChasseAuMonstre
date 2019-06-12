@@ -1,7 +1,6 @@
 package affichage;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -66,12 +65,22 @@ public class MenuSoloControl {
 
 	@FXML
 	public void initialize() {
+		monstre.setImage(img.CONTENEUR);
+		chasseur.setImage(img.CONTENEUR);
+		cinq.setImage(img.CONTENEUR);
+		/**
+		 * Taille de plateau de base
+		 */
+		dix.setImage(img.CONTENEUR_FONCE);
+		quinze.setImage(img.CONTENEUR);
+		fond.setImage(img.FOND);
+		
 		monstre.setOnMouseClicked(e -> {
 			Serveur.demarrerServeur("monstrelocal", System.getProperty("user.name"), true);
 			Affichage.stage.setScene(Menus.getSceneJeu());
 		});
 		
-		dix.setImage(img.CONTENEUR_FONCE);
+		
 		
 		cinq.setOnMouseClicked(e -> {
 			taille = 5;
@@ -115,12 +124,6 @@ public class MenuSoloControl {
 			if(taille!=15) quinze.setImage(img.CONTENEUR);
 		});
 		
-		
-		
-		
-		
-		
-
 		chasseur.setOnMouseClicked(e -> {
 			Serveur.demarrerServeur("chasseurlocal", System.getProperty("user.name"), true);
 			//Affichage.stage.setScene(Menus.getSceneJeu());

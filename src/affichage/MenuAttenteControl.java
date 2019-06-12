@@ -4,7 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -31,6 +30,9 @@ public class MenuAttenteControl {
     @FXML
     private ImageView quitter;
     
+    @FXML
+    private ImageView fond;
+    
 	public static Timer timer;
 	
 	private ImagesConstantes img = ImagesConstantes.getInstance();
@@ -47,6 +49,10 @@ public class MenuAttenteControl {
 
 	@FXML 	
 	void initialize() {
+		quitter.setImage(img.CONTENEUR);
+		fond.setImage(img.FOND);
+		
+		
 		timer = new Timer();
 		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override

@@ -1,7 +1,6 @@
 package affichage;
 
 import javafx.fxml.FXML;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
@@ -29,6 +28,8 @@ public class MenuAideControl {
 	
 	@FXML
 	void initialize() {
+		quitter.setImage(img.CONTENEUR);
+		
 		quitter.setOnMouseClicked(e->{
 			try {
 				Affichage.getInstance().start(Affichage.stage);

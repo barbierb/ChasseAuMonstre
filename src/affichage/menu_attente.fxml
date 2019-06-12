@@ -17,7 +17,7 @@
 
 <Pane fx:id="screen" maxHeight="720.0" maxWidth="1280.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="affichage.MenuAttenteControl">
    <children>
-      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" smooth="false">
+      <ImageView fx:id="fond" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" smooth="false">
          <image>
             <Image url="@../../img/fond.jpg" />
          </image>
