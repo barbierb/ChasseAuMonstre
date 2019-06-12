@@ -3,9 +3,11 @@ package affichage;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 
 public class MenuPrincControl {
+	
+    @FXML
+    private ImageView imgtitre;
 
     @FXML
     private ImageView fond;
@@ -24,8 +26,15 @@ public class MenuPrincControl {
     
     @FXML
     void initialize() {
+    	fond.setImage(ImagesConstantes.getInstance().FOND);
+    	solo.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
+    	multi.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
+    	aide.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
+    	quitter.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur.png")));
+    	imgtitre.setImage(new Image(getClass().getClassLoader().getResourceAsStream("img/conteneur_titre.png")));
+    	
     	solo.setOnMouseClicked(e -> {
-        	Affichage.stage.setScene(Menus.getSceneSolo());
+        Affichage.stage.setScene(Menus.getSceneSolo());
     	});
     	solo.setOnMouseEntered(e -> {
     		solo.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));

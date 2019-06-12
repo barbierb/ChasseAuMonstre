@@ -82,13 +82,12 @@ public class AffichagePlateau{
 	private Image monstreDroite;
     
     public void initialize() throws FileNotFoundException {
-
-    	labelBlocage.setTextAlignment(TextAlignment.CENTER);
-    	labelBlocage.setFont(new Font("NewsgeekSerif", 42));
-    	labelBlocage.setText("L'ENNEMI JOUE...");
-        
 		c = Client.getInstance();
 		ap = this;
+		
+		labelBlocage.setTextAlignment(TextAlignment.CENTER);
+    	labelBlocage.setFont(new Font("NewsgeekSerif", 42));
+    	labelBlocage.setText("L'ENNEMI JOUE...");
         
         gc = grille.getGraphicsContext2D();
         tailleBaseImg = (int) grille.getWidth() / c.getPlateau().getTaille();
@@ -98,7 +97,7 @@ public class AffichagePlateau{
         afficheEtoiles.drawImage(new Image("File:img/aide.png"), 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
         
         //taille et couleur de l'écriture dans les cases
-        gc.setFill(Color.YELLOW);
+        gc.setFill(Color.GREEN);
         gc.setFont(new Font(tailleBaseImg/3));
         
         //chargement de la police d'écriture
@@ -119,8 +118,114 @@ public class AffichagePlateau{
         
         //affichage controles
         afficheControles = controles.getGraphicsContext2D();
+        
         afficherControles();
         
+        initialiserImages();
+        
+		ajouterEvenements();
+        
+        update();
+    }
+    
+    private void afficherAttente() {
+    	blocage.toFront();
+    	labelBlocage.toFront();
+    }
+    
+    public void update() {	
+    	Platform.runLater(new Runnable() {
+    		@Override
+			public void run() {
+    			labelBlocage.toBack();
+    			blocage.toBack();
+    			
+    			afficheEtoiles.clearRect(0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
+       			gc.clearRect(0, 0, grille.getWidth(), grille.getHeight());
+       			attention.setText("");
+		    	
+		    	//affichage tour
+		    	tour.setText("Tour "+c.getPlateau().getTour());
+		    	
+		    	//affichage etoiles que le joueur a
+		    	if(c.getPlateau().getMonstre() != null) {
+		    		afficherEtoilesJoueur();
+		    	}
+		        
+		    	if(c.getPlateau().getMonstre() != null && c.getPlateau().getChasseur() != null) {
+			        if(distanceMonstreChasseur() < 3 && c.estMonstre) {
+			        	if(distanceMonstreChasseur() == 1) {
+			        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" case");
+			        	} else {
+			        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" cases");
+			        	}
+			        }
+		    	}
+		    	
+		        for(int i = 0; i < c.getPlateau().getTaille(); i++) { //changer par taille plateau Client
+		        	for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
+		        		if(c.getPlateau().getCase(i, j).getTourPassage() > -1 && c.estMonstre) {
+		        			gc.drawImage(bleEcrase, i*ble.getWidth(), j*ble.getHeight());
+		        		} else {
+		        			gc.drawImage(ble, i*ble.getWidth(), j*ble.getHeight());
+		        		}
+		        		int nbImg = 0;
+		        		
+		        		if(c.getPlateau().getCase(i, j).hasEtoile()) {
+		        			img = etoile;
+		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+		        			nbImg++;
+		        		}
+		        		if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
+		        			img = longueVue;
+		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+		        			nbImg++;
+		        			
+		        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
+		        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), i*tailleBaseImg + tailleBaseImg*3/8, j*tailleBaseImg + tailleBaseImg*5/6);
+		        			}  
+		        		}
+		        		if(c.getPlateau().getChasseur() != null) {
+			        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
+			        			if(lastdir.equals(Direction.N)) {
+			        				img = chasseurHaut;
+			        			} else if(lastdir.equals(Direction.O)) {
+			        				img = chasseurGauche;
+			        			} else if(lastdir.equals(Direction.E)) {
+			        				img = chasseurDroite;
+			        			} else {
+			        				img = chasseurBas;
+			        			}
+			        	    	afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+			        	    	nbImg++;
+			        	   	}
+		        		}
+		        		if(c.getPlateau().getMonstre() != null) {
+			        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
+			        			if(lastdir.equals(Direction.N) || lastdir.equals(Direction.NE) || lastdir.equals(Direction.NO)) {
+			        				img = monstreHaut;
+			        			} else if(lastdir.equals(Direction.O)) {
+			        				img = monstreGauche;
+			        			} else if(lastdir.equals(Direction.E)) {
+			        				img = monstreDroite;
+			        			} else {
+			        				img = monstreBas;
+			        			}
+			        	   		afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
+			        	   		nbImg++;
+			        	   	}
+		        		}	
+		        	}
+				}
+		        
+		        if(!c.monTour && !solo) {
+		        	afficherAttente();
+		        }
+    		}
+    	});
+    }
+    
+    private void initialiserImages() {
         ble = new Image("File:img/ble.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
         bleEcrase = new Image("File:img/bleEcrase.png", tailleBaseImg, tailleBaseImg, true, true);
         etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
@@ -135,8 +240,10 @@ public class AffichagePlateau{
         monstreBas = new Image("File:img/monstre_bas.png", tailleBaseImg, tailleBaseImg, true, true);
         monstreGauche = new Image("File:img/monstre_gauche.png", tailleBaseImg, tailleBaseImg, true, true);
         monstreDroite = new Image("File:img/monstre_droite.png", tailleBaseImg, tailleBaseImg, true, true);
-        
-		grille.setOnMouseClicked(e -> {
+    }
+    
+    private void ajouterEvenements() {
+    	grille.setOnMouseClicked(e -> {
 			if(c.estMonstre && c.getPlateau().getTour() == 0) {
 				Position pmonstre = new Position((int)e.getX()/tailleBaseImg, (int)e.getY()/tailleBaseImg);
 				c.getPlateau().setMonstre(new Monstre(pmonstre));
@@ -204,104 +311,15 @@ public class AffichagePlateau{
 				}
 				update();
 			}
+			
+            if(e.getCode().equals(KeyCode.ESCAPE)) {
+                try {
+                    Affichage.getInstance().start(Affichage.stage);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }
 		});
-        
-        update();
-    }
-    
-    private void afficherAttente() {
-    	blocage.toFront();
-    	labelBlocage.toFront();
-    }
-    
-    public void update() {	
-    	Platform.runLater(new Runnable() {
-    		@Override
-			public void run() {
-    			labelBlocage.toBack();
-    			blocage.toBack();
-    			
-    			gc.clearRect(0, 0, grille.getWidth(), grille.getHeight());
-		    	
-		    	//affichage tour
-		    	tour.setText("Tour "+c.getPlateau().getTour());
-		    	
-		    	//affichage etoiles que le joueur a
-		    	if(c.getPlateau().getMonstre() != null) {
-		    		afficherEtoilesJoueur();
-		    	}
-		        
-		    	if(c.getPlateau().getMonstre() != null && c.getPlateau().getChasseur() != null) {
-			        if(distanceMonstreChasseur() < 3 && c.estMonstre) {
-			        	if(distanceMonstreChasseur() == 1) {
-			        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" case");
-			        	} else {
-			        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" cases");
-			        	}
-			        }
-		    	}
-		    	
-		        for(int i = 0; i < c.getPlateau().getTaille(); i++) { //changer par taille plateau Client
-		        	for(int j = 0; j < c.getPlateau().getTaille(); j++) { //idem
-		        		if(c.getPlateau().getCase(i, j).getTourPassage() > -1 && c.estMonstre) {
-		        			gc.drawImage(bleEcrase, i*ble.getWidth(), j*ble.getHeight());
-		        		} else {
-		        			gc.drawImage(ble, i*ble.getWidth(), j*ble.getHeight());
-		        		}
-		        		int nbImg = 0;
-		        		
-		        		if(c.getPlateau().getCase(i, j).hasEtoile()) {
-		        			img = etoile;
-		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-		        			nbImg++;
-		        		}
-		        		if(c.getPlateau().getCase(i, j).getLongueVue() > 0 && !c.estMonstre) {
-		        			img = longueVue;
-		        			afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-		        			nbImg++;
-		        			
-		        			if(c.getPlateau().getCase(i, j).getTourPassage() > -1) {
-		        				gc.fillText(""+c.getPlateau().getCase(i, j).getTourPassage(), 5*tailleBaseImg + tailleBaseImg*3/8, 5*tailleBaseImg + tailleBaseImg*5/6);
-		        			}  
-		        		}
-		        		if(c.getPlateau().getChasseur() != null) {
-			        		if(c.getPlateau().getChasseur().getPosition().equals(new Position(i,j)) && !c.estMonstre) {
-			        			if(lastdir.equals(Direction.N)) {
-			        				img = chasseurHaut;
-			        			} else if(lastdir.equals(Direction.O)) {
-			        				img = chasseurGauche;
-			        			} else if(lastdir.equals(Direction.E)) {
-			        				img = chasseurDroite;
-			        			} else {
-			        				img = chasseurBas;
-			        			}
-			        	    	afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-			        	    	nbImg++;
-			        	   	}
-		        		}
-		        		if(c.getPlateau().getMonstre() != null) {
-			        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
-			        			if(lastdir.equals(Direction.N) || lastdir.equals(Direction.NE) || lastdir.equals(Direction.NO)) {
-			        				img = monstreHaut;
-			        			} else if(lastdir.equals(Direction.O)) {
-			        				img = monstreGauche;
-			        			} else if(lastdir.equals(Direction.E)) {
-			        				img = monstreDroite;
-			        			} else {
-			        				img = monstreBas;
-			        			}
-			        	   		afficherImg(img, getNbEntites(c.getPlateau().getCase(i, j), i, j), i, j, nbImg, gc);
-			        	   		nbImg++;
-			        	   	}
-		        		}	
-		        	}
-				}
-		        
-		        if(!c.monTour && !solo) {
-		        	afficherAttente();
-		        }
-    		}
-    	});
     }
     
     private int getNbEntites(Case c, int x, int y) {
@@ -341,9 +359,11 @@ public class AffichagePlateau{
     }
     
     private void afficherEtoilesJoueur() {
+    	afficheEtoiles.drawImage(new Image("File:img/aide.png"), 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
+    	
     	if(c.estMonstre) {
     		if(c.getPlateau().getMonstre().getNbEtoiles() > 0) {
-    			competence.setText("\"E\" pour activer");
+    			competence.setText("* pour activer");
     		}
     		for(int i = 0; i < c.getPlateau().getMonstre().getNbEtoiles(); i++) {
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
@@ -351,7 +371,7 @@ public class AffichagePlateau{
     	}
     	else {
     		if(c.getPlateau().getChasseur().getNbEtoiles() > 0) {
-    			competence.setText("\"E\" pour activer");
+    			competence.setText("* pour activer");
     		}
     		for(int i = 0; i < c.getPlateau().getChasseur().getNbEtoiles(); i++) {
     			afficheEtoiles.drawImage(etoile, i*(nbEtoiles.getWidth()/3),0, nbEtoiles.getWidth()/3, nbEtoiles.getWidth()/3);
@@ -361,10 +381,10 @@ public class AffichagePlateau{
     
     private void afficherControles() {
     	if(c.estMonstre) {
-    		afficheControles.drawImage(new Image("File:data/ten-keysMv2.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    		afficheControles.drawImage(new Image("File:img/control_monstre.png"), 0, 0, controles.getWidth(), controles.getHeight());
     	}
     	else {
-    		afficheControles.drawImage(new Image("File:data/ten-keysCv2.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    		afficheControles.drawImage(new Image("File:img/control_chasseur.png"), 0, 0, controles.getWidth(), controles.getHeight());
     	}
     }
     
@@ -387,7 +407,7 @@ public class AffichagePlateau{
 		    	if(gagne) {
 		    		labelBlocage.setText("Vous avez gagné !");
 		    	} else {
-		    		labelBlocage.setText("Vous avez perdu.");
+		    		labelBlocage.setText("Vous avez perdu...");
 		    	}
 			}
     	});
