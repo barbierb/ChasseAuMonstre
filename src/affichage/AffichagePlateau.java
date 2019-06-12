@@ -286,7 +286,7 @@ public class AffichagePlateau{
 		        		}
 		        		if(c.getPlateau().getMonstre() != null) {
 			        		if(c.getPlateau().getMonstre().getPosition().equals(new Position(i,j)) && c.estMonstre) {
-			        			if(lastdir.equals(Direction.N)) {
+			        			if(lastdir.equals(Direction.N) || lastdir.equals(Direction.NE) || lastdir.equals(Direction.NO)) {
 			        				img = monstreHaut;
 			        			} else if(lastdir.equals(Direction.O)) {
 			        				img = monstreGauche;
