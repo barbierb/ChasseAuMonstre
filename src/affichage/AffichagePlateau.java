@@ -235,8 +235,7 @@ public class AffichagePlateau{
 			        if(distanceMonstreChasseur() < 3 && c.estMonstre) {
 			        	if(distanceMonstreChasseur() == 1) {
 			        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" case");
-			        	}
-			        	else {
+			        	} else {
 			        		attention.setText("Attention ! Le chasseur est a "+distanceMonstreChasseur()+" cases");
 			        	}
 			        }
