@@ -43,29 +43,23 @@ public class ChasseurIA extends Chasseur {
 	public Direction getDirectionVoulue() {
 
 		if(monstre_detecte) {
-			System.out.println("dans traque");
 			return getDirectionTraque();
 		}else {
 
 			Direction direc = null;
 			Position nextPos = null;
-			System.out.println("dans random");
 			while(direc == null){
 				direc = directions_chasseur[new Random().nextInt(directions_chasseur.length - 1)];
-				System.out.println(directions_chasseur.toString());
-				System.out.println(direc);
 
 				nextPos = new Position(this.pos.getX() + direc.getX(), this.pos.getY()+ direc.getY());
 
 				if(nextPos.getX() > taillePlateau -1 || nextPos.getX() < 0  || nextPos.getY() > taillePlateau -1 || nextPos.getY() < 0) {
 					direc = null;
-					System.out.println("positon out of bounds");
 				}else {
 					if(!this.peutPasser(nextPos)) {
 						direc = null;
 					}
 				}
-				System.out.println("Dans while");
 			}
 			return direc;
 		}
@@ -109,8 +103,6 @@ public class ChasseurIA extends Chasseur {
 	private Case caseCourante; 
 
 	public void placerLongueVue() {
-		System.out.println("fonction placer appelée");
-
 
 		Affichage.placerLongueVue=true;
 

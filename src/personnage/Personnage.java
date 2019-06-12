@@ -88,7 +88,6 @@ public abstract class Personnage  implements Serializable {
 		if(next == null) {
 			return false;
 		}
-		System.out.println("deplacement");
 		
 		int nextX = x + next.getX();
 		int nextY = y + next.getY();

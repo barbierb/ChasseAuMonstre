@@ -284,12 +284,10 @@ public class AffichagePlateau {
 		});
 
 		Affichage.stage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-			System.out.println("event");
 			if(c.getPlateau().getTour() == 0) {
 				return;
 			}
 			if(!c.monTour) {
-				System.out.println("pas ton tour :')");
 				return;
 			}
 			if(!Affichage.placerLongueVue)

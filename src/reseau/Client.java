@@ -147,7 +147,6 @@ public class Client extends Thread {
 							if(c.hasLV()) c.decrLV();
 						}
 						boolean estPasse = false;
-						System.out.println("chass deplace");
 						while(!estPasse) {
 							estPasse = plateau.getChasseur().deplace();
 							sleep(10); // sleep obligatoire car sinon la fonction deplace ne voit pas les modifications par les évènements du jeu
