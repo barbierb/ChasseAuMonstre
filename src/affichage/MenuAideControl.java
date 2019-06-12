@@ -14,14 +14,17 @@ public class MenuAideControl {
     @FXML
     private ImageView quitter;
     
+    
+    private ImagesConstantes img = ImagesConstantes.getInstance();
+    
     @FXML
 	private void mouseEntered(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR_HOVER);
 	}
 
 	@FXML
 	private void mouseExited(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR);
 	}
 	
 	@FXML

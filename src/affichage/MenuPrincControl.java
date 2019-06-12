@@ -23,26 +23,26 @@ public class MenuPrincControl {
 
     @FXML
     private ImageView quitter;
-    
+    private ImagesConstantes img = ImagesConstantes.getInstance();
     @FXML
 	private void mouseEntered(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(ImagesConstantes.getInstance().CONTENEUR_HOVER);
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR_HOVER);
 	}
 
 	@FXML
 	private void mouseExited(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(ImagesConstantes.getInstance().CONTENEUR);
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR);
 	}
     
     @FXML
     void initialize() {
     	// OBLIGATOIRE POUR L'EXPORT .JAR
-    	fond.setImage(ImagesConstantes.getInstance().FOND);
-    	solo.setImage(ImagesConstantes.getInstance().CONTENEUR);
-    	multi.setImage(ImagesConstantes.getInstance().CONTENEUR);
-    	aide.setImage(ImagesConstantes.getInstance().CONTENEUR);
-    	quitter.setImage(ImagesConstantes.getInstance().CONTENEUR);
-    	imgtitre.setImage(ImagesConstantes.getInstance().CONTENEUR_TITRE);
+    	fond.setImage(img.FOND);
+    	solo.setImage(img.CONTENEUR);
+    	multi.setImage(img.CONTENEUR);
+    	aide.setImage(img.CONTENEUR);
+    	quitter.setImage(img.CONTENEUR);
+    	imgtitre.setImage(img.CONTENEUR_TITRE);
     	// 
     	
     	solo.setOnMouseClicked(e -> {

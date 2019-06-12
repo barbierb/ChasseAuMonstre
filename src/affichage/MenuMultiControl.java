@@ -22,6 +22,7 @@ import reseau.Serveur;
 
 public class MenuMultiControl {
 
+	//TODO
 	public static final Image serv = new Image(Affichage.chargerImg("../serv.png"), 400, 80, true, true);
 	public static final Image serv_selected = new Image(Affichage.chargerImg("../serv_selected.png"), 400, 80, true, true);
     @FXML
@@ -56,14 +57,16 @@ public class MenuMultiControl {
 	public static MenuMultiControl instance;
 	public static String ip = "127.0.0.1";
 	
+	private ImagesConstantes img = ImagesConstantes.getInstance();
+	
     @FXML
 	private void mouseEntered(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR_HOVER);
 	}
 
 	@FXML
 	private void mouseExited(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR);
 	}
 	
 	@FXML

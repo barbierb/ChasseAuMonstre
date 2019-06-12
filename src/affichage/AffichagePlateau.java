@@ -80,6 +80,8 @@ public class AffichagePlateau{
 	private Image monstreBas;
 	private Image monstreGauche;
 	private Image monstreDroite;
+	
+	private ImagesConstantes img1 = ImagesConstantes.getInstance();
     
     public void initialize() throws FileNotFoundException {
 		c = Client.getInstance();
@@ -94,7 +96,7 @@ public class AffichagePlateau{
         
         //preparation affichage étoiles
         afficheEtoiles = nbEtoiles.getGraphicsContext2D();
-        afficheEtoiles.drawImage(new Image("File:img/aide.png"), 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
+        afficheEtoiles.drawImage(img1.AIDE, 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
         
         //taille et couleur de l'écriture dans les cases
         gc.setFill(Color.GREEN);
@@ -226,6 +228,7 @@ public class AffichagePlateau{
     }
     
     private void initialiserImages() {
+    	//TODO
         ble = new Image("File:img/ble.png", tailleBaseImg, tailleBaseImg, true, true); //taille dynamique en fonction de taille plateau Client
         bleEcrase = new Image("File:img/bleEcrase.png", tailleBaseImg, tailleBaseImg, true, true);
         etoile = new Image("File:img/etoile.png", tailleBaseImg, tailleBaseImg, true, true);
@@ -359,7 +362,7 @@ public class AffichagePlateau{
     }
     
     private void afficherEtoilesJoueur() {
-    	afficheEtoiles.drawImage(new Image("File:img/aide.png"), 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
+    	afficheEtoiles.drawImage(img1.AIDE, 0, 0, nbEtoiles.getWidth(), nbEtoiles.getHeight());
     	
     	if(c.estMonstre) {
     		if(c.getPlateau().getMonstre().getNbEtoiles() > 0) {
@@ -381,10 +384,10 @@ public class AffichagePlateau{
     
     private void afficherControles() {
     	if(c.estMonstre) {
-    		afficheControles.drawImage(new Image("File:img/control_monstre.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    		afficheControles.drawImage(img1.CONTROL_MONSTRE, 0, 0, controles.getWidth(), controles.getHeight());
     	}
     	else {
-    		afficheControles.drawImage(new Image("File:img/control_chasseur.png"), 0, 0, controles.getWidth(), controles.getHeight());
+    		afficheControles.drawImage(img1.CONTROL_CHASSEUR, 0, 0, controles.getWidth(), controles.getHeight());
     	}
     }
     

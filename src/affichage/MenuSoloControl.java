@@ -52,16 +52,16 @@ public class MenuSoloControl {
 	private ImageView quitter;
 
 	public static Integer taille = 10;
-	
+	private ImagesConstantes img = ImagesConstantes.getInstance();
 
     @FXML
 	private void mouseEntered(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR_HOVER);
 	}
 
 	@FXML
 	private void mouseExited(MouseEvent event) {
-		((ImageView)event.getTarget()).setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+		((ImageView)event.getTarget()).setImage(img.CONTENEUR);
 	}
 
 	@FXML
@@ -71,46 +71,48 @@ public class MenuSoloControl {
 			Affichage.stage.setScene(Menus.getSceneJeu());
 		});
 		
+		dix.setImage(img.CONTENEUR_FONCE);
+		
 		cinq.setOnMouseClicked(e -> {
 			taille = 5;
-			cinq.setImage(new Image(Affichage.chargerImg("../conteneur_fonce.png")));
-			dix.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-			quinze.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+			cinq.setImage(img.CONTENEUR_FONCE);
+			dix.setImage(img.CONTENEUR);
+			quinze.setImage(img.CONTENEUR);
 		});
 		dix.setOnMouseClicked(e -> {
 			taille = 10;
-			cinq.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-			dix.setImage(new Image(Affichage.chargerImg("../conteneur_fonce.png")));
-			quinze.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+			cinq.setImage(img.CONTENEUR);
+			dix.setImage(img.CONTENEUR_FONCE);
+			quinze.setImage(img.CONTENEUR);
 		});
 		quinze.setOnMouseClicked(e -> {
 			taille = 15;
-			cinq.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-			dix.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
-			quinze.setImage(new Image(Affichage.chargerImg("../conteneur_fonce.png")));
+			cinq.setImage(img.CONTENEUR);
+			dix.setImage(img.CONTENEUR);
+			quinze.setImage(img.CONTENEUR_FONCE);
 		});
 		
 		cinq.setOnMouseEntered(e -> {
-			if(taille!=5) cinq.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+			if(taille!=5) cinq.setImage(img.CONTENEUR_HOVER);
 			
 		});
 		cinq.setOnMouseExited(e -> {
-			if(taille!=5) cinq.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+			if(taille!=5) cinq.setImage(img.CONTENEUR);
 		});
 		
 		dix.setOnMouseEntered(e -> {
-			if(taille!=10) dix.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+			if(taille!=10) dix.setImage(img.CONTENEUR_HOVER);
 			
 		});
 		dix.setOnMouseExited(e -> {
-			if(taille!=10) dix.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+			if(taille!=10) dix.setImage(img.CONTENEUR);
 		});
 		
 		quinze.setOnMouseEntered(e -> {
-			if(taille!=15) quinze.setImage(new Image(Affichage.chargerImg("../conteneur_hover.png")));
+			if(taille!=15) quinze.setImage(img.CONTENEUR_HOVER);
 		});
 		quinze.setOnMouseExited(e -> {
-			if(taille!=15) quinze.setImage(new Image(Affichage.chargerImg("../conteneur.png")));
+			if(taille!=15) quinze.setImage(img.CONTENEUR);
 		});
 		
 		
