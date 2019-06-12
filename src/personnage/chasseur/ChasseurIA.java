@@ -73,7 +73,7 @@ public class ChasseurIA extends Chasseur {
 
 	}
 
-	public Direction getDirectionTraque(){
+	private Direction getDirectionTraque(){
 
 		List<Direction> directionsTraque = new ArrayList<Direction>();
 
@@ -93,8 +93,9 @@ public class ChasseurIA extends Chasseur {
 			directionsTraque.add(Direction.N);
 		}
 
+		System.out.println(directionsTraque);
 		if(directionsTraque.size() > 0) {
-			return directionsTraque.get(new Random().nextInt(directionsTraque.size()-1));
+			return directionsTraque.get(new Random().nextInt(directionsTraque.size()));
 		}else {
 			monstre_detecte = false;
 			return getDirectionVoulue();
@@ -108,22 +109,40 @@ public class ChasseurIA extends Chasseur {
 		Affichage.placerLongueVue=true;
 
 		Random genAlea = new Random();
-		int xRandom = genAlea.nextInt(taillePlateau - 1);
-		int yRandom = genAlea.nextInt(taillePlateau - 1);
-		Position positionCourante = new Position(xRandom, yRandom);
-		Case caseCourante = Client.getInstance().getPlateau().getCase(positionCourante);
-		caseCourante.placerLV();
-		
-		if(caseCourante.getTourPassage() != -1) {
-			if(meilleureCase == null || meilleureCase.getTourPassage() < caseCourante.getTourPassage())
-			meilleureCase = caseCourante;
-			position_monstre = positionCourante;
-			monstre_detecte = true;
+		int x;
+		int y;
+		Position positionCourante;
+		Case caseCourante; 
+
+		if(!monstre_detecte) {
+			
+			x = genAlea.nextInt(taillePlateau - 1);
+			y = genAlea.nextInt(taillePlateau - 1);
+			positionCourante = new Position(x, y);
+			caseCourante = Client.getInstance().getPlateau().getCase(positionCourante);
+			caseCourante.placerLV();
+			
+			if(caseCourante.getTourPassage() != -1) {
+
+				if(meilleureCase == null || meilleureCase.getTourPassage() < caseCourante.getTourPassage()) {
+					meilleureCase = caseCourante;
+					position_monstre = positionCourante;
+					monstre_detecte = true;
+				}
+			}else {
+				
+			}
 		}
-		
+
 		AffichagePlateau.getInstance().update();
 		Affichage.placerLongueVue=false;
 	}
+	
+/*	private ArrayList<Position> getAlentoursCase() {
+		ArrayList<Position> aRenvoyer = new ArrayList<Position>();
+		for(int i = 0; i < 
+		return aRenvoyer;
+	}*/
 
 }
 
