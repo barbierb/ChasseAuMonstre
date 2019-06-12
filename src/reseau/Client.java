@@ -17,6 +17,7 @@ import java.util.TimerTask;
 import affichage.Affichage;
 import affichage.AffichagePlateau;
 import affichage.MenuMultiControl;
+import affichage.MenuSoloControl;
 import affichage.Menus;
 import javafx.application.Platform;
 import personnage.chasseur.Chasseur;
@@ -69,7 +70,7 @@ public class Client extends Thread {
 			}
 
 			if(estMonstre) {
-				this.plateau = new Plateau(10);
+				this.plateau = new Plateau(MenuSoloControl.taille);
 				if(affichage) {
 					Platform.runLater(new Runnable() {
 						@Override

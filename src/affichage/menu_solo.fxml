@@ -110,17 +110,17 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ImageView fx:id="quinze" fitHeight="84.0" fitWidth="426.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
+                  <ImageView fx:id="quinze" fitHeight="84.0" fitWidth="426.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                      <image>
                         <Image url="@../../img/conteneur.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="cinq" fitHeight="142.0" fitWidth="428.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="cinq" fitHeight="142.0" fitWidth="428.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/conteneur.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="dix" fitHeight="142.0" fitWidth="428.0" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                  <ImageView fx:id="dix" fitHeight="142.0" fitWidth="428.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                      <image>
                         <Image url="@../../img/conteneur.png" />
                      </image>
